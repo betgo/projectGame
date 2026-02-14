@@ -1,0 +1,70 @@
+:root {
+  font-family: "IBM Plex Sans", "Segoe UI", sans-serif;
+  color: #111827;
+  background: linear-gradient(180deg, #f8fafc 0%, #e5e7eb 100%);
+}
+
+body {
+  margin: 0;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 16px;
+  padding: 20px;
+}
+
+.panel {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 12px;
+  padding: 12px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, 24px);
+  gap: 4px;
+}
+
+.cell {
+  width: 24px;
+  height: 24px;
+  border: 1px solid #d1d5db;
+  background: #f3f4f6;
+}
+
+.cell.path {
+  background: #22c55e;
+}
+
+.cell.tower {
+  background: #f97316;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+button {
+  border: 1px solid #374151;
+  background: #111827;
+  color: #ffffff;
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+button.secondary {
+  background: #ffffff;
+  color: #111827;
+}
+
+.small {
+  font-size: 12px;
+  color: #374151;
+}

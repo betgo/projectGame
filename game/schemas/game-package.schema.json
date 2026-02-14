@@ -1,0 +1,82 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "game-package.schema.json",
+  "title": "GamePackage",
+  "type": "object",
+  "required": ["version", "templateId", "map", "entities", "rules", "winCondition"],
+  "properties": {
+    "version": { "type": "string", "minLength": 1 },
+    "templateId": { "type": "string", "const": "tower-defense" },
+    "map": {
+      "type": "object",
+      "required": ["width", "height", "cells"],
+      "properties": {
+        "width": { "type": "integer", "minimum": 4 },
+        "height": { "type": "integer", "minimum": 4 },
+        "cells": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "integer", "minimum": 0, "maximum": 2 }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "entities": {
+      "type": "object",
+      "required": ["towers", "enemies"],
+      "properties": {
+        "towers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "x", "y", "range", "damage", "cooldownMs", "cost"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "x": { "type": "integer", "minimum": 0 },
+              "y": { "type": "integer", "minimum": 0 },
+              "range": { "type": "number", "exclusiveMinimum": 0 },
+              "damage": { "type": "number", "exclusiveMinimum": 0 },
+              "cooldownMs": { "type": "integer", "minimum": 50 },
+              "cost": { "type": "integer", "minimum": 0 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "enemies": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "hp", "speed", "reward"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "hp": { "type": "number", "exclusiveMinimum": 0 },
+              "speed": { "type": "number", "exclusiveMinimum": 0 },
+              "reward": { "type": "integer", "minimum": 0 }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "rules": {
+      "type": "object",
+      "required": ["payload"],
+      "properties": {
+        "payload": { "$ref": "tower-defense.schema.json" }
+      },
+      "additionalProperties": false
+    },
+    "winCondition": {
+      "type": "object",
+      "required": ["maxLeaks"],
+      "properties": {
+        "maxLeaks": { "type": "integer", "minimum": 1 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

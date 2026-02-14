@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+msg_file="${1:?commit message file is required}"
+subject="$(sed -n '1p' "$msg_file")"
+
+if [[ "$subject" =~ ^(Merge|Revert) ]]; then
+  exit 0
+fi
+
+if ! [[ "$subject" =~ ^[a-z]+(\([a-z0-9/_-]+\))?:\ .+ ]]; then
+  echo "commit-msg: first line must match 'type(scope): summary'." >&2
+  exit 1
+fi
+
+required_refs_line='^Prompt-Refs:[[:space:]]*[A-Z][A-Z0-9_,-]*'
+lower_subject="$(echo "$subject" | tr '[:upper:]' '[:lower:]')"
+
+if [[ "$lower_subject" =~ ^wip(\(.+\))?: ]] || [[ "$lower_subject" == *"[wip]"* ]]; then
+  non_empty_lines="$(grep -cve '^[[:space:]]*$' "$msg_file" || true)"
+  if (( non_empty_lines > 4 )); then
+    echo "commit-msg: WIP commit must stay lightweight (1-3 lines + Prompt-Refs)." >&2
+    exit 1
+  fi
+  if ! grep -Eq "$required_refs_line" "$msg_file"; then
+    echo "commit-msg: WIP commit still requires a Prompt-Refs line." >&2
+    exit 1
+  fi
+  exit 0
+fi
+
+required_sections=(
+  "^Why:"
+  "^What:"
+  "^Impact:"
+  "^Risk:"
+  "^Test:"
+  "$required_refs_line"
+)
+
+for section in "${required_sections[@]}"; do
+  if ! grep -Eq "$section" "$msg_file"; then
+    echo "commit-msg: missing required section: ${section#^}" >&2
+    exit 1
+  fi
+done
+

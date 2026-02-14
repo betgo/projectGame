@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+current_month="$(date +%Y-%m)"
+log_path="docs/ai/commit-log/${current_month}.md"
+
+if [[ ! -f "$log_path" ]]; then
+  echo "pre-push: missing ${log_path}. Run tools/git-memory/finalize-task.sh first." >&2
+  exit 1
+fi
+
+base_ref=""
+if git show-ref --verify --quiet refs/remotes/origin/main; then
+  base_ref="origin/main"
+elif git show-ref --verify --quiet refs/heads/main; then
+  base_ref="main"
+fi
+
+if [[ -z "$base_ref" ]]; then
+  exit 0
+fi
+
+ahead_count="$(git rev-list --count "${base_ref}..HEAD")"
+if [[ "$ahead_count" == "0" ]]; then
+  exit 0
+fi
+
+if ! git log --name-only --pretty=format: "${base_ref}..HEAD" | grep -q "^docs/ai/commit-log/"; then
+  echo "pre-push: branch has commits ahead of ${base_ref} but no commit-log update." >&2
+  echo "pre-push: run 'bash tools/git-memory/finalize-task.sh' and commit generated docs." >&2
+  exit 1
+fi
+

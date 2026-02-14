@@ -1,0 +1,48 @@
+{
+  "version": "0.1.0",
+  "templateId": "tower-defense",
+  "map": {
+    "width": 12,
+    "height": 12,
+    "cells": [[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0]]
+  },
+  "entities": {
+    "towers": [
+      { "id": "t1", "x": 4, "y": 4, "range": 2.5, "damage": 9, "cooldownMs": 650, "cost": 50 },
+      { "id": "t2", "x": 7, "y": 6, "range": 2.3, "damage": 10, "cooldownMs": 750, "cost": 80 }
+    ],
+    "enemies": [
+      { "id": "grunt", "hp": 45, "speed": 1.1, "reward": 5 }
+    ]
+  },
+  "rules": {
+    "payload": {
+      "path": [
+        { "x": 0, "y": 5 },
+        { "x": 3, "y": 5 },
+        { "x": 6, "y": 4 },
+        { "x": 11, "y": 4 }
+      ],
+      "waves": [
+        { "id": "w1", "enemyId": "grunt", "count": 12, "intervalMs": 900, "startAtMs": 0 }
+      ],
+      "towers": [
+        { "id": "t1", "x": 4, "y": 4, "range": 2.5, "damage": 9, "cooldownMs": 650, "cost": 50 },
+        { "id": "t2", "x": 7, "y": 6, "range": 2.3, "damage": 10, "cooldownMs": 750, "cost": 80 }
+      ],
+      "economy": {
+        "startingGold": 90,
+        "rewardPerKill": 5
+      },
+      "spawnRules": {
+        "tickMs": 100,
+        "baseEnemyHp": 45,
+        "baseEnemySpeed": 1.1,
+        "baseEnemyReward": 5
+      }
+    }
+  },
+  "winCondition": {
+    "maxLeaks": 4
+  }
+}

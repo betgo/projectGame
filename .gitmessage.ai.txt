@@ -1,0 +1,9 @@
+type(scope): short summary
+
+Why:
+What:
+Impact:
+Risk:
+Test:
+Prompt-Refs:
+

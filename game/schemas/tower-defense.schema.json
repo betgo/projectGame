@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "tower-defense.schema.json",
+  "title": "TowerDefensePayload",
+  "type": "object",
+  "required": ["path", "waves", "towers", "economy", "spawnRules"],
+  "properties": {
+    "path": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": ["x", "y"],
+        "properties": {
+          "x": { "type": "integer", "minimum": 0 },
+          "y": { "type": "integer", "minimum": 0 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "waves": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "enemyId", "count", "intervalMs", "startAtMs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "enemyId": { "type": "string", "minLength": 1 },
+          "count": { "type": "integer", "minimum": 1 },
+          "intervalMs": { "type": "integer", "minimum": 50 },
+          "startAtMs": { "type": "integer", "minimum": 0 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "towers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "x", "y", "range", "damage", "cooldownMs", "cost"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "x": { "type": "integer", "minimum": 0 },
+          "y": { "type": "integer", "minimum": 0 },
+          "range": { "type": "number", "exclusiveMinimum": 0 },
+          "damage": { "type": "number", "exclusiveMinimum": 0 },
+          "cooldownMs": { "type": "integer", "minimum": 50 },
+          "cost": { "type": "integer", "minimum": 0 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "economy": {
+      "type": "object",
+      "required": ["startingGold", "rewardPerKill"],
+      "properties": {
+        "startingGold": { "type": "integer", "minimum": 0 },
+        "rewardPerKill": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "spawnRules": {
+      "type": "object",
+      "required": ["tickMs", "baseEnemyHp", "baseEnemySpeed", "baseEnemyReward"],
+      "properties": {
+        "tickMs": { "type": "integer", "minimum": 16 },
+        "baseEnemyHp": { "type": "number", "exclusiveMinimum": 0 },
+        "baseEnemySpeed": { "type": "number", "exclusiveMinimum": 0 },
+        "baseEnemyReward": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

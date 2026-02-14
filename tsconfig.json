@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "types": ["node", "vitest/globals"],
+    "lib": ["ES2022", "DOM"],
+    "baseUrl": ".",
+    "paths": {
+      "@editor/*": ["editor/src/*"],
+      "@runtime/*": ["runtime/*"],
+      "@game/*": ["game/*"],
+      "@ai/*": ["ai/*"]
+    }
+  },
+  "include": [
+    "editor/**/*.ts",
+    "editor/**/*.tsx",
+    "runtime/**/*.ts",
+    "game/**/*.ts",
+    "ai/**/*.ts",
+    "tools/**/*.ts",
+    "tests/**/*.ts"
+  ]
+}
