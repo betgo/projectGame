@@ -26,6 +26,8 @@ both `--issue-id` and `--task-file`.
 - `--retry-mode=until-pass|max-retry|fail-fast`
 - `--max-retry=10`
 - `--max-duration-min=180`
+- `--implement-timeout-min=20`
+- `--autofix-timeout-min=10`
 - `--implement-cmd="<command>"`
 - `--autofix-cmd="<command>"`
 - `--auto-commit=true|false`

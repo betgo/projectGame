@@ -14,6 +14,8 @@ export type LoopConfig = {
   dryRun: boolean;
   implementCmd?: string;
   autofixCmd?: string;
+  implementTimeoutMin: number;
+  autofixTimeoutMin: number;
   fastGateCmd: string;
   fullGateCmd: string;
   docsSyncCmd: string;

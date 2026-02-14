@@ -12,10 +12,10 @@ export function formatMatchResult(result: MatchResult): string {
 
 export function formatBatchResult(result: BatchResult): string {
   return [
-    `seeds=${result.seeds.length}`,
-    `winRate=${result.winRate.toFixed(2)}`,
-    `avgDuration=${result.avgDuration.toFixed(0)}ms`,
-    `leakRate=${result.leakRate.toFixed(2)}`,
-    `imbalanceIndex=${result.imbalanceIndex.toFixed(3)}`
+    `sampleSize=${result.sampleSize}`,
+    `winRate=${result.winRate.toFixed(4)}`,
+    `avgDuration=${result.avgDuration.toFixed(0)}`,
+    `leakRate=${result.leakRate.toFixed(4)}`,
+    `imbalanceIndex=${result.imbalanceIndex.toFixed(4)}`
   ].join(" ");
 }

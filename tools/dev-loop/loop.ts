@@ -26,11 +26,14 @@ function sleep(ms: number): void {
   }
 }
 
-function runAutoFix(cwd: string, command?: string) {
+function runAutoFix(cwd: string, command: string | undefined, timeoutMin: number) {
   if (!command) {
     return undefined;
   }
-  return runGate("AUTO_FIX", command, cwd);
+  return runGate("AUTO_FIX", command, cwd, {
+    streamOutput: true,
+    timeoutMs: timeoutMin * 60 * 1000
+  });
 }
 
 function quoteForShell(value: string): string {
@@ -114,7 +117,7 @@ function runGatesWithRetry(
 
   let attempts = 0;
 
-  for (let keepRunning = true; keepRunning; ) {
+  for (;;) {
     ensureNotTimedOut(startedAt, config.maxDurationMin);
     attempts += 1;
 
@@ -126,7 +129,7 @@ function runGatesWithRetry(
       if (!shouldRetry(config.retryMode, attempts, config.maxRetry ?? 10)) {
         throw new Error("fast gate failed and retry policy stopped execution");
       }
-      const fixRun = runAutoFix(cwd, autofixCommand);
+      const fixRun = runAutoFix(cwd, autofixCommand, config.autofixTimeoutMin);
       if (fixRun) {
         gateSummary.autofix.push(fixRun);
         logGate(fixRun);
@@ -143,7 +146,7 @@ function runGatesWithRetry(
       if (!shouldRetry(config.retryMode, attempts, config.maxRetry ?? 10)) {
         throw new Error("full gate failed and retry policy stopped execution");
       }
-      const fixRun = runAutoFix(cwd, autofixCommand);
+      const fixRun = runAutoFix(cwd, autofixCommand, config.autofixTimeoutMin);
       if (fixRun) {
         gateSummary.autofix.push(fixRun);
         logGate(fixRun);
@@ -161,7 +164,7 @@ function runGatesWithRetry(
       if (!shouldRetry(config.retryMode, attempts, config.maxRetry ?? 10)) {
         throw new Error("doc sync failed and retry policy stopped execution");
       }
-      const fixRun = runAutoFix(cwd, autofixCommand);
+      const fixRun = runAutoFix(cwd, autofixCommand, config.autofixTimeoutMin);
       if (fixRun) {
         gateSummary.autofix.push(fixRun);
         logGate(fixRun);
@@ -233,7 +236,10 @@ function main(): number {
 
       const implementCommand = resolveImplementCommand(config, subtask);
       if (implementCommand) {
-        const implement = runGate("IMPLEMENT", implementCommand, cwd);
+        const implement = runGate("IMPLEMENT", implementCommand, cwd, {
+          streamOutput: true,
+          timeoutMs: config.implementTimeoutMin * 60 * 1000
+        });
         if (!implement.success) {
           throw new Error(`implement command failed: ${implement.stderr || implement.stdout}`);
         }

@@ -156,12 +156,20 @@ export type MatchResult = {
   metrics: RuntimeMetrics;
 };
 
-export type BatchResult = {
+export type BatchRunInput = {
   seeds: number[];
+};
+
+export type BatchMetrics = {
+  sampleSize: number;
   winRate: number;
   avgDuration: number;
   leakRate: number;
   imbalanceIndex: number;
+};
+
+export type BatchResult = BatchMetrics & {
+  seeds: number[];
   errors: string[];
 };
 

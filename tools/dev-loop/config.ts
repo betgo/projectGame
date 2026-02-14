@@ -221,6 +221,8 @@ export function parseLoopConfig(argv: string[], cwd: string): LoopConfig {
     dryRun: asBool(args["dry-run"], false),
     implementCmd: asString(args["implement-cmd"], "") || undefined,
     autofixCmd: asString(args["autofix-cmd"], "") || undefined,
+    implementTimeoutMin: asNumber(args["implement-timeout-min"], 20),
+    autofixTimeoutMin: asNumber(args["autofix-timeout-min"], 10),
     fastGateCmd: asString(args["fast-gate-cmd"], "pnpm gate:fast"),
     fullGateCmd: asString(args["full-gate-cmd"], "pnpm gate:full"),
     docsSyncCmd: asString(args["docs-sync-cmd"], "pnpm docs:sync-check"),

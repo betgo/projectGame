@@ -1,8 +1,8 @@
 import type { GateRun } from "./types";
-import { runCommand } from "./shell";
+import { runCommand, type RunCommandOptions } from "./shell";
 
-export function runGate(name: string, command: string, cwd: string): GateRun {
-  const result = runCommand(command, cwd);
+export function runGate(name: string, command: string, cwd: string, options: RunCommandOptions = {}): GateRun {
+  const result = runCommand(command, cwd, options);
   return {
     name,
     command,
