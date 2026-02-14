@@ -36,8 +36,10 @@ pnpm dev:loop -- --issue-id 010 --task-file docs/ai/tasks/T-010.md
 ## Batch simulation contract
 
 - Command shape: `pnpm simulate:batch <package> <rounds>`
-- Input validation: package path and rounds are required; rounds must be a positive integer; package JSON must pass runtime validation.
+- Determinism: default seed sequence is `1..rounds`; same package + same rounds yields deterministic aggregate metrics.
+- Input validation: package path and rounds are required; rounds must be a positive integer; package JSON must be readable and pass runtime validation.
 - Output fields (single line, parseable): `sampleSize=<int> winRate=<ratio> avgDuration=<ms> leakRate=<ratio> imbalanceIndex=<score>`
+- Imbalance index formula: `abs(0.5 - winRate) + leakRate * 0.02`
 
 ## Git memory workflow
 
