@@ -1,11 +1,13 @@
 import { useMemo, useReducer } from "react";
 
-import type { GameProject } from "@runtime/core/types";
+import type { GameProject, GridCell } from "@runtime/core/types";
 
 import { applyOperation, type EditorOperation } from "./operations";
 
 function createDefaultCells(width: number, height: number) {
-  return Array.from({ length: height }, () => Array.from({ length: width }, () => 0 as const));
+  return Array.from({ length: height }, () =>
+    Array.from({ length: width }, () => 0 as GridCell)
+  );
 }
 
 function seedCells(
@@ -14,7 +16,7 @@ function seedCells(
   path: Array<{ x: number; y: number }>,
   towers: Array<{ x: number; y: number }>
 ) {
-  const cells = createDefaultCells(width, height);
+  const cells: GridCell[][] = createDefaultCells(width, height);
   for (const point of path) {
     if (cells[point.y]?.[point.x] !== undefined) {
       cells[point.y][point.x] = 1;

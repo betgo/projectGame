@@ -1,0 +1,23 @@
+{
+  "status": "failed",
+  "startedAt": "2026-02-14T14:05:12.686Z",
+  "endedAt": "2026-02-14T14:05:14.594Z",
+  "issueId": "10",
+  "branch": "main",
+  "taskFile": "/Users/wxx/Desktop/code/projectA/docs/ai/tasks/T-010.md",
+  "gateSummary": {
+    "fast": [],
+    "full": [],
+    "autofix": []
+  },
+  "docSyncSummary": [],
+  "subtaskResults": [],
+  "promptRefs": [
+    "ARCHITECT_v1",
+    "PLANNER_v1",
+    "BUILDER_v2",
+    "GUARDIAN_v1",
+    "REVIEWER_v1"
+  ],
+  "message": "fast gate failed and retry policy stopped execution"
+}

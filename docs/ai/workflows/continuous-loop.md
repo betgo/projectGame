@@ -6,7 +6,7 @@ This workflow enforces the local cycle:
 
 ## Preconditions
 
-1. Current branch must match `codex/<issue>-<topic>`.
+1. Current branch must be `main` or match `codex/<issue>-<topic>`.
 2. Prompt files must exist and be versioned under `docs/ai/prompts/`.
 3. A task card should exist under `docs/ai/tasks/`.
 
@@ -17,6 +17,8 @@ pnpm dev:loop -- --issue-id 010 --task-file docs/ai/tasks/T-010.md
 ```
 
 By default, loop uses `codex` as coding CLI for both implement and autofix phases.
+If there is exactly one active issue task card (for example `docs/ai/tasks/T-010.md`), you can omit
+both `--issue-id` and `--task-file`.
 
 ### Useful Flags
 

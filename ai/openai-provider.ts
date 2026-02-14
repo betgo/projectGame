@@ -11,15 +11,20 @@ export class OpenAiProvider implements AiProvider {
     }
   }
 
-  async generatePackage(_request: GenerateRequest): Promise<GamePackage> {
+  async generatePackage(request: GenerateRequest): Promise<GamePackage> {
+    void request;
     throw new Error("OpenAiProvider.generatePackage is not implemented yet");
   }
 
-  async repairPackage(_pkg: GamePackage, _diagnostics: ValidationReport): Promise<GamePackage> {
+  async repairPackage(pkg: GamePackage, diagnostics: ValidationReport): Promise<GamePackage> {
+    void pkg;
+    void diagnostics;
     throw new Error("OpenAiProvider.repairPackage is not implemented yet");
   }
 
-  async optimizePackage(_pkg: GamePackage, _target: BalanceTarget): Promise<GamePackage> {
+  async optimizePackage(pkg: GamePackage, target: BalanceTarget): Promise<GamePackage> {
+    void pkg;
+    void target;
     throw new Error("OpenAiProvider.optimizePackage is not implemented yet");
   }
 }

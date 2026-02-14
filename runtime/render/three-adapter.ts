@@ -22,7 +22,8 @@ export class ThreeRenderAdapter {
     this.scene.add(light);
   }
 
-  applySnapshot(_snapshot: RenderSnapshot): void {
+  applySnapshot(snapshot: RenderSnapshot): void {
+    void snapshot;
     this.renderer.render(this.scene, this.camera);
   }
 

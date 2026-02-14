@@ -70,33 +70,122 @@ function currentBranch(cwd: string): string {
 }
 
 function inferIssueId(branch: string): string {
-  const match = /^codex\/([^-\/]+)/.exec(branch);
+  const match = /^codex\/([^-/]+)/.exec(branch);
   if (match) {
     return match[1];
   }
   return "local";
 }
 
-function resolveTaskFile(cwd: string, issueId: string, input?: string): string {
-  if (input) {
-    return path.resolve(cwd, input);
+function normalizeIssueId(raw: string): string {
+  const value = raw.trim();
+  if (!value) {
+    return "";
   }
+  if (/^\d+$/.test(value)) {
+    return String(Number(value));
+  }
+  return value;
+}
 
+function issueIdFromTaskFileName(fileName: string): string | undefined {
+  const match = /^T-(\d+)\b/i.exec(fileName);
+  if (!match) {
+    return undefined;
+  }
+  return normalizeIssueId(match[1]);
+}
+
+type TaskCard = {
+  fileName: string;
+  absolutePath: string;
+  issueId?: string;
+  done: boolean;
+};
+
+function parseTaskDoneState(content: string): boolean {
+  const match = content.match(/^- Status:\s*(.+)$/im);
+  if (!match) {
+    return false;
+  }
+  return match[1].toLowerCase().includes("done");
+}
+
+function listTaskCards(cwd: string): TaskCard[] {
   const tasksDir = path.resolve(cwd, "docs/ai/tasks");
   if (!fs.existsSync(tasksDir)) {
-    return path.resolve(cwd, "docs/ai/tasks/TEMPLATE.md");
+    return [];
   }
 
-  const candidates = fs
+  return fs
     .readdirSync(tasksDir)
-    .filter((file) => file.endsWith(".md") && file.includes(issueId))
-    .sort();
+    .filter((file) => file.endsWith(".md"))
+    .filter((file) => !["TEMPLATE.md", "SUBTASK-TEMPLATE.md"].includes(file))
+    .map((fileName) => {
+      const absolutePath = path.resolve(tasksDir, fileName);
+      const content = fs.readFileSync(absolutePath, "utf-8");
+      return {
+        fileName,
+        absolutePath,
+        issueId: issueIdFromTaskFileName(fileName),
+        done: parseTaskDoneState(content)
+      };
+    })
+    .sort((a, b) => a.fileName.localeCompare(b.fileName));
+}
 
-  if (candidates.length > 0) {
-    return path.resolve(tasksDir, candidates[0]);
+function resolveTaskAndIssue(
+  cwd: string,
+  branch: string,
+  issueInput?: string,
+  taskFileInput?: string
+): { issueId: string; taskFile: string } {
+  const fallbackIssue = inferIssueId(branch);
+
+  if (taskFileInput) {
+    const taskFile = path.resolve(cwd, taskFileInput);
+    const inferred = issueIdFromTaskFileName(path.basename(taskFile));
+    return {
+      issueId: normalizeIssueId(issueInput ?? inferred ?? fallbackIssue),
+      taskFile
+    };
   }
 
-  return path.resolve(cwd, "docs/ai/tasks/TEMPLATE.md");
+  const cards = listTaskCards(cwd).filter((card) => card.issueId);
+  const requestedIssue = issueInput ? normalizeIssueId(issueInput) : undefined;
+
+  if (requestedIssue) {
+    const matched = cards.find((card) => card.issueId === requestedIssue && !card.done);
+    if (matched) {
+      return { issueId: requestedIssue, taskFile: matched.absolutePath };
+    }
+    return {
+      issueId: requestedIssue,
+      taskFile: path.resolve(cwd, "docs/ai/tasks/TEMPLATE.md")
+    };
+  }
+
+  const branchIssue = normalizeIssueId(fallbackIssue);
+  if (branchIssue !== "local") {
+    const branchMatched = cards.find((card) => card.issueId === branchIssue && !card.done);
+    if (branchMatched) {
+      return { issueId: branchIssue, taskFile: branchMatched.absolutePath };
+    }
+  }
+
+  const activeCards = cards.filter((card) => !card.done);
+  if (activeCards.length === 1) {
+    const only = activeCards[0];
+    return {
+      issueId: only.issueId ?? branchIssue,
+      taskFile: only.absolutePath
+    };
+  }
+
+  return {
+    issueId: branchIssue,
+    taskFile: path.resolve(cwd, "docs/ai/tasks/TEMPLATE.md")
+  };
 }
 
 function parseRetryMode(value: string): RetryMode {
@@ -109,14 +198,19 @@ function parseRetryMode(value: string): RetryMode {
 export function parseLoopConfig(argv: string[], cwd: string): LoopConfig {
   const args = parseArgv(argv);
   const branch = asString(args.branch, currentBranch(cwd));
-  const issueId = asString(args["issue-id"], inferIssueId(branch));
   const retryMode = parseRetryMode(asString(args["retry-mode"], "until-pass"));
   const codingCli = asString(args["coding-cli"], "codex") === "custom" ? "custom" : "codex";
+  const resolved = resolveTaskAndIssue(
+    cwd,
+    branch,
+    asString(args["issue-id"], "") || undefined,
+    asString(args["task-file"], "") || undefined
+  );
 
   return {
-    issueId,
+    issueId: resolved.issueId,
     branch,
-    taskFile: resolveTaskFile(cwd, issueId, asString(args["task-file"], "")),
+    taskFile: resolved.taskFile,
     subtaskId: asString(args["subtask-id"], "") || undefined,
     codingCli,
     retryMode,

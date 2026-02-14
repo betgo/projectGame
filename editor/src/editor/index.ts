@@ -1,3 +1,3 @@
 export * from "./api";
-export * from "./operations";
-export * from "./store";
+export { useEditorStore, createDefaultProject } from "./store";
+export type { EditorOperation, OpResult } from "./operations";

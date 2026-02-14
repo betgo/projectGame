@@ -34,7 +34,7 @@ function runAutoFix(cwd: string, command?: string) {
 }
 
 function quoteForShell(value: string): string {
-  return `'${value.replace(/'/g, `'\"'\"'`)}'`;
+  return `'${value.replaceAll("'", `'"'"'`)}'`;
 }
 
 function buildCodexPrompt(config: LoopConfig, subtask: Subtask, mode: "implement" | "autofix"): string {
@@ -114,7 +114,7 @@ function runGatesWithRetry(
 
   let attempts = 0;
 
-  while (true) {
+  for (let keepRunning = true; keepRunning; ) {
     ensureNotTimedOut(startedAt, config.maxDurationMin);
     attempts += 1;
 
@@ -207,7 +207,7 @@ function main(): number {
   const startedAtIso = new Date(startedAtMs).toISOString();
 
   const config = parseLoopConfig(process.argv.slice(2), cwd);
-  const gateSummary = { fast: [], full: [], autofix: [] };
+  const gateSummary: GateSummary = { fast: [], full: [], autofix: [] };
   const docSyncSummary: DocSyncSummary[] = [];
   const subtaskResults: SubtaskResult[] = [];
 

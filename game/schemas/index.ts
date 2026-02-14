@@ -1,10 +1,11 @@
-import Ajv from "ajv";
+import Ajv2020 from "ajv/dist/2020";
+import type { ErrorObject } from "ajv";
 
 import gamePackageSchema from "./game-package.schema.json";
 import gameProjectSchema from "./game-project.schema.json";
 import towerDefenseSchema from "./tower-defense.schema.json";
 
-const ajv = new Ajv({ allErrors: true, strict: false });
+const ajv = new Ajv2020({ allErrors: true, strict: false });
 
 ajv.addSchema(towerDefenseSchema, "tower-defense.schema.json");
 ajv.addSchema(gameProjectSchema, "game-project.schema.json");
@@ -20,7 +21,7 @@ export type ValidationReport = {
   issues: ValidationIssue[];
 };
 
-function toReport(valid: boolean, errors: Ajv.ErrorObject[] | null | undefined): ValidationReport {
+function toReport(valid: boolean, errors: ErrorObject[] | null | undefined): ValidationReport {
   return {
     valid,
     issues: (errors ?? []).map((error) => ({

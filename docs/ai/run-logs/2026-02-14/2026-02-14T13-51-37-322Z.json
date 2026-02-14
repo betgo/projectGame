@@ -1,0 +1,23 @@
+{
+  "status": "failed",
+  "startedAt": "2026-02-14T13:51:37.178Z",
+  "endedAt": "2026-02-14T13:51:37.322Z",
+  "issueId": "local",
+  "branch": "main",
+  "taskFile": "/Users/wxx/Desktop/code/projectA/docs/ai/tasks/TEMPLATE.md",
+  "gateSummary": {
+    "fast": [],
+    "full": [],
+    "autofix": []
+  },
+  "docSyncSummary": [],
+  "subtaskResults": [],
+  "promptRefs": [
+    "ARCHITECT_v1",
+    "PLANNER_v1",
+    "BUILDER_v2",
+    "GUARDIAN_v1",
+    "REVIEWER_v1"
+  ],
+  "message": "branch must start with codex/, current: main"
+}
