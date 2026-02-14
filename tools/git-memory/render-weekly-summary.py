@@ -13,6 +13,13 @@ OUT_FILE = ROOT / "docs" / "ai" / "weekly-summary.md"
 ENTRY_RE = re.compile(r"^## (\d{4}-\d{2}-\d{2}) - (.+) \(`([0-9a-f]+)`\)$")
 
 
+def normalize_inline_value(value: str) -> str:
+    cleaned = value.strip()
+    if cleaned.startswith("-"):
+        cleaned = cleaned[1:].strip()
+    return cleaned
+
+
 def parse_entries() -> list[dict]:
     entries: list[dict] = []
     for path in sorted(LOG_DIR.glob("*.md")):
@@ -39,7 +46,7 @@ def parse_entries() -> list[dict]:
                 refs = stripped.split(":", 1)[1].strip()
                 current["prompt_refs"] = [r.strip() for r in refs.split(",") if r.strip()]
             elif stripped.startswith("- Risk:"):
-                risk_text = stripped.split(":", 1)[1].strip()
+                risk_text = normalize_inline_value(stripped.split(":", 1)[1])
                 if risk_text and risk_text != "N/A":
                     current["risk"].append(risk_text)
         if current:
@@ -110,4 +117,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

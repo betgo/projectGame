@@ -46,6 +46,7 @@ pnpm dev:loop -- --issue-id 010 --task-file docs/ai/tasks/T-010.md
 ```bash
 bash tools/git-memory/install.sh
 bash tools/git-memory/new-task.sh 0002 "tower-defense-wave-editor"
+bash tools/git-memory/append-commit-log.sh HEAD~3..HEAD
 bash tools/git-memory/finalize-task.sh
 ```
 
