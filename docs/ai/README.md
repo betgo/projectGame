@@ -38,6 +38,15 @@ This folder stores auditable AI memory and prompt governance artifacts.
 - Delivery branch: `main`
 - Delivery rule: `1 Issue = 1 PR`
 
+## Release handoff checklist
+
+- Run fast gate: `pnpm gate:fast`
+- Run full gate: `pnpm gate:full`
+- Run docs sync check: `pnpm docs:sync-check`
+- If contract-level files change (`runtime/core`, `game/schemas`, `ai`), update `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` in the same change.
+- Record gate evidence in task card under `docs/ai/tasks/`.
+- Refresh memory artifacts before handoff: `bash tools/git-memory/finalize-task.sh`
+
 ## Session Warm Start
 
 When opening a fresh AI session, read in this order:

@@ -124,3 +124,6 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 
 ## Subtask Progress
 - [x] [S5] Risk and rollback expectations are documented before implementation subtasks start.
+
+## Subtask Progress
+- [x] [S3] Sync README and AI governance docs for release handoff

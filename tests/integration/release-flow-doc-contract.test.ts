@@ -29,6 +29,17 @@ const FLOW_CONTRACT = {
   "Delivery rule": "1 Issue = 1 PR"
 } as const;
 
+const RELEASE_HANDOFF_CHECKLIST = [
+  "- Run fast gate: `pnpm gate:fast`",
+  "- Run full gate: `pnpm gate:full`",
+  "- Run docs sync check: `pnpm docs:sync-check`",
+  "- If contract-level files change (`runtime/core`, `game/schemas`, `ai`), update `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` in the same change.",
+  "- Record gate evidence in task card under `docs/ai/tasks/`.",
+  "- Refresh memory artifacts before handoff: `bash tools/git-memory/finalize-task.sh`"
+] as const;
+
+const RELEASE_HANDOFF_GATE_COMMANDS = ["pnpm gate:fast", "pnpm gate:full", "pnpm docs:sync-check"] as const;
+
 function readBacktickedValue(prefix: string, content: string): string {
   const escaped = prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const pattern = new RegExp(`${escaped}:\\s*\\\`([^\\\`]+)\\\``);
@@ -39,12 +50,26 @@ function readBacktickedValue(prefix: string, content: string): string {
   return match[1];
 }
 
+function readSection(heading: string, content: string): string {
+  const escaped = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const pattern = new RegExp(`## ${escaped}\\n\\n([\\s\\S]*?)(?=\\n## |$)`);
+  const match = content.match(pattern);
+  if (!match) {
+    throw new Error(`missing section: ${heading}`);
+  }
+  return match[1].trim();
+}
+
 function extractPnpmScript(command: string): string {
   const tokens = command.trim().split(/\s+/);
   if (tokens[0] !== "pnpm" || !tokens[1]) {
     throw new Error(`invalid pnpm command shape: ${command}`);
   }
   return tokens[1];
+}
+
+function normalizeMarkdownLine(line: string): string {
+  return line.trim().replace(/\s+/g, " ");
 }
 
 function readBashBlockUnderHeading(heading: string, content: string): string[] {
@@ -94,6 +119,30 @@ describe("release flow docs contract", () => {
       const script = extractPnpmScript(FLOW_CONTRACT[label]);
       expect(pkg.scripts[script], `missing package script for ${label}: ${script}`).toBeTypeOf("string");
     }
+  });
+
+  it("keeps release handoff checklist aligned across README and docs/ai", () => {
+    for (const docPath of DOC_PATHS) {
+      const content = fs.readFileSync(path.join(projectRoot, docPath), "utf-8");
+      const checklist = readSection("Release handoff checklist", content)
+        .split("\n")
+        .map(normalizeMarkdownLine)
+        .filter((line) => line.startsWith("- "));
+      expect(checklist, `${docPath} -> Release handoff checklist`).toEqual([...RELEASE_HANDOFF_CHECKLIST]);
+    }
+  });
+
+  it("references executable release handoff commands", () => {
+    const pkg = JSON.parse(fs.readFileSync(path.join(projectRoot, "package.json"), "utf-8")) as {
+      scripts: Record<string, string>;
+    };
+
+    for (const command of RELEASE_HANDOFF_GATE_COMMANDS) {
+      const script = extractPnpmScript(command);
+      expect(pkg.scripts[script], `missing package script for handoff command: ${script}`).toBeTypeOf("string");
+    }
+
+    expect(fs.existsSync(path.join(projectRoot, "tools/git-memory/finalize-task.sh"))).toBe(true);
   });
 
   it("keeps README core scripts list aligned with documented release-flow commands", () => {
