@@ -1,12 +1,12 @@
 # AI 循环状态
 
-- 更新时间: 2026-02-16T18:08:14Z
-- Issue: 20
+- 更新时间: 2026-02-16T18:40:33Z
+- Issue: 21
 - 分支: main
-- 任务卡: `/Users/wxx/Desktop/code/projectA/docs/ai/tasks/T-020-schema-versioning-and-migration-lite.md`
+- 任务卡: `/Users/wxx/Desktop/code/projectA/docs/ai/tasks/T-021-import-export-diagnostics.md`
 - 当前阶段: 子任务收口完成
 - 当前子任务: [S4] Finalize memory and complete task-level commit
-- 当前 AI 在做: T-020 收口已完成，等待启动下一任务。
+- 当前 AI 在做: T-021 收口已完成，等待启动下一任务。
 - 下一步准备: 运行 `pnpm task:next` 生成下一任务卡并进入新一轮 loop。
 - 下一个子任务: 无
 - 里程碑提交: 未创建（按本轮“Do not commit changes”约束）

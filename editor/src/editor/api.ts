@@ -1,5 +1,6 @@
 import {
   normalizeGameProjectSchemaVersion,
+  validateGamePackage,
   validateGameProject,
   type ValidationIssue,
   type ValidationReport
@@ -15,14 +16,43 @@ import type {
   RuntimeWorld,
   TickResult
 } from "@runtime/core/types";
+import { validateTowerDefensePackage } from "@runtime/templates/tower-defense/validator";
 
 import { applyOperation as applyEditorOperationImpl, type EditorOperation, type OpResult } from "./operations";
 import { createDefaultProject } from "./store";
 
-export type LoadResult = {
+export type DiagnosticsSeverity = "error" | "warning";
+export type DiagnosticsSource = "editor/api" | "game/schemas" | "runtime/templates/tower-defense";
+export type DiagnosticsOperation = "import" | "export";
+
+export type ImportExportDiagnostic = {
+  code: string;
+  path: string;
+  message: string;
+  hint: string;
+  severity: DiagnosticsSeverity;
+  source: DiagnosticsSource;
+};
+
+export type LoadResult =
+  | {
+      ok: true;
+      project: GameProject;
+      report: ValidationReport;
+      diagnostics: ImportExportDiagnostic[];
+    }
+  | {
+      ok: false;
+      project: GameProject | null;
+      report: ValidationReport;
+      diagnostics: ImportExportDiagnostic[];
+    };
+
+export type ExportDiagnosticsResult = {
   ok: boolean;
-  project: GameProject;
+  pkg: GamePackage;
   report: ValidationReport;
+  diagnostics: ImportExportDiagnostic[];
 };
 
 export type PreviewSession = {
@@ -71,6 +101,286 @@ export type PreviewOverlaySession = {
 
 const PREVIEW_MAX_DURATION_MS = 30 * 60 * 1000;
 const MAX_DIAGNOSTIC_ISSUES = 3;
+const MAX_IMPORT_EXPORT_DIAGNOSTICS = 12;
+
+function joinJsonPointer(parentPath: string, property: string): string {
+  if (parentPath === "/") {
+    return `/${property}`;
+  }
+  return `${parentPath}/${property}`;
+}
+
+function normalizeSchemaIssuePath(issue: ValidationIssue): string {
+  const requiredField = /required property '([^']+)'/.exec(issue.message)?.[1];
+  if (requiredField) {
+    return joinJsonPointer(issue.path || "/", requiredField);
+  }
+  return issue.path || "/";
+}
+
+function normalizeSemanticIssuePath(issue: ValidationIssue): string {
+  const path = issue.path || "/";
+  if (path === "/rules/payload") {
+    return "/templatePayload";
+  }
+  if (path.startsWith("/rules/payload/")) {
+    return `/templatePayload/${path.slice("/rules/payload/".length)}`;
+  }
+  if (path === "/entities/towers") {
+    return "/templatePayload/towers";
+  }
+  if (path.startsWith("/entities/towers/")) {
+    return `/templatePayload/towers/${path.slice("/entities/towers/".length)}`;
+  }
+  if (path.startsWith("/entities/enemies")) {
+    return "/templatePayload/spawnRules";
+  }
+  if (path === "/version") {
+    return "/meta/version";
+  }
+  return path;
+}
+
+function normalizeExportSchemaIssuePath(issue: ValidationIssue): string {
+  return normalizeSchemaIssuePath({
+    path: normalizeSemanticIssuePath(issue),
+    message: issue.message
+  });
+}
+
+function cloneIssuesWithPath(
+  report: ValidationReport,
+  mapPath: (issue: ValidationIssue) => string
+): ValidationReport {
+  return {
+    valid: report.valid,
+    issues: report.issues.map((issue) => ({
+      path: mapPath(issue),
+      message: issue.message
+    }))
+  };
+}
+
+function diagnosticsCode(operation: DiagnosticsOperation, kind: string, detail: string): string {
+  return `${operation}.${kind}.${detail}`;
+}
+
+function classifySchemaIssue(issue: ValidationIssue): { detail: string; hint: string } {
+  const path = issue.path.toLowerCase();
+  const message = issue.message.toLowerCase();
+
+  if (path.includes("/meta/version") || message.includes("schema version")) {
+    return {
+      detail: "version",
+      hint: "Use a supported schema version and retry import."
+    };
+  }
+  if (message.includes("required property")) {
+    return {
+      detail: "required",
+      hint: "Add the missing required field and retry."
+    };
+  }
+  if (message.includes("one of the allowed values")) {
+    return {
+      detail: "enum",
+      hint: "Use one of the allowed enum values for this field."
+    };
+  }
+  if (
+    message.includes("must be >") ||
+    message.includes("must be >=") ||
+    message.includes("must be <") ||
+    message.includes("must match pattern") ||
+    message.includes("must not have fewer than")
+  ) {
+    return {
+      detail: "constraint",
+      hint: "Adjust this value to satisfy schema constraints."
+    };
+  }
+  if (message.includes("must be")) {
+    return {
+      detail: "type",
+      hint: "Set this field to the expected data type."
+    };
+  }
+  return {
+    detail: "invalid",
+    hint: "Fix the schema validation error and retry."
+  };
+}
+
+function classifySemanticIssue(issue: ValidationIssue): { detail: string; hint: string } {
+  const path = issue.path.toLowerCase();
+  const message = issue.message.toLowerCase();
+
+  if (path.includes("/map/cells")) {
+    return {
+      detail: "map-shape",
+      hint: "Align map.cells dimensions with map.width and map.height."
+    };
+  }
+  if (message.includes("must be unique")) {
+    return {
+      detail: "duplicate-id",
+      hint: "Ensure every id is unique in this list."
+    };
+  }
+  if (message.includes("unknown enemy id")) {
+    return {
+      detail: "unknown-reference",
+      hint: "Set wave.enemyId to an existing enemy definition (for tower-defense use `grunt`)."
+    };
+  }
+  if (message.includes("out of map range")) {
+    return {
+      detail: "out-of-range",
+      hint: "Keep path/tower positions inside map width and height bounds."
+    };
+  }
+  if (message.includes("must mirror")) {
+    return {
+      detail: "mirror-mismatch",
+      hint: "Keep tower definitions aligned across payload and entities."
+    };
+  }
+  return {
+    detail: "invalid",
+    hint: "Fix semantic payload mismatches and retry."
+  };
+}
+
+function toSchemaDiagnostics(
+  operation: DiagnosticsOperation,
+  report: ValidationReport
+): ImportExportDiagnostic[] {
+  return report.issues.slice(0, MAX_IMPORT_EXPORT_DIAGNOSTICS).map((issue) => {
+    const schemaIssue: ValidationIssue = {
+      path: issue.path || "/",
+      message: issue.message
+    };
+    const { detail, hint } = classifySchemaIssue(schemaIssue);
+    return {
+      code: diagnosticsCode(operation, "schema", detail),
+      path: schemaIssue.path,
+      message: schemaIssue.message,
+      hint,
+      severity: "error",
+      source: "game/schemas"
+    };
+  });
+}
+
+function toSemanticDiagnostics(
+  operation: DiagnosticsOperation,
+  report: ValidationReport
+): ImportExportDiagnostic[] {
+  return report.issues.slice(0, MAX_IMPORT_EXPORT_DIAGNOSTICS).map((issue) => {
+    const semanticIssue: ValidationIssue = {
+      path: issue.path || "/",
+      message: issue.message
+    };
+    const { detail, hint } = classifySemanticIssue(semanticIssue);
+    return {
+      code: diagnosticsCode(operation, "semantic", detail),
+      path: semanticIssue.path,
+      message: semanticIssue.message,
+      hint,
+      severity: "error",
+      source: "runtime/templates/tower-defense"
+    };
+  });
+}
+
+function parseJsonPosition(message: string): number | null {
+  const match = /position (\d+)/.exec(message);
+  if (!match) {
+    return null;
+  }
+  return Number.parseInt(match[1], 10);
+}
+
+function toParseDiagnostics(error: unknown): ImportExportDiagnostic[] {
+  const message = errorMessage(error);
+  const position = parseJsonPosition(message);
+  const hint =
+    position === null
+      ? "Fix JSON syntax errors and retry import."
+      : `Fix JSON syntax near character ${position} and retry import.`;
+  return [
+    {
+      code: diagnosticsCode("import", "parse", "invalid-json"),
+      path: "/",
+      message,
+      hint,
+      severity: "error",
+      source: "editor/api"
+    }
+  ];
+}
+
+function semanticReportForProject(project: GameProject): ValidationReport {
+  const semanticReport = validateTowerDefensePackage(exportPackage(project));
+  return cloneIssuesWithPath(semanticReport, (issue) => normalizeSemanticIssuePath(issue));
+}
+
+function asProject(value: unknown): GameProject | null {
+  if (typeof value === "object" && value !== null) {
+    return value as GameProject;
+  }
+  return null;
+}
+
+function loadProjectInternal(payload: unknown): LoadResult {
+  const projectCandidate = asProject(payload);
+  const schemaReport = validateGameProject(payload);
+  if (!schemaReport.valid) {
+    const normalizedSchemaReport = cloneIssuesWithPath(schemaReport, (issue) =>
+      normalizeSchemaIssuePath(issue)
+    );
+    return {
+      ok: false,
+      project: projectCandidate,
+      report: normalizedSchemaReport,
+      diagnostics: toSchemaDiagnostics("import", normalizedSchemaReport)
+    };
+  }
+
+  const normalized = normalizeGameProjectSchemaVersion(payload as GameProject);
+  if (!normalized.ok) {
+    const normalizedVersionReport = cloneIssuesWithPath(
+      { valid: false, issues: normalized.issues },
+      (issue) => normalizeSchemaIssuePath(issue)
+    );
+    return {
+      ok: false,
+      project: projectCandidate,
+      report: normalizedVersionReport,
+      diagnostics: toSchemaDiagnostics("import", normalizedVersionReport)
+    };
+  }
+
+  const semanticReport = semanticReportForProject(normalized.value);
+  if (!semanticReport.valid) {
+    return {
+      ok: false,
+      project: normalized.value,
+      report: semanticReport,
+      diagnostics: toSemanticDiagnostics("import", semanticReport)
+    };
+  }
+
+  return {
+    ok: true,
+    project: normalized.value,
+    report: {
+      valid: true,
+      issues: []
+    },
+    diagnostics: []
+  };
+}
 
 function cloneMetrics(metrics: RuntimeMetrics): RuntimeMetrics {
   return {
@@ -210,35 +520,28 @@ export function createProject(templateId: string): GameProject {
 }
 
 export function loadProject(json: GameProject): LoadResult {
-  const schemaReport = validateGameProject(json);
-  if (!schemaReport.valid) {
-    return {
-      ok: false,
-      project: json,
-      report: schemaReport
-    };
-  }
+  return loadProjectInternal(json);
+}
 
-  const normalized = normalizeGameProjectSchemaVersion(json);
-  if (!normalized.ok) {
+export function importProjectFromJson(raw: string): LoadResult {
+  try {
+    const parsed = JSON.parse(raw) as unknown;
+    return loadProjectInternal(parsed);
+  } catch (error) {
+    const diagnostics = toParseDiagnostics(error);
     return {
       ok: false,
-      project: json,
+      project: null,
       report: {
         valid: false,
-        issues: normalized.issues
-      }
+        issues: diagnostics.map(({ path, message }) => ({
+          path,
+          message
+        }))
+      },
+      diagnostics
     };
   }
-
-  return {
-    ok: true,
-    project: normalized.value,
-    report: {
-      valid: true,
-      issues: []
-    }
-  };
 }
 
 export function applyOperation(project: GameProject, op: EditorOperation): OpResult {
@@ -271,6 +574,44 @@ export function exportPackage(project: GameProject): GamePackage {
     winCondition: {
       maxLeaks: Math.max(1, Math.floor(project.templatePayload.economy.startingGold / 20))
     }
+  };
+}
+
+export function exportPackageWithDiagnostics(project: GameProject): ExportDiagnosticsResult {
+  const pkg = exportPackage(project);
+  const schemaReport = validateGamePackage(pkg);
+  if (!schemaReport.valid) {
+    const normalizedSchemaReport = cloneIssuesWithPath(schemaReport, (issue) =>
+      normalizeExportSchemaIssuePath(issue)
+    );
+    return {
+      ok: false,
+      pkg,
+      report: normalizedSchemaReport,
+      diagnostics: toSchemaDiagnostics("export", normalizedSchemaReport)
+    };
+  }
+
+  const semanticReport = cloneIssuesWithPath(validateTowerDefensePackage(pkg), (issue) =>
+    normalizeSemanticIssuePath(issue)
+  );
+  if (!semanticReport.valid) {
+    return {
+      ok: false,
+      pkg,
+      report: semanticReport,
+      diagnostics: toSemanticDiagnostics("export", semanticReport)
+    };
+  }
+
+  return {
+    ok: true,
+    pkg,
+    report: {
+      valid: true,
+      issues: []
+    },
+    diagnostics: []
   };
 }
 
