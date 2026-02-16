@@ -71,7 +71,7 @@ both `--issue-id` and `--task-file`.
 1. Runtime boundary violations fail the loop.
 2. Contract file changes (`runtime/core`, `game/schemas`, `ai`) require docs updates.
 3. Milestone commit must include `Prompt-Refs` and full commit template sections.
-4. Memory finalize runs `tools/git-memory/finalize-task.sh` (which backfills missing commit summaries with `--missing`) and creates follow-up memory commit.
+4. Memory finalize runs `tools/git-memory/finalize-task.sh` and stages memory artifacts into the same milestone commit (single-commit mode for each subtask). In this mode, commit-log catches up to the previous HEAD and is refreshed again in following subtasks.
 
 ## Render contract note
 
@@ -86,4 +86,3 @@ both `--issue-id` and `--task-file`.
 - Run reports: `docs/ai/run-logs/YYYY-MM-DD/<timestamp>.json`
 - Commit memory: `docs/ai/commit-log/YYYY-MM.md`
 - Weekly context: `docs/ai/weekly-summary.md`
-- AI 状态看板（中文，提交后刷新）: `docs/ai/ai-loop-status.md`

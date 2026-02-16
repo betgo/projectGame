@@ -52,21 +52,6 @@ Prompt-Refs: ${config.promptRefs.join(",")}
 `;
 }
 
-function buildMemoryMessage(config: LoopConfig, subtask: Subtask): string {
-  return `docs(memory): finalize ${subtask.id} ${subtask.title}\n\nWhy:
-Finalize memory artifacts after milestone commit.
-What:
-- Updated memory artifacts via git-memory workflow and refreshed loop status.
-Impact:
-- Keeps AI context warm-start accurate for next loop.
-Risk:
-- Low.
-Test:
-bash tools/git-memory/finalize-task.sh
-Prompt-Refs: ${config.promptRefs.join(",")}
-`;
-}
-
 export function commitMilestone(
   cwd: string,
   config: LoopConfig,
@@ -91,19 +76,10 @@ export function commitMilestone(
   return captureCommand("git rev-parse --short HEAD", cwd);
 }
 
-export function finalizeMemoryCommit(
-  cwd: string,
-  config: LoopConfig,
-  subtask: Subtask,
-  extraFilesToStage: string[] = []
-): string | undefined {
+export function stageMemoryArtifacts(cwd: string): string[] {
   const finalize = runCommand("bash tools/git-memory/finalize-task.sh", cwd);
   if (!finalize.success) {
     throw new Error(`memory finalize failed: ${finalize.stderr || finalize.stdout}`);
-  }
-
-  for (const file of extraFilesToStage) {
-    runCommand(`git add ${file}`, cwd);
   }
 
   const staged = captureCommand("git diff --cached --name-only", cwd)
@@ -111,17 +87,5 @@ export function finalizeMemoryCommit(
     .map((line) => line.trim())
     .filter(Boolean);
 
-  if (staged.length === 0) {
-    return undefined;
-  }
-
-  const messagePath = writeCommitMessage(buildMemoryMessage(config, subtask));
-  const commit = runCommand(`git commit -F ${messagePath}`, cwd);
-  fs.unlinkSync(messagePath);
-
-  if (!commit.success) {
-    throw new Error(`memory commit failed: ${commit.stderr || commit.stdout}`);
-  }
-
-  return captureCommand("git rev-parse --short HEAD", cwd);
+  return staged;
 }

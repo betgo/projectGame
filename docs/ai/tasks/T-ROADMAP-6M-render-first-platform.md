@@ -117,7 +117,6 @@ Planned types:
 - Delivery granularity: `1 Issue = 1 PR`.
 - Subtask lifecycle: `S1 spec`, `S2 implementation`, `S3 test`, `S4 docs`, `S5 memory finalize`.
 - Milestone commits must include `Prompt-Refs`.
-- Post-commit status file must update: `docs/ai/ai-loop-status.md` (Chinese progress summary).
 
 ## Immediate Next Actions
 
