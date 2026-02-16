@@ -29,7 +29,7 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - [x] [S2] Performance baseline command and threshold contract are documented and reproducible.
 - [x] [S3] README and `docs/ai` release-flow contracts are aligned with build/run/test/release commands.
 - [x] [S4] Task completion requires passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` with recorded evidence.
-- [ ] Risk and rollback expectations are documented before implementation subtasks start.
+- [x] [S5] Risk and rollback expectations are documented before implementation subtasks start.
 
 ## Subtasks
 
@@ -37,7 +37,7 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - [x] [S2] Implement hardening changes and regression safeguards
 - [x] [S3] Sync README and AI governance docs for release handoff
 - [x] [S4] Run fast/full/docs gates and collect performance baseline evidence
-- [ ] [S5] Finalize memory and close task
+- [x] [S5] Risk and rollback expectations are documented before implementation subtasks start.
 
 ## Notes
 
@@ -50,6 +50,18 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - Normalized S1 to planning-only scope: no runtime/gameplay behavior changes are introduced in this subtask.
 - Defined measurable acceptance criteria for regression, performance baseline, docs consistency, and gate evidence.
 - Locked hardening boundaries and explicit out-of-scope items to prevent accidental feature creep in S2-S5.
+
+## Risk and Rollback Expectations (Pre-Implementation Baseline, 2026-02-16)
+
+- Baseline was recorded in planning before S2 implementation kickoff and remains the contract for all later subtasks.
+- Risk:
+  - Scope or acceptance criteria can drift from implementation intent, causing hardening subtasks to lose auditability.
+  - Semantic validator is stricter; packages with previously tolerated ID collisions or payload/entity drift now fail fast.
+  - Release-flow command docs can drift from package scripts if command contracts are edited without synchronized doc updates.
+- Rollback plan:
+  - Revert `docs/ai/tasks/T-012-hardening-and-docs.md` and `tests/integration/hardening-scope-doc-contract.test.ts` together.
+  - For S2 hardening rollback, revert `runtime/templates/tower-defense/validator.ts`, `runtime/core/engine.ts`, `ai/pipeline.ts`, `tests/schema/tower-defense-semantic.test.ts`, `tests/determinism/determinism.test.ts`, and `tests/smoke/ai-pipeline-hardening.test.ts` together.
+  - For S3 rollback, revert `README.md`, `docs/ai/README.md`, `docs/ai/workflows/continuous-loop.md`, and `tests/integration/release-flow-doc-contract.test.ts` together.
 
 ## S2 Implementation Notes (2026-02-16)
 
@@ -86,6 +98,8 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - `docs/ai/workflows/continuous-loop.md`: aligned workflow release-flow contract labels with runtime package scripts.
 - `tests/integration/release-flow-doc-contract.test.ts`: expanded release-flow contract checks and added README core-scripts alignment assertions.
 - `tests/integration/hardening-scope-doc-contract.test.ts`: added S4 closure assertions to require checked gate evidence and command coverage in the task card.
+- `docs/ai/tasks/T-012-hardening-and-docs.md`: documented S5 pre-implementation risk/rollback baseline and marked S5 acceptance/subtask completion.
+- `tests/integration/hardening-scope-doc-contract.test.ts`: added S5 contract assertions that enforce risk/rollback baseline ordering before S2 implementation notes.
 
 ## Test Evidence
 
@@ -104,22 +118,9 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - Result:
   - All commands pass.
 
-## Risks and Rollback
-
-- Risk:
-  - Scope or acceptance criteria can drift from implementation intent, causing hardening subtasks to lose auditability.
-  - Semantic validator is stricter; packages with previously tolerated ID collisions or payload/entity drift now fail fast.
-  - Release-flow command docs can drift from package scripts if command contracts are edited without synchronized doc updates.
-- Rollback plan:
-  - Revert `docs/ai/tasks/T-012-hardening-and-docs.md` and `tests/integration/hardening-scope-doc-contract.test.ts` together.
-  - For S2 hardening rollback, revert `runtime/templates/tower-defense/validator.ts`, `runtime/core/engine.ts`, `ai/pipeline.ts`, `tests/schema/tower-defense-semantic.test.ts`, `tests/determinism/determinism.test.ts`, and `tests/smoke/ai-pipeline-hardening.test.ts` together.
-  - For S3 rollback, revert `README.md`, `docs/ai/README.md`, `docs/ai/workflows/continuous-loop.md`, and `tests/integration/release-flow-doc-contract.test.ts` together.
+## Subtask Progress
+- [x] [S5] Risk and rollback expectations are documented before implementation subtasks start.
 
 
 ## Subtask Progress
-- [x] [S3] README and `docs/ai` release-flow contracts are aligned with build/run/test/release commands.
-- [x] [S4] Run fast/full/docs gates and collect performance baseline evidence.
-
-
-## Subtask Progress
-- [x] [S4] Task completion requires passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` with recorded evidence.
+- [x] [S5] Risk and rollback expectations are documented before implementation subtasks start.

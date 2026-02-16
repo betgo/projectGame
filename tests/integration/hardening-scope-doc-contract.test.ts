@@ -99,4 +99,40 @@ describe("T-012 hardening scope contract", () => {
     }
     expect(evidenceBody).toContain("pass");
   });
+
+  it("documents S5 risk and rollback baseline before implementation subtasks", () => {
+    const taskDoc = fs.readFileSync(taskPath, "utf-8");
+    const acceptanceCriteria = readSection("Acceptance Criteria", taskDoc)
+      .split("\n")
+      .map(normalizeMarkdownLine)
+      .filter((line) => line.startsWith("- ["));
+    const subtasks = readSection("Subtasks", taskDoc)
+      .split("\n")
+      .map(normalizeMarkdownLine)
+      .filter((line) => line.startsWith("- ["));
+    const riskBaseline = readSection("Risk and Rollback Expectations (Pre-Implementation Baseline, 2026-02-16)", taskDoc);
+    const riskBaselineIndex = taskDoc.indexOf("## Risk and Rollback Expectations (Pre-Implementation Baseline, 2026-02-16)");
+    const s2NotesIndex = taskDoc.indexOf("## S2 Implementation Notes (2026-02-16)");
+
+    expect(
+      acceptanceCriteria.some(
+        (line) =>
+          line.startsWith("- [x]") &&
+          line.includes("Risk and rollback expectations are documented before implementation subtasks start.")
+      )
+    ).toBe(true);
+    expect(
+      subtasks.some(
+        (line) =>
+          line.startsWith("- [x]") &&
+          line.includes("[S5] Risk and rollback expectations are documented before implementation subtasks start.")
+      )
+    ).toBe(true);
+    expect(riskBaseline).toContain("Baseline was recorded in planning before S2 implementation kickoff");
+    expect(riskBaseline).toContain("- Risk:");
+    expect(riskBaseline).toContain("- Rollback plan:");
+    expect(riskBaselineIndex).toBeGreaterThan(-1);
+    expect(s2NotesIndex).toBeGreaterThan(-1);
+    expect(riskBaselineIndex).toBeLessThan(s2NotesIndex);
+  });
 });
