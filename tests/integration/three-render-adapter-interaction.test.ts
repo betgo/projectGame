@@ -44,6 +44,7 @@ const threeMock = vi.hoisted(() => {
 
   class MockObject3D {
     children: MockObject3D[] = [];
+    visible = true;
     position = {
       set: (...coords: number[]) => {
         void coords;

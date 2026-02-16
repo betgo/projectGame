@@ -1,6 +1,7 @@
 declare module "three" {
   export class Object3D {
     children: Object3D[];
+    visible: boolean;
     position: { set(x: number, y: number, z: number): void };
   }
 

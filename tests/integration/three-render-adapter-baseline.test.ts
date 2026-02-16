@@ -44,6 +44,7 @@ const threeMock = vi.hoisted(() => {
 
   class MockObject3D {
     children: MockObject3D[] = [];
+    visible = true;
     position = {
       set: (...coords: number[]) => {
         void coords;
@@ -283,6 +284,10 @@ describe("three render adapter baseline", () => {
       towerLayer: InstanceType<typeof threeMock.MockGroup>;
       enemyLayer: InstanceType<typeof threeMock.MockGroup>;
       renderer: InstanceType<typeof threeMock.MockRenderer>;
+      mapGeometry: InstanceType<typeof threeMock.module.BoxGeometry>;
+      mapMaterials: {
+        empty: InstanceType<typeof threeMock.module.MeshStandardMaterial>;
+      };
     };
 
     expect(internals.mapLayer.children).toHaveLength(4);
@@ -291,6 +296,11 @@ describe("three render adapter baseline", () => {
     expect(internals.enemyLayer.children).toHaveLength(1);
     expect(internals.renderer.renderCalls).toBe(1);
     expect(snapshot).toEqual(snapshotBefore);
+    expect(adapter.getPerformanceStats()).toEqual({
+      allocations: { map: 4, path: 2, tower: 1, enemy: 1, total: 8 },
+      poolCapacity: { map: 4, path: 2, tower: 1, enemy: 1, total: 8 },
+      activeObjects: { map: 4, path: 2, tower: 1, enemy: 1, total: 8 }
+    });
 
     adapter.applySnapshot({
       ...snapshot,
@@ -304,11 +314,22 @@ describe("three render adapter baseline", () => {
       enemies: []
     });
 
-    expect(internals.mapLayer.children).toHaveLength(1);
-    expect(internals.pathLayer.children).toHaveLength(1);
-    expect(internals.towerLayer.children).toHaveLength(0);
-    expect(internals.enemyLayer.children).toHaveLength(0);
+    expect(internals.mapLayer.children).toHaveLength(4);
+    expect(internals.pathLayer.children).toHaveLength(2);
+    expect(internals.towerLayer.children).toHaveLength(1);
+    expect(internals.enemyLayer.children).toHaveLength(1);
+    expect(internals.mapLayer.children.filter((child) => child.visible)).toHaveLength(1);
+    expect(internals.pathLayer.children.filter((child) => child.visible)).toHaveLength(1);
+    expect(internals.towerLayer.children.filter((child) => child.visible)).toHaveLength(0);
+    expect(internals.enemyLayer.children.filter((child) => child.visible)).toHaveLength(0);
     expect(internals.renderer.renderCalls).toBe(2);
+    expect(internals.mapGeometry.disposed).toBe(false);
+    expect(internals.mapMaterials.empty.disposed).toBe(false);
+    expect(adapter.getPerformanceStats()).toEqual({
+      allocations: { map: 4, path: 2, tower: 1, enemy: 1, total: 8 },
+      poolCapacity: { map: 4, path: 2, tower: 1, enemy: 1, total: 8 },
+      activeObjects: { map: 1, path: 1, tower: 0, enemy: 0, total: 2 }
+    });
 
     const canvas = internals.renderer.domElement;
     expect(children).toContain(canvas);
@@ -317,5 +338,7 @@ describe("three render adapter baseline", () => {
 
     expect(children).not.toContain(canvas);
     expect(internals.renderer.disposed).toBe(true);
+    expect(internals.mapGeometry.disposed).toBe(true);
+    expect(internals.mapMaterials.empty.disposed).toBe(true);
   });
 });

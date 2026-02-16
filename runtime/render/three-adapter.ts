@@ -32,6 +32,7 @@ const CAMERA_ZOOM_SENSITIVITY = 0.015;
 const CAMERA_MIN_PAN_LIMIT = 4;
 
 type SelectionKind = "tower" | "enemy";
+type LayerKind = "map" | "path" | "tower" | "enemy";
 
 export type RenderSelection = {
   kind: SelectionKind;
@@ -61,6 +62,34 @@ type DragState = {
   lastClientX: number;
   lastClientY: number;
 };
+
+type LayerCounts = Record<LayerKind, number>;
+
+export type RenderAdapterLayerMetrics = LayerCounts & {
+  total: number;
+};
+
+export type RenderAdapterPerformanceStats = {
+  allocations: RenderAdapterLayerMetrics;
+  poolCapacity: RenderAdapterLayerMetrics;
+  activeObjects: RenderAdapterLayerMetrics;
+};
+
+function createLayerCounts(): LayerCounts {
+  return {
+    map: 0,
+    path: 0,
+    tower: 0,
+    enemy: 0
+  };
+}
+
+function withTotal(counts: LayerCounts): RenderAdapterLayerMetrics {
+  return {
+    ...counts,
+    total: counts.map + counts.path + counts.tower + counts.enemy
+  };
+}
 
 function toWorldX(gridX: number, width: number): number {
   return gridX - width / 2 + 0.5;
@@ -120,8 +149,20 @@ export class ThreeRenderAdapter {
   private readonly pathLayer: THREE.Group;
   private readonly towerLayer: THREE.Group;
   private readonly enemyLayer: THREE.Group;
+  private readonly mapGeometry: THREE.BoxGeometry;
+  private readonly pathGeometry: THREE.BoxGeometry;
+  private readonly towerGeometry: THREE.CylinderGeometry;
+  private readonly enemyGeometry: THREE.SphereGeometry;
+  private readonly mapMaterials: Record<MapPlaceholder["kind"], THREE.MeshStandardMaterial>;
+  private readonly pathMaterial: THREE.MeshStandardMaterial;
   private readonly raycaster: THREE.Raycaster;
   private readonly pointerNdc: THREE.Vector2;
+  private readonly mapPool: THREE.Mesh[] = [];
+  private readonly pathPool: THREE.Mesh[] = [];
+  private readonly towerPool: THREE.Mesh[] = [];
+  private readonly enemyPool: THREE.Mesh[] = [];
+  private readonly allocationCounts: LayerCounts = createLayerCounts();
+  private readonly activeCounts: LayerCounts = createLayerCounts();
   private readonly cameraState: CameraState = {
     yaw: DEFAULT_CAMERA_YAW,
     pitch: DEFAULT_CAMERA_PITCH,
@@ -163,6 +204,17 @@ export class ThreeRenderAdapter {
     this.enemyLayer = new THREE.Group();
     this.scene.add(this.mapLayer, this.pathLayer, this.towerLayer, this.enemyLayer);
 
+    this.mapGeometry = new THREE.BoxGeometry(MAP_CELL_SIZE, MAP_CELL_HEIGHT, MAP_CELL_SIZE);
+    this.pathGeometry = new THREE.BoxGeometry(0.35, 0.08, 0.35);
+    this.towerGeometry = new THREE.CylinderGeometry(0.24, 0.34, 0.8, 12);
+    this.enemyGeometry = new THREE.SphereGeometry(0.22, 12, 12);
+    this.mapMaterials = {
+      empty: new THREE.MeshStandardMaterial({ color: MAP_CELL_COLORS.empty }),
+      path: new THREE.MeshStandardMaterial({ color: MAP_CELL_COLORS.path }),
+      tower: new THREE.MeshStandardMaterial({ color: MAP_CELL_COLORS.tower })
+    };
+    this.pathMaterial = new THREE.MeshStandardMaterial({ color: PATH_COLOR });
+
     this.raycaster = new THREE.Raycaster();
     this.pointerNdc = new THREE.Vector2(0, 0);
 
@@ -184,23 +236,10 @@ export class ThreeRenderAdapter {
 
     const previousSelection = this.currentSelection;
     this.selectableObjects.length = 0;
-
-    this.replaceLayer(
-      this.mapLayer,
-      frame.map.map((cell) => this.createMapCellMesh(cell, frame.width, frame.height))
-    );
-    this.replaceLayer(
-      this.pathLayer,
-      frame.path.map((pathNode) => this.createPathNodeMesh(pathNode, frame.width, frame.height))
-    );
-    this.replaceLayer(
-      this.towerLayer,
-      frame.towers.map((tower) => this.createTowerMesh(tower, frame.width, frame.height))
-    );
-    this.replaceLayer(
-      this.enemyLayer,
-      frame.enemies.map((enemy) => this.createEnemyMesh(enemy, frame.width, frame.height))
-    );
+    this.syncMapLayer(frame.map, frame.width, frame.height);
+    this.syncPathLayer(frame.path, frame.width, frame.height);
+    this.syncTowerLayer(frame.towers, frame.width, frame.height);
+    this.syncEnemyLayer(frame.enemies, frame.width, frame.height);
 
     if (previousSelection && this.selectableContains(previousSelection)) {
       this.applySelectionColor(previousSelection);
@@ -215,11 +254,33 @@ export class ThreeRenderAdapter {
     this.unbindInteractionEvents();
     this.unbindResizeEvents();
     this.selectableObjects.length = 0;
+    this.currentSelection = null;
 
-    this.clearLayer(this.mapLayer);
-    this.clearLayer(this.pathLayer);
-    this.clearLayer(this.towerLayer);
-    this.clearLayer(this.enemyLayer);
+    for (const mesh of this.towerPool) {
+      disposeMaterial((mesh as { material?: unknown }).material);
+    }
+    for (const mesh of this.enemyPool) {
+      disposeMaterial((mesh as { material?: unknown }).material);
+    }
+
+    this.towerPool.length = 0;
+    this.enemyPool.length = 0;
+    this.mapPool.length = 0;
+    this.pathPool.length = 0;
+
+    this.mapGeometry.dispose();
+    this.pathGeometry.dispose();
+    this.towerGeometry.dispose();
+    this.enemyGeometry.dispose();
+    disposeMaterial(this.mapMaterials.empty);
+    disposeMaterial(this.mapMaterials.path);
+    disposeMaterial(this.mapMaterials.tower);
+    disposeMaterial(this.pathMaterial);
+
+    this.detachLayerChildren(this.mapLayer);
+    this.detachLayerChildren(this.pathLayer);
+    this.detachLayerChildren(this.towerLayer);
+    this.detachLayerChildren(this.enemyLayer);
     this.renderer.dispose();
 
     if (this.container.contains(this.renderer.domElement)) {
@@ -227,77 +288,124 @@ export class ThreeRenderAdapter {
     }
   }
 
-  private createMapCellMesh(cell: MapPlaceholder, width: number, height: number): THREE.Mesh {
-    const mesh = new THREE.Mesh(
-      new THREE.BoxGeometry(MAP_CELL_SIZE, MAP_CELL_HEIGHT, MAP_CELL_SIZE),
-      new THREE.MeshStandardMaterial({ color: MAP_CELL_COLORS[cell.kind] })
-    );
-    mesh.position.set(toWorldX(cell.x, width), 0, toWorldZ(cell.y, height));
-    return mesh;
+  getPerformanceStats(): RenderAdapterPerformanceStats {
+    const poolCapacity: LayerCounts = {
+      map: this.mapPool.length,
+      path: this.pathPool.length,
+      tower: this.towerPool.length,
+      enemy: this.enemyPool.length
+    };
+    return {
+      allocations: withTotal(this.allocationCounts),
+      poolCapacity: withTotal(poolCapacity),
+      activeObjects: withTotal(this.activeCounts)
+    };
   }
 
-  private createPathNodeMesh(pathNode: PathPlaceholder, width: number, height: number): THREE.Mesh {
-    const mesh = new THREE.Mesh(
-      new THREE.BoxGeometry(0.35, 0.08, 0.35),
-      new THREE.MeshStandardMaterial({ color: PATH_COLOR })
+  private syncMapLayer(cells: MapPlaceholder[], width: number, height: number): void {
+    this.activeCounts.map = cells.length;
+    this.ensurePool(this.mapPool, this.mapLayer, cells.length, "map", () =>
+      new THREE.Mesh(this.mapGeometry, this.mapMaterials.empty)
     );
-    mesh.position.set(
-      toWorldX(pathNode.x, width),
-      0.12 + pathNode.order * 0.0001,
-      toWorldZ(pathNode.y, height)
-    );
-    return mesh;
-  }
+    this.applyLayerVisibility(this.mapPool, cells.length);
 
-  private createTowerMesh(tower: TowerPlaceholder, width: number, height: number): THREE.Mesh {
-    const mesh = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.24, 0.34, 0.8, 12),
-      new THREE.MeshStandardMaterial({ color: TOWER_COLOR })
-    );
-    mesh.position.set(toWorldX(tower.x, width), 0.45, toWorldZ(tower.y, height));
-    this.registerSelectable(mesh, {
-      kind: "tower",
-      id: tower.id,
-      baseColor: TOWER_COLOR,
-      highlightColor: TOWER_HIGHLIGHT_COLOR
-    });
-    return mesh;
-  }
-
-  private createEnemyMesh(enemy: EnemyPlaceholder, width: number, height: number): THREE.Mesh {
-    const mesh = new THREE.Mesh(
-      new THREE.SphereGeometry(0.22, 12, 12),
-      new THREE.MeshStandardMaterial({ color: ENEMY_COLOR })
-    );
-    mesh.position.set(toWorldX(enemy.x, width), 0.24, toWorldZ(enemy.y, height));
-    this.registerSelectable(mesh, {
-      kind: "enemy",
-      id: enemy.id,
-      baseColor: ENEMY_COLOR,
-      highlightColor: ENEMY_HIGHLIGHT_COLOR
-    });
-    return mesh;
-  }
-
-  private replaceLayer(layer: THREE.Group, objects: THREE.Object3D[]): void {
-    this.clearLayer(layer);
-    for (const object of objects) {
-      layer.add(object);
+    for (let index = 0; index < cells.length; index += 1) {
+      const cell = cells[index];
+      const mesh = this.mapPool[index];
+      mesh.position.set(toWorldX(cell.x, width), 0, toWorldZ(cell.y, height));
+      (mesh as { material: unknown }).material = this.mapMaterials[cell.kind];
     }
   }
 
-  private clearLayer(layer: THREE.Group): void {
+  private syncPathLayer(pathNodes: PathPlaceholder[], width: number, height: number): void {
+    this.activeCounts.path = pathNodes.length;
+    this.ensurePool(this.pathPool, this.pathLayer, pathNodes.length, "path", () =>
+      new THREE.Mesh(this.pathGeometry, this.pathMaterial)
+    );
+    this.applyLayerVisibility(this.pathPool, pathNodes.length);
+
+    for (let index = 0; index < pathNodes.length; index += 1) {
+      const pathNode = pathNodes[index];
+      const mesh = this.pathPool[index];
+      mesh.position.set(
+        toWorldX(pathNode.x, width),
+        0.12 + pathNode.order * 0.0001,
+        toWorldZ(pathNode.y, height)
+      );
+      (mesh as { material: unknown }).material = this.pathMaterial;
+    }
+  }
+
+  private syncTowerLayer(towers: TowerPlaceholder[], width: number, height: number): void {
+    this.activeCounts.tower = towers.length;
+    this.ensurePool(this.towerPool, this.towerLayer, towers.length, "tower", () =>
+      new THREE.Mesh(this.towerGeometry, new THREE.MeshStandardMaterial({ color: TOWER_COLOR }))
+    );
+    this.applyLayerVisibility(this.towerPool, towers.length);
+
+    for (let index = 0; index < towers.length; index += 1) {
+      const tower = towers[index];
+      const mesh = this.towerPool[index];
+      mesh.position.set(toWorldX(tower.x, width), 0.45, toWorldZ(tower.y, height));
+
+      const material = (mesh as { material: THREE.MeshStandardMaterial }).material;
+      material.color.setHex(TOWER_COLOR);
+      this.registerSelectable(mesh, {
+        kind: "tower",
+        id: tower.id,
+        baseColor: TOWER_COLOR,
+        highlightColor: TOWER_HIGHLIGHT_COLOR
+      });
+    }
+  }
+
+  private syncEnemyLayer(enemies: EnemyPlaceholder[], width: number, height: number): void {
+    this.activeCounts.enemy = enemies.length;
+    this.ensurePool(this.enemyPool, this.enemyLayer, enemies.length, "enemy", () =>
+      new THREE.Mesh(this.enemyGeometry, new THREE.MeshStandardMaterial({ color: ENEMY_COLOR }))
+    );
+    this.applyLayerVisibility(this.enemyPool, enemies.length);
+
+    for (let index = 0; index < enemies.length; index += 1) {
+      const enemy = enemies[index];
+      const mesh = this.enemyPool[index];
+      mesh.position.set(toWorldX(enemy.x, width), 0.24, toWorldZ(enemy.y, height));
+
+      const material = (mesh as { material: THREE.MeshStandardMaterial }).material;
+      material.color.setHex(ENEMY_COLOR);
+      this.registerSelectable(mesh, {
+        kind: "enemy",
+        id: enemy.id,
+        baseColor: ENEMY_COLOR,
+        highlightColor: ENEMY_HIGHLIGHT_COLOR
+      });
+    }
+  }
+
+  private ensurePool(
+    pool: THREE.Mesh[],
+    layer: THREE.Group,
+    required: number,
+    kind: LayerKind,
+    create: () => THREE.Mesh
+  ): void {
+    while (pool.length < required) {
+      const mesh = create();
+      layer.add(mesh);
+      pool.push(mesh);
+      this.allocationCounts[kind] += 1;
+    }
+  }
+
+  private applyLayerVisibility(pool: THREE.Mesh[], visibleCount: number): void {
+    for (let index = 0; index < pool.length; index += 1) {
+      (pool[index] as { visible: boolean }).visible = index < visibleCount;
+    }
+  }
+
+  private detachLayerChildren(layer: THREE.Group): void {
     for (const child of [...layer.children]) {
       layer.remove(child);
-      const mesh = child as {
-        geometry?: { dispose?: () => void };
-        material?: unknown;
-      };
-
-      if (mesh.geometry && typeof mesh.geometry.dispose === "function") {
-        mesh.geometry.dispose();
-      }
-      disposeMaterial(mesh.material);
     }
   }
 

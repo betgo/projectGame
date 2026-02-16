@@ -14,6 +14,7 @@
     "test:smoke-ai-package": "vitest run tests/smoke",
     "simulate:scenario": "node --import tsx tools/simulate/run-scenario.ts",
     "simulate:batch": "node --import tsx tools/simulate/run-batch.ts",
+    "simulate:render-baseline": "node --import tsx tools/simulate/run-render-baseline.ts",
     "memory:install": "bash tools/git-memory/install.sh",
     "task:next": "node --import tsx tools/git-memory/task-next.ts",
     "gate:fast": "pnpm typecheck && pnpm test:determinism && pnpm test:schema",
