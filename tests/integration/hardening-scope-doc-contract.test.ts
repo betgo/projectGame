@@ -97,6 +97,11 @@ describe("T-012 hardening scope contract", () => {
     for (const command of ["`pnpm gate:fast`", "`pnpm gate:full`", "`pnpm docs:sync-check`"]) {
       expect(evidenceBody).toContain(command);
     }
+    expect(evidenceBody).toContain("`pnpm simulate:batch game/examples/td-normal.json 100 --max-imbalance=0.6000`");
+    expect(evidenceBody).toContain(
+      "`sampleSize=100 winRate=0.0000 avgDuration=5400 leakRate=4.0000 imbalanceIndex=0.5800`"
+    );
+    expect(evidenceBody).toContain("`0.5800 <= 0.6000`");
     expect(evidenceBody).toContain("pass");
   });
 

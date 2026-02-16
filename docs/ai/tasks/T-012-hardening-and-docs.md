@@ -79,9 +79,12 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 ## S4 Gate Evidence (2026-02-16)
 
 - Executed `pnpm gate:fast` and confirmed `typecheck`, `test:determinism`, and `test:schema` all pass.
-- Executed `pnpm gate:full` and confirmed `lint`, full `test`, and replayed determinism/schema/smoke suites all pass (15 files, 47 tests in full suite).
+- Executed `pnpm gate:full` and confirmed `lint`, full `test`, and replayed determinism/schema/smoke suites all pass (15 files, 50 tests in full suite).
 - Executed `pnpm docs:sync-check` and confirmed output `docs-sync-check: pass`.
-- Recorded S4 evidence in-task without widening architecture scope or touching runtime/gameplay contracts.
+- Executed performance baseline command `pnpm simulate:batch game/examples/td-normal.json 100 --max-imbalance=0.6000`.
+- Baseline output: `sampleSize=100 winRate=0.0000 avgDuration=5400 leakRate=4.0000 imbalanceIndex=0.5800`.
+- Verified threshold contract: `imbalanceIndex` stays within baseline guard (`0.5800 <= 0.6000`).
+- Recorded S4 gate and baseline evidence in-task without widening architecture scope or touching runtime/gameplay contracts.
 
 ## Change List
 
@@ -107,6 +110,7 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
   - `pnpm gate:fast`
   - `pnpm gate:full`
   - `pnpm docs:sync-check`
+  - `pnpm simulate:batch game/examples/td-normal.json 100 --max-imbalance=0.6000`
   - `pnpm exec eslint tests/integration/hardening-scope-doc-contract.test.ts`
   - `pnpm exec vitest run tests/integration/hardening-scope-doc-contract.test.ts`
   - `pnpm exec eslint runtime/templates/tower-defense/validator.ts runtime/core/engine.ts ai/pipeline.ts tests/schema/tower-defense-semantic.test.ts tests/determinism/determinism.test.ts tests/smoke/ai-pipeline-hardening.test.ts`
@@ -127,3 +131,7 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 
 ## Subtask Progress
 - [x] [S3] Sync README and AI governance docs for release handoff
+
+
+## Subtask Progress
+- [x] [S4] Run fast/full/docs gates and collect performance baseline evidence
