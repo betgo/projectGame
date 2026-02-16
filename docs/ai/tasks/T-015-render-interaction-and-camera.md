@@ -14,33 +14,64 @@ Improve render interaction layer with camera controls, resize handling, and enti
 ## Scope
 
 - In scope:
-  - Add camera pan/zoom/orbit defaults for editor preview usability.
-  - Handle container resize and selection highlight behavior.
+  - Define camera interaction contract for editor preview, including orbit/pan/zoom defaults, deterministic clamp ranges, and input mapping expectations.
+  - Define resize-handling contract for preview container lifecycle (`mount -> resize -> dispose`) so renderer size/aspect updates remain stable.
+  - Define selection affordance contract for tower/enemy placeholders, including highlight entry/exit behavior and non-selected fallback state.
+  - Define regression and documentation coverage expectations for interaction + camera behavior without crossing runtime architecture boundaries.
+  - Keep implementation boundaries inside `runtime/render` and editor preview integration (`editor/src/editor/components`) only; do not mutate `runtime/core` simulation state.
 - Out of scope:
-  - Complex cinematic camera system.
+  - Cinematic camera rails, keyframe animation tracks, and advanced scene-directing workflows.
+  - Render performance baseline/profiling thresholds (covered by `T-016`).
+  - Debug overlay or runtime diagnostics UI additions (covered by `T-017`).
+  - Inspector form UX redesign or editing workflow polish unrelated to camera/selection behavior (covered by `T-018`).
 
 ## Acceptance Criteria
 
-1. Camera interactions are smooth and deterministic enough for editing.
-2. Resize does not break aspect ratio or crash renderer.
-3. Selection feedback works for tower/enemy placeholders.
+- [x] [S1] Scope and acceptance contract explicitly defines camera interaction boundaries, resize lifecycle expectations, selection affordance behavior, and out-of-scope constraints for `T-015`.
+- [ ] [S2] Camera defaults (orbit/pan/zoom) are implemented with deterministic clamp behavior and remain isolated to preview render layer + editor integration points.
+- [ ] [S3] Regression tests cover camera interaction mapping, resize stability, and selection highlight behavior for tower/enemy placeholders.
+- [ ] [S4] Contract-level changes update `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` in the same loop, with task risk/rollback notes synchronized.
+- [ ] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory-finalize artifacts.
 
 ## Subtasks
 
-- [ ] [S1] Define scope and acceptance criteria
+- [x] [S1] Define scope and acceptance criteria
 - [ ] [S2] Implement scoped code changes
 - [ ] [S3] Pass fast and full gates
 - [ ] [S4] Update docs and risk notes
 - [ ] [S5] Milestone commit and memory finalize
 
+## S1 Implementation Notes (2026-02-16)
+
+- Locked `T-015` planning scope to camera interaction, resize lifecycle, and selection affordance contracts only.
+- Added measurable acceptance checklist aligned with `S1-S5` execution flow so later subtasks can close criteria deterministically.
+- Captured explicit architecture boundary: no `runtime/core` gameplay mutation responsibilities move into render/editor layers.
+
 ## Change List
+
+- `docs/ai/tasks/T-015-render-interaction-and-camera.md`: refined S1 scope boundaries and measurable acceptance criteria.
+- `tests/integration/render-interaction-camera-scope-doc-contract.test.ts`: added S1 doc-contract regression checks for `T-015`.
 
 ## Test Evidence
 
 - Commands:
+  - `pnpm exec eslint tests/integration/render-interaction-camera-scope-doc-contract.test.ts`
+  - `pnpm exec vitest run tests/integration/render-interaction-camera-scope-doc-contract.test.ts`
+  - `pnpm docs:sync-check`
 - Result:
+  - `pnpm exec eslint tests/integration/render-interaction-camera-scope-doc-contract.test.ts` pass.
+  - `pnpm exec vitest run tests/integration/render-interaction-camera-scope-doc-contract.test.ts` pass.
+  - `pnpm docs:sync-check` pass.
 
 ## Risks and Rollback
 
 - Risk:
+  - Scope drift may mix interaction/camera delivery with performance/debug-overlay/inspector work planned in later tasks.
+  - Camera input handling may leak into `runtime/core` if architecture boundaries are not enforced during S2 implementation.
+  - Selection highlight expectations may diverge between docs and tests if contract text changes without synchronized assertions.
 - Rollback:
+  - Revert `docs/ai/tasks/T-015-render-interaction-and-camera.md` and `tests/integration/render-interaction-camera-scope-doc-contract.test.ts` together.
+
+
+## Subtask Progress
+- [x] [S1] Define scope and acceptance criteria
