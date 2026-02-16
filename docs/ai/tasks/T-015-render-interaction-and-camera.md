@@ -1,6 +1,6 @@
 # T-015: render-interaction-and-camera
 
-- Status: Planned
+- Status: Done
 - Owner: maintainer
 - Branch: `main`
 - Prompt-Plan: `ARCHITECT_v1`, `PLANNER_v1`
@@ -31,7 +31,7 @@ Improve render interaction layer with camera controls, resize handling, and enti
 - [x] [S2] Camera defaults (orbit/pan/zoom) are implemented with deterministic clamp behavior and remain isolated to preview render layer + editor integration points.
 - [x] [S3] Regression tests cover camera interaction mapping, resize stability, and selection highlight behavior for tower/enemy placeholders.
 - [x] [S4] Contract-level changes update `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` in the same loop, with task risk/rollback notes synchronized.
-- [ ] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory-finalize artifacts.
+- [x] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory-finalize artifacts.
 
 ## Subtasks
 
@@ -39,7 +39,7 @@ Improve render interaction layer with camera controls, resize handling, and enti
 - [x] [S2] Implement scoped code changes
 - [x] [S3] Pass fast and full gates
 - [x] [S4] Update docs and risk notes
-- [ ] [S5] Milestone commit and memory finalize
+- [x] [S5] Milestone commit and memory finalize
 
 ## S1 Implementation Notes (2026-02-16)
 
@@ -66,6 +66,14 @@ Improve render interaction layer with camera controls, resize handling, and enti
 - Re-validated architecture boundary wording in those docs: `runtime/render` remains read-only and must not mutate `runtime/core` simulation state.
 - Expanded task-level risk and rollback notes to include documentation drift risks and explicit rollback scope for the three synchronized docs plus this task doc-contract test.
 
+## S5 Memory Finalization and Task Closure (2026-02-16)
+
+- Re-ran closure gates and confirmed pass evidence remains complete for `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check`.
+- Ran memory refresh commands `bash tools/git-memory/append-commit-log.sh --missing HEAD` and `bash tools/git-memory/update-weekly-summary.sh`; backfilled missing memory entry `683a5a2` into `docs/ai/commit-log/2026-02.md`, regenerated `docs/ai/weekly-summary.md`, then rechecked `--missing` to confirm `No missing commits to append.`.
+- Updated `docs/ai/ai-loop-status.md` to S5 closure handoff state with no remaining subtasks and explicit next-step command `pnpm task:next`.
+- Closed task metadata by setting status to `Done` and marking S5 acceptance/subtask checkboxes complete.
+- Kept S5 closure scope to docs/tests/memory verification only; no runtime/render contract files were changed in this step.
+
 ## Change List
 
 - `docs/ai/tasks/T-015-render-interaction-and-camera.md`: refined S1 scope boundaries and measurable acceptance criteria.
@@ -80,6 +88,10 @@ Improve render interaction layer with camera controls, resize handling, and enti
 - `docs/ai/README.md`: synchronized render interaction contract wording and architecture boundary guarantees with `README.md`.
 - `docs/ai/workflows/continuous-loop.md`: synchronized render interaction contract wording for loop-level handoff governance.
 - `tests/integration/render-interaction-camera-scope-doc-contract.test.ts`: extended assertions for S4 docs sync completion and risk/rollback synchronization.
+- `docs/ai/ai-loop-status.md`: updated loop board to S5 closure handoff state with no remaining subtasks.
+- `docs/ai/commit-log/2026-02.md`: backfilled missing prompt-tracked memory commit entry during S5 finalize flow.
+- `docs/ai/weekly-summary.md`: regenerated weekly summary after commit-log refresh.
+- `tests/integration/render-interaction-camera-scope-doc-contract.test.ts`: advanced assertions for S5 closure evidence, task status finalization, and loop-status handoff expectations.
 
 ## Test Evidence
 
@@ -100,6 +112,14 @@ Improve render interaction layer with camera controls, resize handling, and enti
   - `pnpm exec vitest run tests/integration/render-interaction-camera-scope-doc-contract.test.ts`
   - `pnpm exec vitest run tests/integration/release-flow-doc-contract.test.ts`
   - `pnpm docs:sync-check`
+- S5 commands:
+  - `pnpm gate:fast`
+  - `pnpm gate:full`
+  - `pnpm docs:sync-check`
+  - `bash tools/git-memory/append-commit-log.sh --missing HEAD`
+  - `bash tools/git-memory/update-weekly-summary.sh`
+  - `pnpm exec eslint tests/integration/render-interaction-camera-scope-doc-contract.test.ts`
+  - `pnpm exec vitest run tests/integration/render-interaction-camera-scope-doc-contract.test.ts`
 - Result:
   - `pnpm exec eslint tests/integration/render-interaction-camera-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/render-interaction-camera-scope-doc-contract.test.ts` pass.
@@ -114,6 +134,14 @@ Improve render interaction layer with camera controls, resize handling, and enti
   - `pnpm exec vitest run tests/integration/render-interaction-camera-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/release-flow-doc-contract.test.ts` pass.
   - `pnpm docs:sync-check` pass.
+  - `pnpm gate:fast` pass (`typecheck`, `test:determinism`, `test:schema`).
+  - `pnpm gate:full` pass (`lint`, `test`, `test:determinism`, `test:schema`, `test:smoke-ai-package`).
+  - `pnpm docs:sync-check` pass.
+  - `bash tools/git-memory/append-commit-log.sh --missing HEAD` pass (`Appended commit summary to docs/ai/commit-log/2026-02.md: 683a5a2`).
+  - `bash tools/git-memory/update-weekly-summary.sh` pass.
+  - `bash tools/git-memory/append-commit-log.sh --missing HEAD` pass (`No missing commits to append.` on recheck after backfill).
+  - `pnpm exec eslint tests/integration/render-interaction-camera-scope-doc-contract.test.ts` pass.
+  - `pnpm exec vitest run tests/integration/render-interaction-camera-scope-doc-contract.test.ts` pass.
 
 ## Risks and Rollback
 
@@ -124,7 +152,7 @@ Improve render interaction layer with camera controls, resize handling, and enti
   - Selection highlight expectations may diverge between docs and tests if contract text changes without synchronized assertions.
   - Render interaction docs may drift across `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md`, causing handoff contract ambiguity.
 - Rollback:
-  - Revert `runtime/render/three-adapter.ts`, `runtime/render/three.d.ts`, `editor/src/editor/components/PreviewControls.tsx`, `tests/integration/three-render-adapter-baseline.test.ts`, `tests/integration/three-render-adapter-interaction.test.ts`, `README.md`, `docs/ai/README.md`, `docs/ai/workflows/continuous-loop.md`, `docs/ai/tasks/T-015-render-interaction-and-camera.md`, and `tests/integration/render-interaction-camera-scope-doc-contract.test.ts` together.
+  - Revert `runtime/render/three-adapter.ts`, `runtime/render/three.d.ts`, `editor/src/editor/components/PreviewControls.tsx`, `tests/integration/three-render-adapter-baseline.test.ts`, `tests/integration/three-render-adapter-interaction.test.ts`, `README.md`, `docs/ai/README.md`, `docs/ai/workflows/continuous-loop.md`, `docs/ai/tasks/T-015-render-interaction-and-camera.md`, `docs/ai/ai-loop-status.md`, `docs/ai/commit-log/2026-02.md`, `docs/ai/weekly-summary.md`, and `tests/integration/render-interaction-camera-scope-doc-contract.test.ts` together.
 
 ## Subtask Progress
 
@@ -132,8 +160,8 @@ Improve render interaction layer with camera controls, resize handling, and enti
 - [x] [S2] Implement scoped code changes
 - [x] [S3] Pass fast and full gates
 - [x] [S4] Update docs and risk notes
-- [ ] [S5] Milestone commit and memory finalize
+- [x] [S5] Milestone commit and memory finalize
 
 
 ## Subtask Progress
-- [x] [S4] Update docs and risk notes
+- [x] [S5] Milestone commit and memory finalize

@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 
 const projectRoot = path.resolve(fileURLToPath(new URL("../..", import.meta.url)));
 const taskPath = path.join(projectRoot, "docs/ai/tasks/T-015-render-interaction-and-camera.md");
+const loopStatusPath = path.join(projectRoot, "docs/ai/ai-loop-status.md");
 const renderContractDocPaths = [
   "README.md",
   "docs/ai/README.md",
@@ -26,7 +27,7 @@ function normalizeMarkdownLine(value: string): string {
   return value.trim().replace(/\s+/g, " ");
 }
 
-describe("T-015 render-interaction-and-camera S4 doc contract", () => {
+describe("T-015 render-interaction-and-camera S5 closure contract", () => {
   it("defines scope boundaries for camera interaction, resize lifecycle, and selection affordance", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const scope = readSection("Scope", taskDoc);
@@ -71,27 +72,30 @@ describe("T-015 render-interaction-and-camera S4 doc contract", () => {
       expect(acceptanceCriteria.some((line) => line.endsWith(criterion))).toBe(true);
     }
 
-    for (const line of acceptanceCriteria.slice(0, 4)) {
+    for (const line of acceptanceCriteria) {
       expect(line.startsWith("- [x]")).toBe(true);
     }
-    expect(acceptanceCriteria[4].startsWith("- [ ]")).toBe(true);
   });
 
-  it("marks S1-S4 complete while keeping S5 pending with gate evidence retained", () => {
+  it("marks S1-S5 complete while retaining gate evidence sections", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const subtasks = readSection("Subtasks", taskDoc)
       .split("\n")
       .map(normalizeMarkdownLine)
       .filter((line) => line.startsWith("- ["));
     const s3Notes = readSection("S3 Implementation Notes (2026-02-16)", taskDoc);
+    const s5Closure = readSection("S5 Memory Finalization and Task Closure (2026-02-16)", taskDoc);
 
     expect(subtasks).toContain("- [x] [S1] Define scope and acceptance criteria");
     expect(subtasks).toContain("- [x] [S2] Implement scoped code changes");
     expect(subtasks).toContain("- [x] [S3] Pass fast and full gates");
     expect(subtasks).toContain("- [x] [S4] Update docs and risk notes");
-    expect(subtasks).toContain("- [ ] [S5] Milestone commit and memory finalize");
+    expect(subtasks).toContain("- [x] [S5] Milestone commit and memory finalize");
     expect(s3Notes).toContain("`pnpm gate:fast`");
     expect(s3Notes).toContain("`pnpm gate:full`");
+    expect(s5Closure).toContain("`pnpm gate:fast`");
+    expect(s5Closure).toContain("`pnpm gate:full`");
+    expect(s5Closure).toContain("`pnpm docs:sync-check`");
   });
 
   it("synchronizes docs and risk notes for S4 without breaking architecture boundaries", () => {
@@ -133,5 +137,27 @@ describe("T-015 render-interaction-and-camera S4 doc contract", () => {
     expect(changeList).toContain("`runtime/render/three-adapter.ts`");
     expect(changeList).toContain("`editor/src/editor/components/PreviewControls.tsx`");
     expect(changeList).toContain("`tests/integration/three-render-adapter-interaction.test.ts`");
+  });
+
+  it("closes S5 with memory-finalize evidence and status handoff updates", () => {
+    const taskDoc = fs.readFileSync(taskPath, "utf-8");
+    const loopStatus = fs.readFileSync(loopStatusPath, "utf-8");
+    const statusMatch = taskDoc.match(/^- Status:\s*(.+)$/m);
+    const s5Closure = readSection("S5 Memory Finalization and Task Closure (2026-02-16)", taskDoc);
+
+    expect(statusMatch?.[1].trim()).toBe("Done");
+    expect(s5Closure).toContain("`bash tools/git-memory/append-commit-log.sh --missing HEAD`");
+    expect(s5Closure).toContain("`bash tools/git-memory/update-weekly-summary.sh`");
+    expect(s5Closure).toContain("`docs/ai/commit-log/2026-02.md`");
+    expect(s5Closure).toContain("`docs/ai/weekly-summary.md`");
+    expect(s5Closure).toContain("No missing commits to append.");
+    expect(s5Closure).toContain("`docs/ai/ai-loop-status.md`");
+    expect(s5Closure).toContain("status to `Done`");
+    expect(s5Closure).toContain("no runtime/render contract files were changed");
+
+    expect(loopStatus).toContain("- 当前阶段: 子任务收口完成");
+    expect(loopStatus).toContain("- 当前子任务: [S5] Milestone commit and memory finalize");
+    expect(loopStatus).toContain("- 下一个子任务: 无");
+    expect(loopStatus).toContain("`pnpm task:next`");
   });
 });
