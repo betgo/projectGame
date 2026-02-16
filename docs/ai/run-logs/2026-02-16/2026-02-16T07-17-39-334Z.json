@@ -1,0 +1,225 @@
+{
+  "status": "success",
+  "startedAt": "2026-02-16T07:16:51.968Z",
+  "endedAt": "2026-02-16T07:17:39.334Z",
+  "issueId": "11",
+  "branch": "main",
+  "taskFile": "/Users/wxx/Desktop/code/projectA/docs/ai/tasks/T-011-ci-gates-and-pr-template.md",
+  "gateSummary": {
+    "fast": [
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 3098,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/batch.test.ts (5 tests) 15ms\n ✓ tests/determinism/determinism.test.ts (1 test) 16ms\n\n Test Files  2 passed (2)\n      Tests  6 passed (6)\n   Start at  15:16:53\n   Duration  496ms (transform 58ms, setup 0ms, collect 229ms, tests 31ms, environment 0ms, prepare 115ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 14ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  15:16:54\n   Duration  430ms (transform 26ms, setup 0ms, collect 81ms, tests 14ms, environment 0ms, prepare 33ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2525,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (1 test) 11ms\n ✓ tests/determinism/batch.test.ts (5 tests) 13ms\n\n Test Files  2 passed (2)\n      Tests  6 passed (6)\n   Start at  15:17:04\n   Duration  363ms (transform 53ms, setup 0ms, collect 164ms, tests 24ms, environment 0ms, prepare 86ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 9ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  15:17:05\n   Duration  304ms (transform 25ms, setup 0ms, collect 59ms, tests 9ms, environment 0ms, prepare 48ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 3917,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/batch.test.ts (5 tests) 15ms\n ✓ tests/determinism/determinism.test.ts (1 test) 16ms\n\n Test Files  2 passed (2)\n      Tests  6 passed (6)\n   Start at  15:17:16\n   Duration  945ms (transform 74ms, setup 0ms, collect 182ms, tests 31ms, environment 0ms, prepare 160ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 19ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  15:17:17\n   Duration  904ms (transform 36ms, setup 0ms, collect 83ms, tests 19ms, environment 0ms, prepare 62ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 3576,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (1 test) 13ms\n ✓ tests/determinism/batch.test.ts (5 tests) 16ms\n\n Test Files  2 passed (2)\n      Tests  6 passed (6)\n   Start at  15:17:29\n   Duration  518ms (transform 90ms, setup 0ms, collect 258ms, tests 29ms, environment 0ms, prepare 198ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 10ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  15:17:30\n   Duration  508ms (transform 53ms, setup 0ms, collect 109ms, tests 10ms, environment 0ms, prepare 106ms)",
+        "stderr": ""
+      }
+    ],
+    "full": [
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7368,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/batch-doc-contract.test.ts (1 test) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 17ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 15ms\n ✓ tests/determinism/batch.test.ts (5 tests) 26ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 14ms\n ✓ tests/determinism/determinism.test.ts (1 test) 64ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 289ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 2ms\n ✓ tests/integration/simulate-batch-cli.test.ts (5 tests) 2411ms\n   ✓ simulate:batch cli > fails when package argument is missing  933ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  644ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (2 tests) 2730ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  2012ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  718ms\n\n Test Files  10 passed (10)\n      Tests  20 passed (20)\n   Start at  15:16:56\n   Duration  3.25s (transform 447ms, setup 0ms, collect 1.23s, tests 5.57s, environment 1ms, prepare 1.22s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (1 test) 13ms\n ✓ tests/determinism/batch.test.ts (5 tests) 17ms\n\n Test Files  2 passed (2)\n      Tests  6 passed (6)\n   Start at  15:17:00\n   Duration  450ms (transform 81ms, setup 0ms, collect 314ms, tests 29ms, environment 0ms, prepare 80ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  15:17:01\n   Duration  320ms (transform 24ms, setup 0ms, collect 54ms, tests 8ms, environment 0ms, prepare 45ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 9ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  15:17:02\n   Duration  348ms (transform 44ms, setup 0ms, collect 95ms, tests 9ms, environment 0ms, prepare 58ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7815,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/batch-doc-contract.test.ts (1 test) 6ms\n ✓ tests/schema/schema.test.ts (2 tests) 24ms\n ✓ tests/determinism/batch.test.ts (5 tests) 47ms\n ✓ tests/determinism/determinism.test.ts (1 test) 23ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 329ms\n   ✓ render-weekly-summary > normalizes risk bullet prefixes from commit logs  328ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 52ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 4ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 175ms\n ✓ tests/integration/simulate-batch-cli.test.ts (5 tests) 1883ms\n   ✓ simulate:batch cli > fails when package argument is missing  632ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  317ms\n   ✓ simulate:batch cli > prints standardized batch metrics on success  415ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (2 tests) 2345ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1441ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  902ms\n\n Test Files  10 passed (10)\n      Tests  20 passed (20)\n   Start at  15:17:07\n   Duration  3.02s (transform 417ms, setup 0ms, collect 1.67s, tests 4.89s, environment 2ms, prepare 1.44s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (1 test) 11ms\n ✓ tests/determinism/batch.test.ts (5 tests) 14ms\n\n Test Files  2 passed (2)\n      Tests  6 passed (6)\n   Start at  15:17:11\n   Duration  407ms (transform 45ms, setup 0ms, collect 165ms, tests 26ms, environment 0ms, prepare 122ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 10ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  15:17:12\n   Duration  697ms (transform 32ms, setup 0ms, collect 70ms, tests 10ms, environment 0ms, prepare 54ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 11ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  15:17:13\n   Duration  525ms (transform 40ms, setup 0ms, collect 86ms, tests 11ms, environment 0ms, prepare 150ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7301,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/batch-doc-contract.test.ts (1 test) 2ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 19ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 21ms\n ✓ tests/schema/schema.test.ts (2 tests) 49ms\n ✓ tests/determinism/determinism.test.ts (1 test) 16ms\n ✓ tests/determinism/batch.test.ts (5 tests) 22ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 260ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 2ms\n ✓ tests/integration/simulate-batch-cli.test.ts (5 tests) 2060ms\n   ✓ simulate:batch cli > fails when package argument is missing  618ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  650ms\n   ✓ simulate:batch cli > prints standardized batch metrics on success  313ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (2 tests) 2596ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1755ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  840ms\n\n Test Files  10 passed (10)\n      Tests  20 passed (20)\n   Start at  15:17:20\n   Duration  2.94s (transform 216ms, setup 0ms, collect 930ms, tests 5.05s, environment 1ms, prepare 966ms)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (1 test) 12ms\n ✓ tests/determinism/batch.test.ts (5 tests) 16ms\n\n Test Files  2 passed (2)\n      Tests  6 passed (6)\n   Start at  15:17:23\n   Duration  422ms (transform 60ms, setup 0ms, collect 196ms, tests 28ms, environment 0ms, prepare 110ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 10ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  15:17:24\n   Duration  382ms (transform 28ms, setup 0ms, collect 69ms, tests 10ms, environment 0ms, prepare 51ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 11ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  15:17:25\n   Duration  444ms (transform 43ms, setup 0ms, collect 93ms, tests 11ms, environment 0ms, prepare 136ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 6843,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/batch-doc-contract.test.ts (1 test) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 18ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 15ms\n ✓ tests/determinism/determinism.test.ts (1 test) 18ms\n ✓ tests/determinism/batch.test.ts (5 tests) 18ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 19ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 403ms\n   ✓ render-weekly-summary > normalizes risk bullet prefixes from commit logs  402ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 2ms\n ✓ tests/integration/simulate-batch-cli.test.ts (5 tests) 1737ms\n   ✓ simulate:batch cli > fails when package argument is missing  627ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  318ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (2 tests) 2250ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1621ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  628ms\n\n Test Files  10 passed (10)\n      Tests  20 passed (20)\n   Start at  15:17:32\n   Duration  2.60s (transform 214ms, setup 0ms, collect 878ms, tests 4.48s, environment 3ms, prepare 803ms)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (1 test) 14ms\n ✓ tests/determinism/batch.test.ts (5 tests) 17ms\n\n Test Files  2 passed (2)\n      Tests  6 passed (6)\n   Start at  15:17:35\n   Duration  407ms (transform 52ms, setup 0ms, collect 188ms, tests 30ms, environment 0ms, prepare 122ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 9ms\n\n Test Files  1 passed (1)\n      Tests  2 passed (2)\n   Start at  15:17:36\n   Duration  352ms (transform 24ms, setup 0ms, collect 61ms, tests 9ms, environment 0ms, prepare 45ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 10ms\n\n Test Files  1 passed (1)\n      Tests  1 passed (1)\n   Start at  15:17:37\n   Duration  345ms (transform 47ms, setup 0ms, collect 93ms, tests 10ms, environment 0ms, prepare 48ms)",
+        "stderr": ""
+      }
+    ],
+    "autofix": []
+  },
+  "docSyncSummary": [
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/README.md",
+        "docs/ai/adr/ADR-0001-ai-memory-governance.md",
+        "docs/ai/tasks/T-011-ci-gates-and-pr-template.md",
+        "docs/ai/workflows/continuous-loop.md",
+        "tools/dev-loop/git.ts",
+        "tools/git-memory/new-task.sh",
+        "docs/ai/run-logs/2026-02-16/"
+      ],
+      "contractFiles": [],
+      "docFiles": [
+        "docs/ai/adr/ADR-0001-ai-memory-governance.md",
+        "docs/ai/tasks/T-011-ci-gates-and-pr-template.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    }
+  ],
+  "subtaskResults": [
+    {
+      "subtaskId": "S2",
+      "attempts": 1,
+      "changedFiles": [],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "commitSha": "7e4d23d",
+      "memoryCommitSha": "34420a4",
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "S3",
+      "attempts": 1,
+      "changedFiles": [],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "commitSha": "8004a4e",
+      "memoryCommitSha": "0076fc7",
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "S4",
+      "attempts": 1,
+      "changedFiles": [],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "commitSha": "f1a5b71",
+      "memoryCommitSha": "84064fb",
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "S5",
+      "attempts": 1,
+      "changedFiles": [],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "commitSha": "a4b2975",
+      "memoryCommitSha": "864fd89",
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    }
+  ],
+  "promptRefs": [
+    "ARCHITECT_v1",
+    "PLANNER_v1",
+    "BUILDER_v2",
+    "GUARDIAN_v1",
+    "REVIEWER_v1"
+  ]
+}

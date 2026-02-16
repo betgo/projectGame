@@ -1,6 +1,6 @@
 # T-011: ci-gates-and-pr-template
 
-- Status: Planned
+- Status: Done
 - Owner: maintainer
 - Branch: `main`
 - Prompt-Plan: `ARCHITECT_v1`, `PLANNER_v1`
@@ -92,7 +92,9 @@ Harden CI gates and PR governance so loop-driven delivery can ship safely on mai
   - `pnpm gate:full`
   - `pnpm docs:sync-check`
 - Result:
-  - Pending execution in S3.
+  - `pnpm gate:fast` pass (loop S2/S3/S4/S5)
+  - `pnpm gate:full` pass (loop S2/S3/S4/S5)
+  - `pnpm docs:sync-check` pass (loop S2/S3/S4/S5)
 
 ## Risks and Rollback
 
