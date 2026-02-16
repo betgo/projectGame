@@ -67,6 +67,13 @@ This folder stores auditable AI memory and prompt governance artifacts.
 - Optional memory guardrail `--max-memory-delta-bytes=<threshold>` enforces absolute `memoryDeltaBytes` ceiling per package and exits non-zero on violation.
 - Parseable output shape is fixed: one `protocol` line, one line per package with FPS/frame-time/memory/reuse fields, and one `aggregate` line.
 
+## Schema versioning contract note
+
+- Baseline schema version is `0.2.0` for both `GameProject.meta.version` and `GamePackage.version`.
+- Compatibility rules: same-major patch updates are directly compatible; one adjacent minor (`0.1.x -> 0.2.x`) is migratable with deterministic one-way upgrade semantics.
+- Unsupported versions fail fast with version-path diagnostics (`/meta/version` or `/version`): major mismatch, future minor, or stale minor outside the one-step migration window.
+- Ownership boundaries: parsing/migration helpers stay in `game/schemas`; editor migration entrypoint is `editor/src/editor/api.ts`; runtime migration entrypoint is `runtime/core/engine.ts` before template semantic validation.
+
 ## Session Warm Start
 
 When opening a fresh AI session, read in this order:

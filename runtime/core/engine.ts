@@ -1,5 +1,6 @@
 import { towerDefenseTemplate } from "../templates/tower-defense";
 import type { BatchResult, GamePackage, MatchResult, RuntimeTemplate, RuntimeWorld, TickResult } from "./types";
+import { normalizeGamePackageSchemaVersion } from "@game/schemas/index";
 
 const templates = new Map<string, RuntimeTemplate>();
 
@@ -18,13 +19,20 @@ function getTemplate(templateId: string): RuntimeTemplate {
 }
 
 export function loadPackage(pkg: GamePackage, seed = 1): RuntimeWorld {
-  const template = getTemplate(pkg.templateId);
-  const report = template.validate(pkg);
+  const normalized = normalizeGamePackageSchemaVersion(pkg);
+  if (!normalized.ok) {
+    const first = normalized.issues[0]?.message ?? "unknown schema version error";
+    throw new Error(`invalid game package: ${first}`);
+  }
+
+  const normalizedPackage = normalized.value;
+  const template = getTemplate(normalizedPackage.templateId);
+  const report = template.validate(normalizedPackage);
   if (!report.valid) {
     const first = report.issues[0]?.message ?? "unknown validation error";
     throw new Error(`invalid game package: ${first}`);
   }
-  return template.createWorld(pkg, seed);
+  return template.createWorld(normalizedPackage, seed);
 }
 
 export function step(world: RuntimeWorld, deltaMs: number): TickResult {
@@ -38,7 +46,7 @@ export function runScenario(pkg: GamePackage, seed: number): MatchResult {
   }
 
   const world = loadPackage(pkg, seed);
-  const tickMs = pkg.rules.payload.spawnRules.tickMs;
+  const tickMs = world.pkg.rules.payload.spawnRules.tickMs;
   const maxTicks = Math.max(1, Math.floor((30 * 60 * 1000) / tickMs));
 
   for (let i = 0; i < maxTicks; i += 1) {

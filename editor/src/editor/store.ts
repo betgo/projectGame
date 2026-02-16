@@ -1,5 +1,6 @@
 import { useMemo, useReducer } from "react";
 
+import { CURRENT_SCHEMA_VERSION } from "@game/schemas/index";
 import type { GameProject, GridCell } from "@runtime/core/types";
 
 import { applyOperation, type EditorOperation } from "./operations";
@@ -42,7 +43,7 @@ export function createDefaultProject(): GameProject {
   return {
     meta: {
       name: "td-v1",
-      version: "0.1.0"
+      version: CURRENT_SCHEMA_VERSION
     },
     templateId: "tower-defense",
     map: {

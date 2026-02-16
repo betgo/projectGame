@@ -91,6 +91,13 @@ pnpm dev:loop -- --issue-id <id> --task-file <task.md>
 - Output fields (single line, parseable): `sampleSize=<int> winRate=<ratio> avgDuration=<ms> leakRate=<ratio> imbalanceIndex=<score>`
 - Imbalance index formula: `abs(0.5 - winRate) + leakRate * 0.02`
 
+## Schema versioning contract
+
+- Baseline schema version is `0.2.0` for both `GameProject.meta.version` and `GamePackage.version`.
+- Compatibility rules: same-major patch updates are directly compatible; one adjacent minor (`0.1.x -> 0.2.x`) is migratable with deterministic one-way upgrade semantics.
+- Unsupported versions fail fast with version-path diagnostics (`/meta/version` or `/version`): major mismatch, future minor, or stale minor outside the one-step migration window.
+- Ownership boundaries: version parsing/migration helpers stay in `game/schemas`; editor load path upgrades in `editor/src/editor/api.ts`; runtime load path upgrades in `runtime/core/engine.ts` before template semantic validation.
+
 ## Git memory workflow
 
 ```bash

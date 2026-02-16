@@ -93,6 +93,13 @@ When a task is completed, loop continues to the next pending task card by defaul
 - Memory guardrail contract: `--max-memory-delta-bytes=<threshold>` fails when any package absolute `memoryDeltaBytes` crosses the threshold.
 - Output evidence contract: one `protocol` line, per-package metric lines (FPS/frame-time/memory/reuse), and one `aggregate` line for deterministic parsing.
 
+## Schema versioning contract note
+
+- Baseline schema version is `0.2.0` for both `GameProject.meta.version` and `GamePackage.version`.
+- Compatibility rules: same-major patch updates are directly compatible; one adjacent minor (`0.1.x -> 0.2.x`) is migratable with deterministic one-way upgrade semantics.
+- Unsupported versions fail fast with version-path diagnostics (`/meta/version` or `/version`): major mismatch, future minor, or stale minor outside the one-step migration window.
+- Ownership boundaries: parsing/migration helpers stay in `game/schemas`; editor migration entrypoint is `editor/src/editor/api.ts`; runtime migration entrypoint is `runtime/core/engine.ts` before template semantic validation.
+
 ## Output Artifacts
 
 - Run reports: `docs/ai/run-logs/YYYY-MM-DD/<timestamp>.json`

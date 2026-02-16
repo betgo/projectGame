@@ -1,4 +1,9 @@
-import { validateGameProject, type ValidationIssue, type ValidationReport } from "@game/schemas/index";
+import {
+  normalizeGameProjectSchemaVersion,
+  validateGameProject,
+  type ValidationIssue,
+  type ValidationReport
+} from "@game/schemas/index";
 import { loadPackage, runBatch, runScenario, step } from "@runtime/core/engine";
 import type {
   BatchResult,
@@ -205,11 +210,34 @@ export function createProject(templateId: string): GameProject {
 }
 
 export function loadProject(json: GameProject): LoadResult {
-  const report = validateGameProject(json);
+  const schemaReport = validateGameProject(json);
+  if (!schemaReport.valid) {
+    return {
+      ok: false,
+      project: json,
+      report: schemaReport
+    };
+  }
+
+  const normalized = normalizeGameProjectSchemaVersion(json);
+  if (!normalized.ok) {
+    return {
+      ok: false,
+      project: json,
+      report: {
+        valid: false,
+        issues: normalized.issues
+      }
+    };
+  }
+
   return {
-    ok: report.valid,
-    project: json,
-    report
+    ok: true,
+    project: normalized.value,
+    report: {
+      valid: true,
+      issues: []
+    }
   };
 }
 
