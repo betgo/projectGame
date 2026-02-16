@@ -36,7 +36,7 @@ Harden CI gates and PR governance so loop-driven delivery can ship safely on mai
 - [x] [S2] Align branch policy implementation and docs to main-only
 - [x] [S3] Run and stabilize fast/full/doc gates
 - [x] [S4] Verify PR/governance documentation consistency
-- [ ] [S5] Finalize memory and close task
+- [x] [S5] Finalize memory and close task
 
 ## Notes
 
