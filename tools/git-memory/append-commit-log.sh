@@ -184,7 +184,11 @@ if [[ "$include_missing" -eq 1 ]]; then
     filtered_refs+=("$commit_ref")
   done
 
-  commit_refs=("${filtered_refs[@]}")
+  if [[ ${#filtered_refs[@]} -eq 0 ]]; then
+    commit_refs=()
+  else
+    commit_refs=("${filtered_refs[@]}")
+  fi
 fi
 
 if [[ ${#commit_refs[@]} -eq 0 ]]; then

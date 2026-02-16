@@ -1,6 +1,6 @@
 # T-014: three-render-baseline
 
-- Status: In Progress
+- Status: Done
 - Owner: maintainer
 - Branch: `main`
 - Prompt-Plan: `ARCHITECT_v1`, `PLANNER_v1`
@@ -30,7 +30,7 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 - [x] [S2] Three.js baseline renders map/path/tower/enemy placeholders from `RenderSnapshot` without mutating runtime simulation state.
 - [x] [S3] Render lifecycle regression tests cover create/update/dispose and repeated preview session cleanup behavior.
 - [x] [S4] Render contract docs are synchronized when contract-level files change, with risk and rollback notes updated in this task.
-- [ ] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory finalize artifacts.
+- [x] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory finalize artifacts.
 
 ## Subtasks
 
@@ -38,7 +38,7 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 - [x] [S2] Implement scoped code changes
 - [x] [S3] Pass fast and full gates
 - [x] [S4] Update docs and risk notes
-- [ ] [S5] Milestone commit and memory finalize
+- [x] [S5] Milestone commit and memory finalize
 
 ## S1 Implementation Notes (2026-02-16)
 
@@ -63,6 +63,14 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 - Confirmed docs remain architecture-safe: render behavior is described as read-only consumption of snapshot data, and no `runtime/core` mutation responsibilities were moved into `runtime/render`.
 - Expanded task-level risk and rollback notes to explicitly cover render-contract documentation drift and rollback scope across docs + doc-contract tests.
 
+## S5 Memory Finalization and Task Closure (2026-02-16)
+
+- Re-ran closure gates and confirmed pass evidence remains complete for `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check`.
+- Refreshed memory artifacts with non-commit-safe commands `bash tools/git-memory/append-commit-log.sh --missing HEAD` and `bash tools/git-memory/update-weekly-summary.sh`, then confirmed `docs/ai/commit-log/2026-02.md` and `docs/ai/weekly-summary.md` were regenerated with latest tracked commits.
+- Updated `docs/ai/ai-loop-status.md` for S5 closure state, including no remaining subtasks and explicit handoff note.
+- Closed this task by setting status to `Done` and marking S5 acceptance/subtask checkboxes complete.
+- Kept S5 closure scoped to docs/tests/memory artifacts only; no runtime/render contract files were changed in this step.
+
 ## Change List
 
 - `docs/ai/tasks/T-014-three-render-baseline.md`: finalized S1 scope boundaries and measurable acceptance criteria.
@@ -81,6 +89,10 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 - `docs/ai/README.md`: clarified render contract and documentation sync expectation for contract-level changes.
 - `docs/ai/workflows/continuous-loop.md`: clarified render contract note with immutable snapshot fields and architecture boundary wording.
 - `tests/integration/three-render-baseline-scope-doc-contract.test.ts`: extended assertions for S4 doc-sync and risk/rollback coverage.
+- `docs/ai/ai-loop-status.md`: updated S5 closure status and next-step handoff state.
+- `docs/ai/commit-log/2026-02.md`: appended missing prompt-tracked commit entry during memory finalize refresh.
+- `docs/ai/weekly-summary.md`: regenerated weekly memory summary from commit logs.
+- `tests/integration/three-render-baseline-scope-doc-contract.test.ts`: updated S5 closure assertions for task status, closure notes, and memory artifact references.
 
 ## Test Evidence
 
@@ -100,6 +112,13 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
   - `pnpm exec eslint tests/integration/three-render-baseline-scope-doc-contract.test.ts`
   - `pnpm exec vitest run tests/integration/three-render-baseline-scope-doc-contract.test.ts`
   - `pnpm docs:sync-check`
+- S5 commands:
+  - `pnpm gate:fast`
+  - `pnpm gate:full`
+  - `pnpm docs:sync-check`
+  - `bash tools/git-memory/append-commit-log.sh --missing HEAD`
+  - `bash tools/git-memory/update-weekly-summary.sh`
+  - `pnpm exec vitest run tests/integration/three-render-baseline-scope-doc-contract.test.ts`
 - Result:
   - `pnpm exec eslint tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass (3 tests).
@@ -113,6 +132,12 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
   - `pnpm exec eslint tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass.
   - `pnpm docs:sync-check` pass.
+  - `pnpm gate:fast` pass (`typecheck`, `test:determinism`, `test:schema`).
+  - `pnpm gate:full` pass (`lint`, `test`, `test:determinism`, `test:schema`, `test:smoke-ai-package`).
+  - `pnpm docs:sync-check` pass.
+  - `bash tools/git-memory/append-commit-log.sh --missing HEAD` pass (`No missing commits to append.`).
+  - `bash tools/git-memory/update-weekly-summary.sh` pass.
+  - `pnpm exec vitest run tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass.
 
 ## Risks and Rollback
 
@@ -121,4 +146,4 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
   - Render contract docs may drift from `runtime/core/types.ts` if `RenderSnapshot` fields are extended without synchronized updates in handoff docs.
   - Rollback in docs/tests only may hide immutable `map/path` assumptions and cause future preview regressions to bypass doc-contract checks.
 - Rollback:
-  - Revert `README.md`, `docs/ai/README.md`, `docs/ai/workflows/continuous-loop.md`, `docs/ai/tasks/T-014-three-render-baseline.md`, and `tests/integration/three-render-baseline-scope-doc-contract.test.ts` together.
+  - Revert `README.md`, `docs/ai/README.md`, `docs/ai/workflows/continuous-loop.md`, `docs/ai/tasks/T-014-three-render-baseline.md`, `docs/ai/ai-loop-status.md`, `docs/ai/commit-log/2026-02.md`, `docs/ai/weekly-summary.md`, and `tests/integration/three-render-baseline-scope-doc-contract.test.ts` together.

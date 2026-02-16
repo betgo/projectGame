@@ -266,7 +266,10 @@ Prompt-Refs: BUILDER_v2`,
 
     expectSuccess(run("bash", [appendScript, "HEAD"], repo), "append latest only");
     expectSuccess(run("bash", [appendScript, "--missing", "HEAD"], repo), "backfill missing commits");
-    expectSuccess(run("bash", [appendScript, "--missing", "HEAD"], repo), "no-op missing backfill");
+    const noMissing = run("bash", [appendScript, "--missing", "HEAD"], repo);
+    expectSuccess(noMissing, "no-op missing backfill");
+    expect(`${noMissing.stdout}\n${noMissing.stderr}`).toContain("No missing commits to append.");
+    expect(`${noMissing.stdout}\n${noMissing.stderr}`).not.toContain("unbound variable");
 
     const log = readCommitLog(repo);
     const firstMatches = log.match(new RegExp(`\\\`${firstSha}\\\``, "g")) ?? [];
