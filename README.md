@@ -72,6 +72,11 @@ pnpm dev:loop -- --issue-id <id> --task-file <task.md>
 - Camera interaction contract in `runtime/render/three-adapter.ts`: left drag = orbit, shift/right drag = pan, wheel = zoom, with deterministic clamp ranges for distance/pitch/pan bounds.
 - Resize lifecycle contract stays `mount -> resize -> dispose`, where renderer size and camera projection updates remain synchronized with preview container dimensions.
 - Selection affordance contract applies hover highlight only to tower/enemy placeholders and restores fallback colors when selection exits, without mutating `runtime/core` state.
+- Render baseline collector in `runtime/render/performance-baseline.ts` stays render-side only and samples replayed snapshots without mutating `runtime/core` gameplay state.
+- Render performance baseline command: `pnpm simulate:render-baseline [package-json ...]` (defaults to `game/examples/td-easy.json`, `game/examples/td-normal.json`, and `game/examples/td-hard.json`).
+- Baseline protocol defaults: `restarts=5`, `warmupFrames=8`, `measuredFrames=120`, `seed=1`; override via `--restarts`, `--warmup-frames`, `--measured-frames`, and `--seed`.
+- Memory-growth guardrail option `--max-memory-delta-bytes=<threshold>` fails the command when any package absolute `memoryDeltaBytes` exceeds the threshold.
+- Parseable report contract is `protocol` line + per-package lines (`fps`, frame-time percentiles, memory trend, reuse ratio) + one `aggregate` line.
 
 ## Batch simulation contract
 

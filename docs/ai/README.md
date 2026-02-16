@@ -55,6 +55,11 @@ This folder stores auditable AI memory and prompt governance artifacts.
 - Camera interaction defaults in `runtime/render/three-adapter.ts` are documented as orbit/pan/zoom with deterministic clamp ranges for pitch, distance, and pan focus limits.
 - Resize handling follows `mount -> resize -> dispose` lifecycle, and docs must preserve renderer-size + camera-projection synchronization guarantees.
 - Hover selection affordance stays render-only: tower/enemy placeholders can highlight/unhighlight through adapter metadata callbacks without mutating `runtime/core`.
+- Render baseline collector in `runtime/render/performance-baseline.ts` remains render-side and consumes replayed snapshots without mutating `runtime/core`.
+- Render performance baseline command: `pnpm simulate:render-baseline [package-json ...]` (default package set: `game/examples/td-easy.json`, `game/examples/td-normal.json`, `game/examples/td-hard.json`).
+- Baseline protocol defaults: `restarts=5`, `warmupFrames=8`, `measuredFrames=120`, `seed=1`; override using `--restarts`, `--warmup-frames`, `--measured-frames`, and `--seed`.
+- Optional memory guardrail `--max-memory-delta-bytes=<threshold>` enforces absolute `memoryDeltaBytes` ceiling per package and exits non-zero on violation.
+- Parseable output shape is fixed: one `protocol` line, one line per package with FPS/frame-time/memory/reuse fields, and one `aggregate` line.
 
 ## Session Warm Start
 

@@ -80,6 +80,11 @@ both `--issue-id` and `--task-file`.
 - Camera interaction contract in `runtime/render/three-adapter.ts` stays deterministic: left drag orbit, shift/right drag pan, and wheel zoom with explicit clamp bounds.
 - Preview resize contract remains `mount -> resize -> dispose`; renderer viewport and camera projection matrix updates must stay synchronized with container dimensions.
 - Selection affordance contract is hover-only for tower/enemy placeholders; highlight enter/exit must restore fallback state and keep `runtime/core` immutable.
+- Render baseline collector in `runtime/render/performance-baseline.ts` must stay render-side and replay snapshots without mutating `runtime/core`.
+- Baseline command contract: `pnpm simulate:render-baseline [package-json ...]`; when no packages are passed, run `game/examples/td-easy.json`, `game/examples/td-normal.json`, and `game/examples/td-hard.json`.
+- Protocol default contract: `restarts=5`, `warmupFrames=8`, `measuredFrames=120`, `seed=1`; supported overrides are `--restarts`, `--warmup-frames`, `--measured-frames`, and `--seed`.
+- Memory guardrail contract: `--max-memory-delta-bytes=<threshold>` fails when any package absolute `memoryDeltaBytes` crosses the threshold.
+- Output evidence contract: one `protocol` line, per-package metric lines (FPS/frame-time/memory/reuse), and one `aggregate` line for deterministic parsing.
 
 ## Output Artifacts
 

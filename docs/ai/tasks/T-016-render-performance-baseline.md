@@ -30,7 +30,7 @@ Establish render performance baseline and optimization guardrails for repetitive
 - [x] [S1] Scope and acceptance contract explicitly defines measurement protocol, optimization boundaries, architecture constraints, and out-of-scope limits for `T-016`.
 - [x] [S2] Baseline implementation captures reproducible FPS/frame-time/memory-trend metrics for representative packages with low-risk render-path optimizations only.
 - [x] [S3] Regression tests cover baseline evidence shape and repeated preview restart memory-growth guardrails.
-- [ ] [S4] If contract-level files change (`runtime/core`, `game/schemas`, `ai`), sync `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` in the same loop with updated risk/rollback notes.
+- [x] [S4] If contract-level files change (`runtime/core`, `game/schemas`, `ai`), sync `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` in the same loop with updated risk/rollback notes.
 - [ ] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory-finalize artifacts.
 
 ## Subtasks
@@ -38,7 +38,7 @@ Establish render performance baseline and optimization guardrails for repetitive
 - [x] [S1] Define scope and acceptance criteria
 - [x] [S2] Implement scoped code changes
 - [x] [S3] Pass fast and full gates
-- [ ] [S4] Update docs and risk notes
+- [x] [S4] Update docs and risk notes
 - [ ] [S5] Milestone commit and memory finalize
 
 ## S1 Implementation Notes (2026-02-16)
@@ -61,10 +61,16 @@ Establish render performance baseline and optimization guardrails for repetitive
 - Re-ran `pnpm gate:full` and confirmed lint plus full regression suites pass, including render-baseline metrics/CLI contracts and smoke coverage.
 - Verified gate pass results without touching contract-level files (`runtime/core`, `game/schemas`, `ai`), keeping architecture boundaries intact for upcoming S4/S5 work.
 
+## S4 Documentation and Risk Notes (2026-02-16)
+
+- Synchronized render-baseline contract wording across `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` for command shape, default package set, deterministic protocol defaults, output evidence format, and memory guardrail behavior.
+- Confirmed documentation keeps architecture boundaries explicit: baseline logic in `runtime/render/performance-baseline.ts` remains render-only and must not mutate `runtime/core`.
+- Expanded risk and rollback notes to cover docs drift across the synchronized doc set and to include explicit rollback scope for documentation + doc-contract test artifacts.
+
 ## Change List
 
-- `docs/ai/tasks/T-016-render-performance-baseline.md`: refined S1 scope boundaries and measurable acceptance contract.
-- `tests/integration/render-performance-baseline-scope-doc-contract.test.ts`: added S1 doc-contract regression checks for `T-016`.
+- `docs/ai/tasks/T-016-render-performance-baseline.md`: refined S1 scope boundaries, then advanced S4 documentation/risk notes and subtask progress.
+- `tests/integration/render-performance-baseline-scope-doc-contract.test.ts`: added S1 checks first, then expanded S4 doc-sync/risk assertions and progress expectations.
 - `runtime/render/three-adapter.ts`: introduced render-object pooling, shared map/path resources, and adapter performance telemetry for low-risk allocation reduction.
 - `runtime/render/performance-baseline.ts`: added deterministic baseline collector for FPS/frame-time/memory-trend reporting across repetitive preview restart sessions.
 - `tools/simulate/run-render-baseline.ts`: added baseline CLI with representative package defaults and memory-growth guardrail option.
@@ -74,6 +80,9 @@ Establish render performance baseline and optimization guardrails for repetitive
 - `tests/integration/three-render-adapter-interaction.test.ts`: aligned mock object shape with pooled visibility toggling.
 - `tests/integration/render-performance-baseline-metrics.test.ts`: added regression coverage for deterministic baseline metrics and memory-trend stability.
 - `tests/integration/simulate-render-baseline-cli.test.ts`: added CLI contract coverage for report shape, reproducibility, and option validation.
+- `README.md`: synchronized render contract note with render-baseline command defaults, deterministic protocol parameters, output format, and memory guardrail contract.
+- `docs/ai/README.md`: synchronized render-baseline governance wording with `README.md` and architecture-boundary expectations.
+- `docs/ai/workflows/continuous-loop.md`: synchronized loop-level render-baseline handoff contract wording and evidence expectations.
 
 ## Test Evidence
 
@@ -85,6 +94,11 @@ Establish render performance baseline and optimization guardrails for repetitive
 - S3 commands:
   - `pnpm gate:fast`
   - `pnpm gate:full`
+- S4 commands:
+  - `pnpm exec eslint tests/integration/render-performance-baseline-scope-doc-contract.test.ts`
+  - `pnpm exec vitest run tests/integration/render-performance-baseline-scope-doc-contract.test.ts`
+  - `pnpm exec vitest run tests/integration/release-flow-doc-contract.test.ts`
+  - `pnpm docs:sync-check`
 - Result:
   - `pnpm exec eslint runtime/render/three-adapter.ts runtime/render/performance-baseline.ts tools/simulate/run-render-baseline.ts tools/simulate/render-baseline-report.ts tests/integration/three-render-adapter-baseline.test.ts tests/integration/three-render-adapter-interaction.test.ts tests/integration/render-performance-baseline-metrics.test.ts tests/integration/simulate-render-baseline-cli.test.ts tests/integration/render-performance-baseline-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/three-render-adapter-baseline.test.ts tests/integration/three-render-adapter-interaction.test.ts tests/integration/render-performance-baseline-metrics.test.ts tests/integration/simulate-render-baseline-cli.test.ts tests/integration/render-performance-baseline-scope-doc-contract.test.ts` pass.
@@ -92,6 +106,10 @@ Establish render performance baseline and optimization guardrails for repetitive
   - `pnpm docs:sync-check` pass.
   - `pnpm gate:fast` pass (`typecheck`, `test:determinism`, `test:schema`).
   - `pnpm gate:full` pass (`lint`, `test`, `test:determinism`, `test:schema`, `test:smoke-ai-package`).
+  - `pnpm exec eslint tests/integration/render-performance-baseline-scope-doc-contract.test.ts` pass.
+  - `pnpm exec vitest run tests/integration/render-performance-baseline-scope-doc-contract.test.ts` pass.
+  - `pnpm exec vitest run tests/integration/release-flow-doc-contract.test.ts` pass.
+  - `pnpm docs:sync-check` pass.
 
 ## Risks and Rollback
 
@@ -99,8 +117,9 @@ Establish render performance baseline and optimization guardrails for repetitive
   - Baseline metrics may fluctuate across machines if sampling protocol is underspecified, leading to false-positive regressions.
   - Optimization work may unintentionally mix with gameplay/runtime behavior changes if architecture boundaries are not enforced.
   - Memory-trend guardrails may drift between docs and tests if evidence shape changes without synchronized updates.
+  - Render-baseline handoff docs may drift across `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md`, causing command/guardrail ambiguity.
 - Rollback:
-  - Revert `runtime/render/three-adapter.ts`, `runtime/render/performance-baseline.ts`, `tools/simulate/run-render-baseline.ts`, `tools/simulate/render-baseline-report.ts`, `package.json`, `tests/integration/three-render-adapter-baseline.test.ts`, `tests/integration/three-render-adapter-interaction.test.ts`, `tests/integration/render-performance-baseline-metrics.test.ts`, `tests/integration/simulate-render-baseline-cli.test.ts`, `docs/ai/tasks/T-016-render-performance-baseline.md`, and `tests/integration/render-performance-baseline-scope-doc-contract.test.ts` together.
+  - Revert `runtime/render/three-adapter.ts`, `runtime/render/performance-baseline.ts`, `tools/simulate/run-render-baseline.ts`, `tools/simulate/render-baseline-report.ts`, `package.json`, `tests/integration/three-render-adapter-baseline.test.ts`, `tests/integration/three-render-adapter-interaction.test.ts`, `tests/integration/render-performance-baseline-metrics.test.ts`, `tests/integration/simulate-render-baseline-cli.test.ts`, `README.md`, `docs/ai/README.md`, `docs/ai/workflows/continuous-loop.md`, `docs/ai/tasks/T-016-render-performance-baseline.md`, and `tests/integration/render-performance-baseline-scope-doc-contract.test.ts` together.
 
 
 ## Subtask Progress
@@ -108,9 +127,9 @@ Establish render performance baseline and optimization guardrails for repetitive
 - [x] [S1] Define scope and acceptance criteria
 - [x] [S2] Implement scoped code changes
 - [x] [S3] Pass fast and full gates
-- [ ] [S4] Update docs and risk notes
+- [x] [S4] Update docs and risk notes
 - [ ] [S5] Milestone commit and memory finalize
 
 
 ## Subtask Progress
-- [x] [S3] Pass fast and full gates
+- [x] [S4] Update docs and risk notes
