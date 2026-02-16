@@ -1,6 +1,6 @@
 # T-016: render-performance-baseline
 
-- Status: Planned
+- Status: Done
 - Owner: maintainer
 - Branch: `main`
 - Prompt-Plan: `ARCHITECT_v1`, `PLANNER_v1`
@@ -31,7 +31,7 @@ Establish render performance baseline and optimization guardrails for repetitive
 - [x] [S2] Baseline implementation captures reproducible FPS/frame-time/memory-trend metrics for representative packages with low-risk render-path optimizations only.
 - [x] [S3] Regression tests cover baseline evidence shape and repeated preview restart memory-growth guardrails.
 - [x] [S4] If contract-level files change (`runtime/core`, `game/schemas`, `ai`), sync `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` in the same loop with updated risk/rollback notes.
-- [ ] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory-finalize artifacts.
+- [x] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory-finalize artifacts.
 
 ## Subtasks
 
@@ -39,7 +39,7 @@ Establish render performance baseline and optimization guardrails for repetitive
 - [x] [S2] Implement scoped code changes
 - [x] [S3] Pass fast and full gates
 - [x] [S4] Update docs and risk notes
-- [ ] [S5] Milestone commit and memory finalize
+- [x] [S5] Milestone commit and memory finalize
 
 ## S1 Implementation Notes (2026-02-16)
 
@@ -67,10 +67,19 @@ Establish render performance baseline and optimization guardrails for repetitive
 - Confirmed documentation keeps architecture boundaries explicit: baseline logic in `runtime/render/performance-baseline.ts` remains render-only and must not mutate `runtime/core`.
 - Expanded risk and rollback notes to cover docs drift across the synchronized doc set and to include explicit rollback scope for documentation + doc-contract test artifacts.
 
+## S5 Memory Finalization and Task Closure (2026-02-16)
+
+- Re-ran closure gates and confirmed pass evidence for `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check`.
+- Executed memory refresh commands `bash tools/git-memory/append-commit-log.sh --missing HEAD` and `bash tools/git-memory/update-weekly-summary.sh`; backfilled missing commit `23b5502` into `docs/ai/commit-log/2026-02.md`, regenerated `docs/ai/weekly-summary.md`, then rechecked `--missing` to confirm `No missing commits to append.`.
+- Updated `docs/ai/ai-loop-status.md` to the `T-016` S5 closure handoff state (`Issue: 16`, no remaining subtasks, next-step command `pnpm task:next`).
+- Closed task metadata by setting status to `Done` and marking S5 acceptance/subtask checkboxes complete.
+- Honored the explicit no-commit constraint for this run; milestone and memory finalize evidence is captured through docs/tests artifacts only.
+- Kept S5 closure scope limited to docs/tests and memory verification; no runtime/render contract files were changed.
+
 ## Change List
 
-- `docs/ai/tasks/T-016-render-performance-baseline.md`: refined S1 scope boundaries, then advanced S4 documentation/risk notes and subtask progress.
-- `tests/integration/render-performance-baseline-scope-doc-contract.test.ts`: added S1 checks first, then expanded S4 doc-sync/risk assertions and progress expectations.
+- `docs/ai/tasks/T-016-render-performance-baseline.md`: refined S1-S4 task contract details, then finalized S5 closure notes, status metadata, and gate/memory evidence.
+- `tests/integration/render-performance-baseline-scope-doc-contract.test.ts`: advanced assertions from S4 complete + S5 pending to full S5 closure contract coverage.
 - `runtime/render/three-adapter.ts`: introduced render-object pooling, shared map/path resources, and adapter performance telemetry for low-risk allocation reduction.
 - `runtime/render/performance-baseline.ts`: added deterministic baseline collector for FPS/frame-time/memory-trend reporting across repetitive preview restart sessions.
 - `tools/simulate/run-render-baseline.ts`: added baseline CLI with representative package defaults and memory-growth guardrail option.
@@ -83,6 +92,9 @@ Establish render performance baseline and optimization guardrails for repetitive
 - `README.md`: synchronized render contract note with render-baseline command defaults, deterministic protocol parameters, output format, and memory guardrail contract.
 - `docs/ai/README.md`: synchronized render-baseline governance wording with `README.md` and architecture-boundary expectations.
 - `docs/ai/workflows/continuous-loop.md`: synchronized loop-level render-baseline handoff contract wording and evidence expectations.
+- `docs/ai/ai-loop-status.md`: switched loop board to `T-016` S5 closure handoff status with explicit no-next-subtask state.
+- `docs/ai/commit-log/2026-02.md`: backfilled missing `T-016` S4 milestone entry during S5 memory refresh.
+- `docs/ai/weekly-summary.md`: regenerated weekly summary from refreshed commit-log artifacts.
 
 ## Test Evidence
 
@@ -99,6 +111,15 @@ Establish render performance baseline and optimization guardrails for repetitive
   - `pnpm exec vitest run tests/integration/render-performance-baseline-scope-doc-contract.test.ts`
   - `pnpm exec vitest run tests/integration/release-flow-doc-contract.test.ts`
   - `pnpm docs:sync-check`
+- S5 commands:
+  - `pnpm gate:fast`
+  - `pnpm gate:full`
+  - `pnpm docs:sync-check`
+  - `bash tools/git-memory/append-commit-log.sh --missing HEAD`
+  - `bash tools/git-memory/update-weekly-summary.sh`
+  - `bash tools/git-memory/append-commit-log.sh --missing HEAD`
+  - `pnpm exec eslint tests/integration/render-performance-baseline-scope-doc-contract.test.ts`
+  - `pnpm exec vitest run tests/integration/render-performance-baseline-scope-doc-contract.test.ts`
 - Result:
   - `pnpm exec eslint runtime/render/three-adapter.ts runtime/render/performance-baseline.ts tools/simulate/run-render-baseline.ts tools/simulate/render-baseline-report.ts tests/integration/three-render-adapter-baseline.test.ts tests/integration/three-render-adapter-interaction.test.ts tests/integration/render-performance-baseline-metrics.test.ts tests/integration/simulate-render-baseline-cli.test.ts tests/integration/render-performance-baseline-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/three-render-adapter-baseline.test.ts tests/integration/three-render-adapter-interaction.test.ts tests/integration/render-performance-baseline-metrics.test.ts tests/integration/simulate-render-baseline-cli.test.ts tests/integration/render-performance-baseline-scope-doc-contract.test.ts` pass.
@@ -110,6 +131,14 @@ Establish render performance baseline and optimization guardrails for repetitive
   - `pnpm exec vitest run tests/integration/render-performance-baseline-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/release-flow-doc-contract.test.ts` pass.
   - `pnpm docs:sync-check` pass.
+  - `pnpm gate:fast` pass (`typecheck`, `test:determinism`, `test:schema`).
+  - `pnpm gate:full` pass (`lint`, `test`, `test:determinism`, `test:schema`, `test:smoke-ai-package`).
+  - `pnpm docs:sync-check` pass.
+  - `bash tools/git-memory/append-commit-log.sh --missing HEAD` pass (`Appended commit summary to docs/ai/commit-log/2026-02.md: 23b5502`).
+  - `bash tools/git-memory/update-weekly-summary.sh` pass.
+  - `bash tools/git-memory/append-commit-log.sh --missing HEAD` pass (`No missing commits to append.`).
+  - `pnpm exec eslint tests/integration/render-performance-baseline-scope-doc-contract.test.ts` pass.
+  - `pnpm exec vitest run tests/integration/render-performance-baseline-scope-doc-contract.test.ts` pass.
 
 ## Risks and Rollback
 
@@ -128,8 +157,8 @@ Establish render performance baseline and optimization guardrails for repetitive
 - [x] [S2] Implement scoped code changes
 - [x] [S3] Pass fast and full gates
 - [x] [S4] Update docs and risk notes
-- [ ] [S5] Milestone commit and memory finalize
+- [x] [S5] Milestone commit and memory finalize
 
 
 ## Subtask Progress
-- [x] [S4] Update docs and risk notes
+- [x] [S5] Milestone commit and memory finalize

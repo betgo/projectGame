@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 
 const projectRoot = path.resolve(fileURLToPath(new URL("../..", import.meta.url)));
 const taskPath = path.join(projectRoot, "docs/ai/tasks/T-016-render-performance-baseline.md");
+const loopStatusPath = path.join(projectRoot, "docs/ai/ai-loop-status.md");
 const renderContractDocPaths = [
   "README.md",
   "docs/ai/README.md",
@@ -26,7 +27,7 @@ function normalizeMarkdownLine(value: string): string {
   return value.trim().replace(/\s+/g, " ");
 }
 
-describe("T-016 render-performance-baseline scope contract", () => {
+describe("T-016 render-performance-baseline S5 closure contract", () => {
   it("defines explicit in-scope and out-of-scope boundaries", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const scope = readSection("Scope", taskDoc);
@@ -50,7 +51,7 @@ describe("T-016 render-performance-baseline scope contract", () => {
     }
   });
 
-  it("keeps acceptance criteria measurable and aligned with S4 completion + pending S5", () => {
+  it("keeps acceptance criteria measurable and aligned to S1-S5 lifecycle", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const acceptanceCriteria = readSection("Acceptance Criteria", taskDoc)
       .split("\n")
@@ -71,24 +72,27 @@ describe("T-016 render-performance-baseline scope contract", () => {
       expect(acceptanceCriteria.some((line) => line.endsWith(criterion))).toBe(true);
     }
 
-    for (const line of acceptanceCriteria.slice(0, 4)) {
+    for (const line of acceptanceCriteria) {
       expect(line.startsWith("- [x]")).toBe(true);
     }
-    expect(acceptanceCriteria[4].startsWith("- [ ]")).toBe(true);
   });
 
-  it("marks S1-S4 complete in subtask progress while leaving S5 pending", () => {
+  it("marks S1-S5 complete while retaining S5 closure evidence", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const subtasks = readSection("Subtasks", taskDoc)
       .split("\n")
       .map(normalizeMarkdownLine)
       .filter((line) => line.startsWith("- ["));
+    const s5Closure = readSection("S5 Memory Finalization and Task Closure (2026-02-16)", taskDoc);
 
     expect(subtasks).toContain("- [x] [S1] Define scope and acceptance criteria");
     expect(subtasks).toContain("- [x] [S2] Implement scoped code changes");
     expect(subtasks).toContain("- [x] [S3] Pass fast and full gates");
     expect(subtasks).toContain("- [x] [S4] Update docs and risk notes");
-    expect(subtasks).toContain("- [ ] [S5] Milestone commit and memory finalize");
+    expect(subtasks).toContain("- [x] [S5] Milestone commit and memory finalize");
+    expect(s5Closure).toContain("`pnpm gate:fast`");
+    expect(s5Closure).toContain("`pnpm gate:full`");
+    expect(s5Closure).toContain("`pnpm docs:sync-check`");
   });
 
   it("synchronizes render-baseline contract docs and S4 risk notes", () => {
@@ -145,6 +149,9 @@ describe("T-016 render-performance-baseline scope contract", () => {
     expect(changeList).toContain("`README.md`");
     expect(changeList).toContain("`docs/ai/README.md`");
     expect(changeList).toContain("`docs/ai/workflows/continuous-loop.md`");
+    expect(changeList).toContain("`docs/ai/ai-loop-status.md`");
+    expect(changeList).toContain("`docs/ai/commit-log/2026-02.md`");
+    expect(changeList).toContain("`docs/ai/weekly-summary.md`");
 
     expect(risksAndRollback).toContain("architecture boundaries");
     expect(risksAndRollback).toContain("docs and tests");
@@ -156,5 +163,31 @@ describe("T-016 render-performance-baseline scope contract", () => {
     expect(risksAndRollback).toContain("`docs/ai/workflows/continuous-loop.md`");
     expect(risksAndRollback).toContain("`docs/ai/tasks/T-016-render-performance-baseline.md`");
     expect(risksAndRollback).toContain("`tests/integration/render-performance-baseline-scope-doc-contract.test.ts`");
+  });
+
+  it("closes S5 with memory-finalize evidence and loop handoff updates", () => {
+    const taskDoc = fs.readFileSync(taskPath, "utf-8");
+    const loopStatus = fs.readFileSync(loopStatusPath, "utf-8");
+    const statusMatch = taskDoc.match(/^- Status:\s*(.+)$/m);
+    const s5Closure = readSection("S5 Memory Finalization and Task Closure (2026-02-16)", taskDoc);
+
+    expect(statusMatch?.[1].trim()).toBe("Done");
+    expect(s5Closure).toContain("`bash tools/git-memory/append-commit-log.sh --missing HEAD`");
+    expect(s5Closure).toContain("`bash tools/git-memory/update-weekly-summary.sh`");
+    expect(s5Closure).toContain("`docs/ai/commit-log/2026-02.md`");
+    expect(s5Closure).toContain("`docs/ai/weekly-summary.md`");
+    expect(s5Closure).toContain("`23b5502`");
+    expect(s5Closure).toContain("No missing commits to append.");
+    expect(s5Closure).toContain("`docs/ai/ai-loop-status.md`");
+    expect(s5Closure).toContain("status to `Done`");
+    expect(s5Closure).toContain("no-commit constraint");
+    expect(s5Closure).toContain("no runtime/render contract files were changed");
+
+    expect(loopStatus).toContain("- Issue: 16");
+    expect(loopStatus).toContain("T-016-render-performance-baseline.md");
+    expect(loopStatus).toContain("- 当前阶段: 子任务收口完成");
+    expect(loopStatus).toContain("- 当前子任务: [S5] Milestone commit and memory finalize");
+    expect(loopStatus).toContain("- 下一个子任务: 无");
+    expect(loopStatus).toContain("`pnpm task:next`");
   });
 });
