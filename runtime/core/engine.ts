@@ -33,6 +33,10 @@ export function step(world: RuntimeWorld, deltaMs: number): TickResult {
 }
 
 export function runScenario(pkg: GamePackage, seed: number): MatchResult {
+  if (!Number.isInteger(seed) || seed <= 0) {
+    throw new Error(`invalid seed: ${seed}. seed must be a positive integer`);
+  }
+
   const world = loadPackage(pkg, seed);
   const tickMs = pkg.rules.payload.spawnRules.tickMs;
   const maxTicks = Math.max(1, Math.floor((30 * 60 * 1000) / tickMs));

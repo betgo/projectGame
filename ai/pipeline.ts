@@ -7,12 +7,23 @@ import { getAiProvider, setAiProvider } from "./provider";
 import { MockAiProvider } from "./mock-provider";
 
 setAiProvider(new MockAiProvider());
+const DEFAULT_MAX_REPAIR_ATTEMPTS = 3;
 
 function mergeReports(schemaReport: ValidationReport, semanticReport: ValidationReport): ValidationReport {
   return {
     valid: schemaReport.valid && semanticReport.valid,
     issues: [...schemaReport.issues, ...semanticReport.issues]
   };
+}
+
+function formatValidationIssues(report: ValidationReport, maxItems = 3): string {
+  if (report.issues.length === 0) {
+    return "unknown validation failure";
+  }
+  return report.issues
+    .slice(0, maxItems)
+    .map((issue) => `${issue.path}: ${issue.message}`)
+    .join("; ");
 }
 
 export async function generatePackageFromPrompt(prompt: string, templateId: string): Promise<GamePackage> {
@@ -30,20 +41,37 @@ export async function optimizeBalance(pkg: GamePackage, targetMetrics: BalanceTa
   return provider.optimizePackage(pkg, targetMetrics);
 }
 
-export async function generateValidateAndRepair(prompt: string, templateId: string): Promise<GamePackage> {
+export async function generateValidateAndRepair(
+  prompt: string,
+  templateId: string,
+  maxRepairAttempts = DEFAULT_MAX_REPAIR_ATTEMPTS
+): Promise<GamePackage> {
+  if (!Number.isInteger(maxRepairAttempts) || maxRepairAttempts < 0) {
+    throw new Error(`invalid maxRepairAttempts: ${maxRepairAttempts}. value must be a non-negative integer`);
+  }
+
   let pkg = await generatePackageFromPrompt(prompt, templateId);
 
-  for (let retry = 0; retry < 3; retry += 1) {
+  for (let attempt = 0; attempt <= maxRepairAttempts; attempt += 1) {
     const schemaReport = validateGamePackage(pkg);
     const semanticReport = validateTowerDefensePackage(pkg);
     const merged = mergeReports(schemaReport, semanticReport);
+
     if (merged.valid) {
       return pkg;
     }
+
+    if (attempt === maxRepairAttempts) {
+      const attemptsUsed = maxRepairAttempts + 1;
+      throw new Error(
+        `AI package failed validation after ${attemptsUsed} attempts: ${formatValidationIssues(merged)}`
+      );
+    }
+
     pkg = await repairInvalidPackage(pkg, merged);
   }
 
-  return pkg;
+  throw new Error("AI package repair loop terminated unexpectedly");
 }
 
 export async function optimizeWithBatchLoop(pkg: GamePackage, rounds = 3): Promise<GamePackage> {

@@ -13,4 +13,9 @@ describe("determinism", () => {
 
     expect(first).toEqual(second);
   });
+
+  it("rejects non-positive or non-integer seeds", () => {
+    expect(() => runScenario(packageFixture, 0)).toThrow("seed must be a positive integer");
+    expect(() => runScenario(packageFixture, 1.5)).toThrow("seed must be a positive integer");
+  });
 });
