@@ -4,7 +4,7 @@ Generated from `docs/ai/commit-log/*.md`.
 
 ## 2026-W08
 
-- Total commits tracked: 20
+- Total commits tracked: 21
 - Key changes:
   - feat(loop): close S1 Criteria 1
   - feat(loop): close S2 Align branch policy implementation and docs to main-only
@@ -26,6 +26,7 @@ Generated from `docs/ai/commit-log/*.md`.
   - docs(memory): finalize S2 Performance baseline command and threshold are documented and reproducible.
   - docs(memory): finalize S3 README and `docs/ai` documents describe build/run/test/release flow without contradictions.
   - docs(memory): finalize S4 `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass.
+  - feat(loop): close S5 Task closure includes milestone commit + memory finalize evidence.
 - Prompt refs:
   - ARCHITECT_v1
   - BUILDER_v2
