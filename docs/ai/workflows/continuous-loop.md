@@ -2,7 +2,7 @@
 
 This workflow enforces the local cycle:
 
-`develop -> test -> fix -> doc sync -> milestone commit -> memory finalize -> next subtask`
+`develop -> test -> fix -> doc sync -> mark subtask done -> memory finalize -> task-level commit`
 
 ## Preconditions
 
@@ -71,7 +71,7 @@ both `--issue-id` and `--task-file`.
 1. Runtime boundary violations fail the loop.
 2. Contract file changes (`runtime/core`, `game/schemas`, `ai`) require docs updates.
 3. Milestone commit must include `Prompt-Refs` and full commit template sections.
-4. Memory finalize runs `tools/git-memory/finalize-task.sh` and stages memory artifacts into the same milestone commit (single-commit mode for each subtask). In this mode, commit-log catches up to the previous HEAD and is refreshed again in following subtasks.
+4. Memory finalize runs `tools/git-memory/finalize-task.sh` before a single task-level commit (no per-subtask commit).
 
 ## Render contract note
 

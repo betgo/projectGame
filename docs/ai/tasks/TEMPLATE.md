@@ -23,11 +23,10 @@ One paragraph describing expected user value.
 
 ## Subtasks
 
-- [x] [S1] Define scope and acceptance criteria
-- [x] [S2] Implement scoped code changes
-- [x] [S3] Pass fast and full gates
-- [x] [S4] Update docs and risk notes
-- [x] [S5] Milestone commit and memory finalize
+- [ ] [S1] Define scope and acceptance criteria
+- [ ] [S2] Implement scoped code changes and pass fast/full gates
+- [ ] [S3] Update docs and risk notes
+- [ ] [S4] Finalize memory and complete task-level commit
 
 ## Change List
 
@@ -42,7 +41,3 @@ One paragraph describing expected user value.
 
 - Risk:
 - Rollback plan:
-
-
-## Subtask Progress
-- [x] [S1] default-subtask

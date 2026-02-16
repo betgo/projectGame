@@ -26,8 +26,6 @@ if [[ "$ahead_count" == "0" ]]; then
 fi
 
 if ! git log --name-only --pretty=format: "${base_ref}..HEAD" | grep -q "^docs/ai/commit-log/"; then
-  echo "pre-push: branch has commits ahead of ${base_ref} but no commit-log update." >&2
-  echo "pre-push: run 'bash tools/git-memory/finalize-task.sh' and commit generated docs." >&2
-  exit 1
+  echo "pre-push: warning - branch has commits ahead of ${base_ref} but no commit-log update." >&2
+  echo "pre-push: task-level single-commit mode allows this; run memory finalize manually if needed." >&2
 fi
-

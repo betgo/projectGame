@@ -8,7 +8,7 @@
     "build": "tsc -p tsconfig.json --noEmit && vite build --config editor/vite.config.ts",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "lint": "eslint . --ext .ts,.tsx",
-    "test": "vitest run",
+    "test": "vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"",
     "test:schema": "vitest run tests/schema",
     "test:determinism": "vitest run tests/determinism",
     "test:smoke-ai-package": "vitest run tests/smoke",

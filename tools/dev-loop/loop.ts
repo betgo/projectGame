@@ -1,3 +1,5 @@
+import path from "node:path";
+
 import { parseLoopConfig } from "./config";
 import { runDocSyncCheck } from "./doc-sync";
 import { assertBranchPolicy, commitMilestone, stageMemoryArtifacts } from "./git";
@@ -254,18 +256,9 @@ function main(): number {
 
       let commitSha: string | undefined;
       let memoryCommitSha: string | undefined;
-      const docSummary = mergeDocSummary(cycle.docSummaries);
 
       if (config.autoCommit && !config.dryRun) {
         markSubtaskDone(taskContext.path, subtask);
-        if (config.autoFinalizeMemory) {
-          const stagedMemory = stageMemoryArtifacts(cwd);
-          if (stagedMemory.length > 0) {
-            memoryCommitSha = "merged-in-milestone";
-          }
-        }
-
-        commitSha = commitMilestone(cwd, config, subtask, cycle.gateSummary, docSummary);
       }
 
       const changedAfter = runCommand("git status --porcelain", cwd)
@@ -283,6 +276,30 @@ function main(): number {
         promptRefs: config.promptRefs,
         status: "success"
       });
+    }
+
+    if (config.autoCommit && !config.dryRun) {
+      let memoryCommitSha: string | undefined;
+      if (config.autoFinalizeMemory) {
+        const stagedMemory = stageMemoryArtifacts(cwd);
+        if (stagedMemory.length > 0) {
+          memoryCommitSha = "merged-in-task-commit";
+        }
+      }
+
+      const taskSummary = path.basename(config.taskFile);
+      const taskSubtask = {
+        id: "TASK",
+        title: `${taskSummary} (${taskContext.subtasks.length} subtasks)`,
+        done: false
+      };
+      const docSummary = mergeDocSummary(docSyncSummary);
+      const commitSha = commitMilestone(cwd, config, taskSubtask, gateSummary, docSummary);
+      if (subtaskResults.length > 0) {
+        const last = subtaskResults[subtaskResults.length - 1];
+        last.commitSha = commitSha;
+        last.memoryCommitSha = memoryCommitSha;
+      }
     }
 
     const result: LoopResult = {

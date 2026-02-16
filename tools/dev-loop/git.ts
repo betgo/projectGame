@@ -32,6 +32,8 @@ function buildMilestoneMessage(
   gateSummary: GateSummary,
   docSummary: DocSyncSummary
 ): string {
+  const isTaskClosure = subtask.id === "TASK";
+  const closureTarget = isTaskClosure ? "task" : "subtask";
   const tests = [
     ...gateSummary.fast.map((item) => `${item.name}:${item.success ? "pass" : "fail"}`),
     ...gateSummary.full.map((item) => `${item.name}:${item.success ? "pass" : "fail"}`),
@@ -39,7 +41,7 @@ function buildMilestoneMessage(
   ].join(", ");
 
   return `${config.commitType}(${config.commitScope}): close ${subtask.id} ${subtask.title}\n\nWhy:
-Complete subtask ${subtask.id} in continuous AI loop.
+Complete ${closureTarget} ${subtask.id} in continuous AI loop.
 What:
 - Finished implementation, gates, and doc sync for ${subtask.title}.
 Impact:

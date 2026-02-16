@@ -28,10 +28,9 @@ Automate release candidate checklist generation and gate evidence bundling.
 ## Subtasks
 
 - [ ] [S1] Define scope and acceptance criteria
-- [ ] [S2] Implement scoped code changes
-- [ ] [S3] Pass fast and full gates
-- [ ] [S4] Update docs and risk notes
-- [ ] [S5] Milestone commit and memory finalize
+- [ ] [S2] Implement scoped code changes and pass fast/full gates
+- [ ] [S3] Update docs and risk notes
+- [ ] [S4] Finalize memory and complete task-level commit
 
 ## Change List
 

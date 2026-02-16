@@ -19,7 +19,7 @@ This folder stores auditable AI memory and prompt governance artifacts.
 3. Work directly on `main`.
 4. Run loop: `pnpm dev:loop -- --issue-id <id> --task-file <task.md>`.
    - If there is exactly one active issue task card, `--issue-id` and `--task-file` can be omitted.
-5. Milestone commits and memory finalization are handled in loop when auto-commit is enabled (`finalize-task.sh` artifacts are merged into the same milestone commit in single-commit mode).
+5. Task completion commit and memory finalization are handled in loop when auto-commit is enabled (`finalize-task.sh` artifacts are merged before one task-level commit).
 6. Open PR and keep `1 Issue = 1 PR`.
 
 ## Build/Run/Test/Release contract

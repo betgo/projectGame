@@ -10,7 +10,7 @@
 
 - Baseline: `I001-I012` is completed (v1 closed loop delivered).
 - Strategy: strengthen 3D rendering and preview experience first, then expand templates and delivery capabilities.
-- Cadence: each issue follows `S1-S5` loop closure (spec -> implement -> test -> docs -> memory finalize).
+- Cadence: each issue follows `S1-S4` loop closure (spec -> implement+gate -> docs -> finalize+task commit).
 
 ## Phase Plan
 
@@ -115,7 +115,7 @@ Planned types:
 
 - Branch policy: `main` only.
 - Delivery granularity: `1 Issue = 1 PR`.
-- Subtask lifecycle: `S1 spec`, `S2 implementation`, `S3 test`, `S4 docs`, `S5 memory finalize`.
+- Subtask lifecycle: `S1 spec`, `S2 implementation+gates`, `S3 docs`, `S4 memory finalize + task-level commit`.
 - Milestone commits must include `Prompt-Refs`.
 
 ## Immediate Next Actions

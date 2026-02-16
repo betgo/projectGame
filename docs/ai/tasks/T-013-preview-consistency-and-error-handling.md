@@ -33,10 +33,9 @@ Improve reliability and UX of preview runtime flow so editor users get determini
 ## Subtasks
 
 - [ ] [S1] Define consistency and error-handling contract
-- [ ] [S2] Implement preview/runtime error-path hardening
-- [ ] [S3] Add regression tests for consistency and failure messaging
-- [ ] [S4] Sync docs and troubleshooting guidance
-- [ ] [S5] Run gates, finalize memory, and close task
+- [ ] [S2] Implement preview/runtime hardening, regression tests, and pass fast/full gates
+- [ ] [S3] Sync docs and troubleshooting guidance
+- [ ] [S4] Finalize memory and complete task-level commit
 
 ## Change List
 
