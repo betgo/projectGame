@@ -28,7 +28,7 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 - [x] Regression suite covers core v1 paths and passes in local gates.
 - [x] Performance baseline command and threshold are documented and reproducible.
 - [x] README and `docs/ai` documents describe build/run/test/release flow without contradictions.
-- [ ] `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass.
+- [x] `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass.
 - [ ] Task closure includes milestone commit + memory finalize evidence.
 
 ## Subtasks
@@ -36,7 +36,7 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 - [x] [S1] Regression suite covers core v1 paths and passes in local gates
 - [x] [S2] Implement hardening changes and regression safeguards
 - [x] [S3] Sync README and AI governance docs for release handoff
-- [ ] [S4] Run fast/full/docs gates and collect performance baseline evidence
+- [x] [S4] Run fast/full/docs gates and collect performance baseline evidence
 - [ ] [S5] Finalize memory and close task
 
 ## S1 Implementation Notes (2026-02-16)
@@ -84,6 +84,24 @@ Close v1 delivery with production-style hardening and documentation so the loop 
   - Documentation contract tests pass for README + `docs/ai` flow alignment.
   - `pnpm docs:sync-check` pass.
 
+## S4 Implementation Notes (2026-02-16)
+
+- Re-ran release gates on `main` to confirm the hardening scope remains stable after S1-S3 updates.
+- Captured deterministic baseline evidence from the canonical batch simulation command to prove reproducibility still matches the documented threshold contract.
+
+## S4 Test Evidence (2026-02-16)
+
+- Commands:
+  - `pnpm gate:fast`
+  - `pnpm gate:full`
+  - `pnpm docs:sync-check`
+  - `pnpm simulate:batch game/examples/td-normal.json 100`
+- Result:
+  - `pnpm gate:fast` pass
+  - `pnpm gate:full` pass
+  - `pnpm docs:sync-check` pass
+  - Baseline output remains deterministic: `sampleSize=100 winRate=0.0000 avgDuration=5400 leakRate=4.0000 imbalanceIndex=0.5800`
+
 ## Change List
 
 - Target areas (expected):
@@ -99,7 +117,10 @@ Close v1 delivery with production-style hardening and documentation so the loop 
   - `pnpm docs:sync-check`
   - `pnpm simulate:batch game/examples/td-normal.json 100`
 - Result:
-  - Pending
+  - `pnpm gate:fast` pass
+  - `pnpm gate:full` pass
+  - `pnpm docs:sync-check` pass
+  - `pnpm simulate:batch game/examples/td-normal.json 100` pass with deterministic output
 
 ## Risks and Rollback
 
@@ -113,7 +134,13 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 - [x] [S1] Regression suite covers core v1 paths and passes in local gates.
 - [x] [S2] Performance baseline command and threshold are documented and reproducible.
 - [x] [S3] README and `docs/ai` flow docs are synchronized without contradictions.
+- [x] [S4] `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass with baseline evidence.
 
 
 ## Subtask Progress
 - [x] [S3] README and `docs/ai` documents describe build/run/test/release flow without contradictions.
+- [x] [S4] Run fast/full/docs gates and collect performance baseline evidence.
+
+
+## Subtask Progress
+- [x] [S4] `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass.
