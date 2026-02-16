@@ -1,4 +1,7 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+
+import { getWorldSnapshot } from "@runtime/render/snapshot";
+import { ThreeRenderAdapter } from "@runtime/render/three-adapter";
 
 import { startPreview } from "../api";
 import type { GameProject } from "@runtime/core/types";
@@ -11,9 +14,37 @@ export function PreviewControls({ project }: Props) {
   const [lastResult, setLastResult] = useState<string>("idle");
   const [seed, setSeed] = useState<number>(42);
   const session = useMemo(() => startPreview(project, seed), [project, seed]);
+  const renderHostRef = useRef<HTMLDivElement | null>(null);
+  const adapterRef = useRef<ThreeRenderAdapter | null>(null);
+
+  useEffect(() => {
+    const host = renderHostRef.current;
+    if (!host) {
+      return;
+    }
+
+    const adapter = new ThreeRenderAdapter(host);
+    adapterRef.current = adapter;
+    adapter.applySnapshot(getWorldSnapshot(session.world));
+
+    return () => {
+      adapter.dispose();
+      if (adapterRef.current === adapter) {
+        adapterRef.current = null;
+      }
+    };
+  }, [session]);
+
+  const renderSnapshot = () => {
+    if (!adapterRef.current) {
+      return;
+    }
+    adapterRef.current.applySnapshot(getWorldSnapshot(session.world));
+  };
 
   const runStep = () => {
     const stepResult = session.playStep();
+    renderSnapshot();
     setLastResult(`tick ${stepResult.tick}, status ${stepResult.status}, leaks ${stepResult.metrics.leaks}`);
   };
 
@@ -26,6 +57,7 @@ export function PreviewControls({ project }: Props) {
         break;
       }
     }
+    renderSnapshot();
     setLastResult(`tick ${final.tick}, status ${final.status}, leaks ${final.metrics.leaks}`);
   };
 
@@ -50,6 +82,7 @@ export function PreviewControls({ project }: Props) {
         <button onClick={runFast}>Fast</button>
         <button onClick={runFull}>Run Full</button>
       </div>
+      <div className="preview-stage" ref={renderHostRef} />
       <div className="small">Seed: {seed}</div>
       <div className="small">{lastResult}</div>
     </div>

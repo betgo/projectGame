@@ -7,6 +7,7 @@ and local-first AI memory governance.
 
 - Browser editor: map grid, rules inspector, wave panel, preview controls.
 - Runtime core: fixed-tick deterministic simulation.
+- Three render baseline: deterministic map/path/tower/enemy placeholders from immutable `RenderSnapshot`.
 - Template plugin: `tower-defense` systems + semantic validator.
 - AI pipeline: provider abstraction + mock provider + OpenAI adapter placeholder.
 - Data contracts: JSON Schemas + examples.

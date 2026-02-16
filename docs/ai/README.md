@@ -48,6 +48,10 @@ This folder stores auditable AI memory and prompt governance artifacts.
 - Record gate evidence in task card under `docs/ai/tasks/`.
 - Refresh memory artifacts before handoff: `bash tools/git-memory/finalize-task.sh`
 
+## Render contract note
+
+- `RenderSnapshot` baseline now includes immutable `map` and `path` fields to support deterministic Three.js placeholder rendering in preview.
+
 ## Session Warm Start
 
 When opening a fresh AI session, read in this order:

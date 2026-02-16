@@ -46,10 +46,25 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 - Converted acceptance criteria to measurable checklist entries aligned with `S1-S5` execution flow.
 - Added explicit architecture boundaries to keep rendering changes isolated from `runtime/core` gameplay state mutation paths.
 
+## S2 Implementation Notes (2026-02-16)
+
+- Extended `RenderSnapshot` contract to include immutable `map` and `path` data so render baseline can build deterministic placeholders from snapshot-only inputs.
+- Implemented `runtime/render` placeholder-frame mapping and Three.js adapter layer updates for map cells, path nodes, towers, and enemies.
+- Wired editor preview panel to create/update/dispose a `ThreeRenderAdapter` session without mutating runtime simulation state.
+
 ## Change List
 
 - `docs/ai/tasks/T-014-three-render-baseline.md`: finalized S1 scope boundaries and measurable acceptance criteria.
 - `tests/integration/three-render-baseline-scope-doc-contract.test.ts`: added doc-contract regression tests for T-014 S1.
+- `runtime/core/types.ts`: expanded `RenderSnapshot` contract with `map` and `path`.
+- `runtime/render/snapshot.ts`: cloned map/path into snapshot output to keep render reads immutable.
+- `runtime/render/placeholder-model.ts`: added deterministic placeholder-frame mapper for map/path/tower/enemy visuals.
+- `runtime/render/three-adapter.ts`: implemented baseline Three.js placeholder rendering + lifecycle cleanup.
+- `runtime/render/three.d.ts`: expanded local Three.js typings used by baseline renderer.
+- `editor/src/editor/components/PreviewControls.tsx`: integrated preview panel render adapter lifecycle.
+- `editor/src/styles.css`: added preview stage container styles for Three.js canvas mounting.
+- `tests/integration/three-render-snapshot-contract.test.ts`: added snapshot immutability and frame-mapping regression coverage.
+- `tests/integration/three-render-adapter-baseline.test.ts`: added adapter baseline rendering and lifecycle cleanup regression coverage.
 
 ## Test Evidence
 
@@ -57,9 +72,18 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
   - `pnpm exec eslint tests/integration/three-render-baseline-scope-doc-contract.test.ts`
   - `pnpm exec vitest run tests/integration/three-render-baseline-scope-doc-contract.test.ts`
   - `pnpm docs:sync-check`
+- S2 commands:
+  - `pnpm exec vitest run tests/integration/three-render-snapshot-contract.test.ts tests/integration/three-render-adapter-baseline.test.ts`
+  - `pnpm exec eslint runtime/render/three-adapter.ts runtime/render/placeholder-model.ts editor/src/editor/components/PreviewControls.tsx tests/integration/three-render-snapshot-contract.test.ts tests/integration/three-render-adapter-baseline.test.ts`
+  - `pnpm typecheck`
+  - `pnpm docs:sync-check`
 - Result:
   - `pnpm exec eslint tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass (3 tests).
+  - `pnpm docs:sync-check` pass.
+  - `pnpm exec vitest run tests/integration/three-render-snapshot-contract.test.ts tests/integration/three-render-adapter-baseline.test.ts` pass (3 tests).
+  - `pnpm exec eslint runtime/core/types.ts runtime/render/snapshot.ts runtime/render/three-adapter.ts runtime/render/placeholder-model.ts runtime/render/three.d.ts editor/src/editor/components/PreviewControls.tsx tests/integration/three-render-snapshot-contract.test.ts tests/integration/three-render-adapter-baseline.test.ts` pass.
+  - `pnpm typecheck` pass.
   - `pnpm docs:sync-check` pass.
 
 ## Risks and Rollback

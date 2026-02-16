@@ -73,6 +73,10 @@ both `--issue-id` and `--task-file`.
 3. Milestone commit must include `Prompt-Refs` and full commit template sections.
 4. Memory finalize runs `tools/git-memory/finalize-task.sh` (which backfills missing commit summaries with `--missing`) and creates follow-up memory commit.
 
+## Render contract note
+
+- Render baseline contract expects `RenderSnapshot` to carry immutable `map` and `path` fields for deterministic preview placeholder rendering.
+
 ## Output Artifacts
 
 - Run reports: `docs/ai/run-logs/YYYY-MM-DD/<timestamp>.json`

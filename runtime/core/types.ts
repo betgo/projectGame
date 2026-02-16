@@ -198,6 +198,8 @@ export type RenderSnapshot = {
   tick: number;
   elapsedMs: number;
   status: RuntimeStatus;
+  map: GameMap;
+  path: Vec2[];
   enemies: RenderEnemy[];
   towers: RenderTower[];
   metrics: RuntimeMetrics;
