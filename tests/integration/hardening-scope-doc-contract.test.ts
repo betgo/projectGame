@@ -55,7 +55,7 @@ describe("T-012 hardening scope contract", () => {
       "Performance baseline command and threshold contract are documented and reproducible.",
       "README and `docs/ai` release-flow contracts are aligned with build/run/test/release commands.",
       "Task completion requires passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` with recorded evidence.",
-      "Risk and rollback expectations are documented before implementation subtasks start."
+      "Task closure includes memory-finalize artifacts and explicit task-status closure evidence."
     ];
 
     expect(acceptanceCriteria).toHaveLength(expectedCriteria.length);
@@ -105,8 +105,23 @@ describe("T-012 hardening scope contract", () => {
     expect(evidenceBody).toContain("pass");
   });
 
-  it("documents S5 risk and rollback baseline before implementation subtasks", () => {
+  it("documents pre-implementation risk and rollback baseline before S2 notes", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
+    const riskBaseline = readSection("Risk and Rollback Expectations (Pre-Implementation Baseline, 2026-02-16)", taskDoc);
+    const riskBaselineIndex = taskDoc.indexOf("## Risk and Rollback Expectations (Pre-Implementation Baseline, 2026-02-16)");
+    const s2NotesIndex = taskDoc.indexOf("## S2 Implementation Notes (2026-02-16)");
+
+    expect(riskBaseline).toContain("Baseline was recorded in planning before S2 implementation kickoff");
+    expect(riskBaseline).toContain("- Risk:");
+    expect(riskBaseline).toContain("- Rollback plan:");
+    expect(riskBaselineIndex).toBeGreaterThan(-1);
+    expect(s2NotesIndex).toBeGreaterThan(-1);
+    expect(riskBaselineIndex).toBeLessThan(s2NotesIndex);
+  });
+
+  it("closes S5 with memory-finalize evidence and task status closure", () => {
+    const taskDoc = fs.readFileSync(taskPath, "utf-8");
+    const statusMatch = taskDoc.match(/^- Status:\s*(.+)$/m);
     const acceptanceCriteria = readSection("Acceptance Criteria", taskDoc)
       .split("\n")
       .map(normalizeMarkdownLine)
@@ -115,29 +130,26 @@ describe("T-012 hardening scope contract", () => {
       .split("\n")
       .map(normalizeMarkdownLine)
       .filter((line) => line.startsWith("- ["));
-    const riskBaseline = readSection("Risk and Rollback Expectations (Pre-Implementation Baseline, 2026-02-16)", taskDoc);
-    const riskBaselineIndex = taskDoc.indexOf("## Risk and Rollback Expectations (Pre-Implementation Baseline, 2026-02-16)");
-    const s2NotesIndex = taskDoc.indexOf("## S2 Implementation Notes (2026-02-16)");
+    const s5ClosureMatch = taskDoc.match(/## S5 Memory Finalization and Task Closure \(\d{4}-\d{2}-\d{2}\)\n\n([\s\S]*?)(?=\n## |$)/);
 
+    expect(statusMatch?.[1].trim()).toBe("Done");
     expect(
       acceptanceCriteria.some(
         (line) =>
           line.startsWith("- [x]") &&
-          line.includes("Risk and rollback expectations are documented before implementation subtasks start.")
+          line.includes("Task closure includes memory-finalize artifacts and explicit task-status closure evidence.")
       )
     ).toBe(true);
     expect(
-      subtasks.some(
-        (line) =>
-          line.startsWith("- [x]") &&
-          line.includes("[S5] Risk and rollback expectations are documented before implementation subtasks start.")
-      )
+      subtasks.some((line) => line.startsWith("- [x]") && line.includes("[S5] Finalize memory and close task"))
     ).toBe(true);
-    expect(riskBaseline).toContain("Baseline was recorded in planning before S2 implementation kickoff");
-    expect(riskBaseline).toContain("- Risk:");
-    expect(riskBaseline).toContain("- Rollback plan:");
-    expect(riskBaselineIndex).toBeGreaterThan(-1);
-    expect(s2NotesIndex).toBeGreaterThan(-1);
-    expect(riskBaselineIndex).toBeLessThan(s2NotesIndex);
+    expect(s5ClosureMatch).not.toBeNull();
+
+    const closureBody = s5ClosureMatch ? s5ClosureMatch[1] : "";
+    expect(closureBody).toContain("`docs/ai/ai-loop-status.md`");
+    expect(closureBody).toContain("`docs/ai/commit-log/2026-02.md`");
+    expect(closureBody).toContain("`docs/ai/weekly-summary.md`");
+    expect(closureBody).toContain("status to `Done`");
+    expect(closureBody).toContain("no runtime/gameplay contract files were changed");
   });
 });

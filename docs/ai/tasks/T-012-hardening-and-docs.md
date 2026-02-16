@@ -1,6 +1,6 @@
 # T-012: hardening-and-docs
 
-- Status: In Progress
+- Status: Done
 - Owner: maintainer
 - Branch: `main`
 - Prompt-Plan: `ARCHITECT_v1`, `PLANNER_v1`
@@ -29,7 +29,7 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - [x] [S2] Performance baseline command and threshold contract are documented and reproducible.
 - [x] [S3] README and `docs/ai` release-flow contracts are aligned with build/run/test/release commands.
 - [x] [S4] Task completion requires passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` with recorded evidence.
-- [x] [S5] Risk and rollback expectations are documented before implementation subtasks start.
+- [x] [S5] Task closure includes memory-finalize artifacts and explicit task-status closure evidence.
 
 ## Subtasks
 
@@ -37,7 +37,7 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - [x] [S2] Implement hardening changes and regression safeguards
 - [x] [S3] Sync README and AI governance docs for release handoff
 - [x] [S4] Run fast/full/docs gates and collect performance baseline evidence
-- [x] [S5] Risk and rollback expectations are documented before implementation subtasks start.
+- [x] [S5] Finalize memory and close task
 
 ## Notes
 
@@ -86,52 +86,35 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - Verified threshold contract: `imbalanceIndex` stays within baseline guard (`0.5800 <= 0.6000`).
 - Recorded S4 gate and baseline evidence in-task without widening architecture scope or touching runtime/gameplay contracts.
 
+## S5 Memory Finalization and Task Closure (2026-02-16)
+
+- Closed task metadata by setting this task status to `Done` after S1-S5 completion.
+- Refreshed loop handoff context in `docs/ai/ai-loop-status.md` to mark S5 closure state and no remaining subtasks.
+- Verified memory artifacts remain present and traceable for warm-start handoff: `docs/ai/commit-log/2026-02.md` and `docs/ai/weekly-summary.md`.
+- Kept S5 scope inside docs/tests only; no runtime/gameplay contract files were changed during closure.
+
 ## Change List
 
-- `docs/ai/tasks/T-012-hardening-and-docs.md`: rewrote task contract to an S1-complete, S2-S5-pending state with explicit hardening scope and acceptance criteria.
-- `tests/integration/hardening-scope-doc-contract.test.ts`: added integration contract test for T-012 scope/acceptance definitions.
-- `runtime/templates/tower-defense/validator.ts`: added semantic hardening checks for map-cell dimensions, duplicate IDs, and payload/entity tower consistency.
-- `runtime/core/engine.ts`: added scenario seed guard for deterministic input contracts.
-- `ai/pipeline.ts`: added bounded repair-attempt contract with explicit failure diagnostics for unrecoverable AI generations.
-- `tests/schema/tower-defense-semantic.test.ts`: added regression coverage for semantic hardening rules.
-- `tests/determinism/determinism.test.ts`: added regression coverage for scenario seed validation.
-- `tests/smoke/ai-pipeline-hardening.test.ts`: added regression coverage for AI repair-loop hardening behavior.
-- `README.md`: aligned release-flow contract labels with build/run/test/release command scripts.
-- `docs/ai/README.md`: aligned AI governance release-flow contract labels with runtime package scripts.
-- `docs/ai/workflows/continuous-loop.md`: aligned workflow release-flow contract labels with runtime package scripts.
-- `tests/integration/release-flow-doc-contract.test.ts`: expanded release-flow contract checks and added README core-scripts alignment assertions.
-- `tests/integration/hardening-scope-doc-contract.test.ts`: added S4 closure assertions to require checked gate evidence and command coverage in the task card.
-- `docs/ai/tasks/T-012-hardening-and-docs.md`: documented S5 pre-implementation risk/rollback baseline and marked S5 acceptance/subtask completion.
-- `tests/integration/hardening-scope-doc-contract.test.ts`: added S5 contract assertions that enforce risk/rollback baseline ordering before S2 implementation notes.
+- `docs/ai/tasks/T-012-hardening-and-docs.md`: finalized S5 closure contract, removed duplicated progress blocks, and marked task status `Done`.
+- `docs/ai/ai-loop-status.md`: updated loop status to S5 closure state for issue 12.
+- `tests/integration/hardening-scope-doc-contract.test.ts`: updated S5 contract assertions to enforce closure evidence and status finalization.
 
 ## Test Evidence
 
 - Commands:
-  - `pnpm gate:fast`
-  - `pnpm gate:full`
-  - `pnpm docs:sync-check`
-  - `pnpm simulate:batch game/examples/td-normal.json 100 --max-imbalance=0.6000`
   - `pnpm exec eslint tests/integration/hardening-scope-doc-contract.test.ts`
   - `pnpm exec vitest run tests/integration/hardening-scope-doc-contract.test.ts`
-  - `pnpm exec eslint runtime/templates/tower-defense/validator.ts runtime/core/engine.ts ai/pipeline.ts tests/schema/tower-defense-semantic.test.ts tests/determinism/determinism.test.ts tests/smoke/ai-pipeline-hardening.test.ts`
-  - `pnpm exec vitest run tests/schema/tower-defense-semantic.test.ts tests/determinism/determinism.test.ts tests/smoke/ai-pipeline-hardening.test.ts`
-  - `pnpm exec eslint tests/integration/release-flow-doc-contract.test.ts`
-  - `pnpm exec vitest run tests/integration/release-flow-doc-contract.test.ts`
-  - `pnpm test`
   - `pnpm docs:sync-check`
 - Result:
   - All commands pass.
 
-## Subtask Progress
-- [x] [S5] Risk and rollback expectations are documented before implementation subtasks start.
+## Risks and Rollback
+
+- Risk:
+  - Task closure metadata can drift if future edits reopen subtasks without updating status and closure evidence together.
+- Rollback:
+  - Revert `docs/ai/tasks/T-012-hardening-and-docs.md`, `docs/ai/ai-loop-status.md`, and `tests/integration/hardening-scope-doc-contract.test.ts` together.
 
 
 ## Subtask Progress
-- [x] [S5] Risk and rollback expectations are documented before implementation subtasks start.
-
-## Subtask Progress
-- [x] [S3] Sync README and AI governance docs for release handoff
-
-
-## Subtask Progress
-- [x] [S4] Run fast/full/docs gates and collect performance baseline evidence
+- [x] [S5] Finalize memory and close task
