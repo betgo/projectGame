@@ -22,7 +22,7 @@ type RoadmapIssue = {
 
 function parseArgv(argv: string[]): CliArgs {
   let title: string | undefined;
-  let roadmapFile = "docs/ai/tasks/T-ROADMAP-v1-editor-platform.md";
+  let roadmapFile = "docs/ai/tasks/T-ROADMAP-6M-render-first-platform.md";
   let force = false;
   const positionals: string[] = [];
 
@@ -97,7 +97,8 @@ function listTaskCards(cwd: string): TaskCard[] {
   return fs
     .readdirSync(tasksDir)
     .filter((file) => file.endsWith(".md"))
-    .filter((file) => !["TEMPLATE.md", "SUBTASK-TEMPLATE.md", "T-ROADMAP-v1-editor-platform.md"].includes(file))
+    .filter((file) => !["TEMPLATE.md", "SUBTASK-TEMPLATE.md"].includes(file))
+    .filter((file) => !/^T-ROADMAP\b/i.test(file))
     .map((file) => {
       const absolute = path.resolve(tasksDir, file);
       const content = fs.readFileSync(absolute, "utf-8");

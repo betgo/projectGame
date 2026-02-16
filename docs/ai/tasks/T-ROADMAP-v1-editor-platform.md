@@ -1,6 +1,6 @@
 # T-ROADMAP: v1 Editor Platform Issue Breakdown
 
-- Status: Planned
+- Status: Done
 - Owner: maintainer
 - Branch rule: `main`
 - Delivery rule: `1 Issue = 1 PR`
@@ -22,8 +22,13 @@
 
 ## Definition of Done
 
-- [ ] Scope completed
-- [ ] Tests and validations passed
-- [ ] Prompt-Refs included in commits
-- [ ] `docs/ai/commit-log/YYYY-MM.md` updated before PR
-- [ ] PR template fully completed
+- [x] Scope completed
+- [x] Tests and validations passed
+- [x] Prompt-Refs included in commits
+- [x] `docs/ai/commit-log/YYYY-MM.md` updated before PR
+- [x] PR template fully completed
+
+## Completion Note
+
+- v1 roadmap issues I001-I012 are closed.
+- Next delivery track is defined in `T-ROADMAP-6M-render-first-platform.md`.

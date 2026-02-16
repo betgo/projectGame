@@ -14,6 +14,7 @@ This folder stores auditable AI memory and prompt governance artifacts.
 
 1. Create a task document from `tasks/TEMPLATE.md`.
    - Auto-create next task card: `pnpm task:next` (or `pnpm task:next -- "<custom title>"`).
+   - Default roadmap source: `tasks/T-ROADMAP-6M-render-first-platform.md`.
 2. Optional: split issue into subtasks using `tasks/SUBTASK-TEMPLATE.md`.
 3. Work directly on `main`.
 4. Run loop: `pnpm dev:loop -- --issue-id <id> --task-file <task.md>`.
@@ -60,3 +61,5 @@ When opening a fresh AI session, read in this order:
 - `workflows/continuous-loop.md`
 - `tasks/SUBTASK-TEMPLATE.md`
 - `ai-loop-status.md` (commit 后更新，中文说明当前 AI 在做什么和下一步计划)
+- `tasks/T-ROADMAP-v1-editor-platform.md` (v1 history, completed)
+- `tasks/T-ROADMAP-6M-render-first-platform.md` (active 6-month roadmap)

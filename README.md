@@ -79,9 +79,15 @@ pnpm dev:loop -- --issue-id <id> --task-file <task.md>
 ```bash
 bash tools/git-memory/install.sh
 bash tools/git-memory/new-task.sh 0002 "tower-defense-wave-editor"
+pnpm task:next
 bash tools/git-memory/append-commit-log.sh --missing HEAD
 bash tools/git-memory/finalize-task.sh
 ```
+
+## Roadmap
+
+- v1 completed roadmap: `docs/ai/tasks/T-ROADMAP-v1-editor-platform.md`
+- active 6-month roadmap: `docs/ai/tasks/T-ROADMAP-6M-render-first-platform.md`
 
 ## Key paths
 

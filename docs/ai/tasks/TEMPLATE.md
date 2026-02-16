@@ -23,9 +23,11 @@ One paragraph describing expected user value.
 
 ## Subtasks
 
-- [ ] [S1] Implement scoped change
-- [ ] [S2] Pass fast/full gates
-- [ ] [S3] Sync docs and finalize memory
+- [x] [S1] Define scope and acceptance criteria
+- [ ] [S2] Implement scoped code changes
+- [ ] [S3] Pass fast and full gates
+- [ ] [S4] Update docs and risk notes
+- [ ] [S5] Milestone commit and memory finalize
 
 ## Change List
 
