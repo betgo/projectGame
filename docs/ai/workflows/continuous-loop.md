@@ -17,8 +17,9 @@ pnpm dev:loop -- --issue-id 010 --task-file docs/ai/tasks/T-010.md
 ```
 
 By default, loop uses `codex` as coding CLI for both implement and autofix phases.
-If there is exactly one active issue task card (for example `docs/ai/tasks/T-010.md`), you can omit
-both `--issue-id` and `--task-file`.
+If `--issue-id` and `--task-file` are omitted, loop auto-selects the first pending task card in
+`docs/ai/tasks/` (filename order). Pass either flag explicitly when you need to pin a task.
+When a task is completed, loop continues to the next pending task card by default.
 
 ### Useful Flags
 
@@ -32,6 +33,8 @@ both `--issue-id` and `--task-file`.
 - `--autofix-cmd="<command>"`
 - `--auto-commit=true|false`
 - `--auto-finalize-memory=true|false`
+- `--continue-next-tasks=true|false` (default `true`)
+- `--allow-doc-contract-tests=true|false` (default `false`)
 - `--subtask-id=<id>`
 
 ## Gate Commands
@@ -72,6 +75,7 @@ both `--issue-id` and `--task-file`.
 2. Contract file changes (`runtime/core`, `game/schemas`, `ai`) require docs updates.
 3. Milestone commit must include `Prompt-Refs` and full commit template sections.
 4. Memory finalize runs `tools/git-memory/finalize-task.sh` before a single task-level commit (no per-subtask commit).
+5. New `*doc-contract*.test.ts` files are blocked by default unless `--allow-doc-contract-tests=true` is set explicitly.
 
 ## Render contract note
 

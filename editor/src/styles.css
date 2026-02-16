@@ -50,6 +50,91 @@ body {
   margin-bottom: 8px;
 }
 
+.inspector-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.inspector-section {
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.inspector-section h4 {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #111827;
+}
+
+.tool-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.tool-option {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  background: #f8fafc;
+  padding: 6px 8px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.tool-option.active {
+  border-color: #0f172a;
+  background: #e2e8f0;
+}
+
+.field-row {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr);
+  align-items: center;
+  gap: 8px;
+}
+
+.field-row input {
+  width: 100%;
+  min-width: 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 5px 8px;
+  font: inherit;
+}
+
+.field-hint {
+  margin: 4px 0 0;
+  color: #b91c1c;
+}
+
+.preset-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.chip {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+.chip.selected {
+  border-color: #0f172a;
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.map-size-form {
+  display: grid;
+  gap: 4px;
+}
+
 button {
   border: 1px solid #374151;
   background: #111827;
@@ -62,6 +147,11 @@ button {
 button.secondary {
   background: #ffffff;
   color: #111827;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .small {

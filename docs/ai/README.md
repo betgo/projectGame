@@ -18,7 +18,10 @@ This folder stores auditable AI memory and prompt governance artifacts.
 2. Optional: split issue into subtasks using `tasks/SUBTASK-TEMPLATE.md`.
 3. Work directly on `main`.
 4. Run loop: `pnpm dev:loop -- --issue-id <id> --task-file <task.md>`.
-   - If there is exactly one active issue task card, `--issue-id` and `--task-file` can be omitted.
+   - If `--issue-id` and `--task-file` are omitted, loop picks the first pending task card in `docs/ai/tasks/` (filename order).
+   - Use `--issue-id` or `--task-file` when you need to pin loop execution to a specific task card.
+   - Loop continues to subsequent pending tasks by default; set `--continue-next-tasks=false` to stop after current task.
+   - New `*doc-contract*.test.ts` files are blocked by default; enable with `--allow-doc-contract-tests=true` only when explicitly required.
 5. Task completion commit and memory finalization are handled in loop when auto-commit is enabled (`finalize-task.sh` artifacts are merged before one task-level commit).
 6. Open PR and keep `1 Issue = 1 PR`.
 

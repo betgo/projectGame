@@ -174,7 +174,7 @@ function resolveTaskAndIssue(
   }
 
   const activeCards = cards.filter((card) => !card.done);
-  if (activeCards.length === 1) {
+  if (activeCards.length > 0) {
     const only = activeCards[0];
     return {
       issueId: only.issueId ?? branchIssue,
@@ -211,6 +211,7 @@ export function parseLoopConfig(argv: string[], cwd: string): LoopConfig {
     issueId: resolved.issueId,
     branch,
     taskFile: resolved.taskFile,
+    continueNextTasks: asBool(args["continue-next-tasks"], true),
     subtaskId: asString(args["subtask-id"], "") || undefined,
     codingCli,
     retryMode,
@@ -226,6 +227,7 @@ export function parseLoopConfig(argv: string[], cwd: string): LoopConfig {
     fastGateCmd: asString(args["fast-gate-cmd"], "pnpm gate:fast"),
     fullGateCmd: asString(args["full-gate-cmd"], "pnpm gate:full"),
     docsSyncCmd: asString(args["docs-sync-cmd"], "pnpm docs:sync-check"),
+    allowDocContractTests: asBool(args["allow-doc-contract-tests"], false),
     promptRefs: asString(
       args["prompt-refs"],
       "ARCHITECT_v1,PLANNER_v1,BUILDER_v2,GUARDIAN_v1,REVIEWER_v1"

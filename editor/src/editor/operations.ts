@@ -1,5 +1,7 @@
 import type { GameProject, GridCell } from "@runtime/core/types";
 
+import { sanitizeMapSize, sanitizeSpeed } from "./inspector-form";
+
 export type EditorOperation =
   | { type: "set-tool"; tool: GameProject["editorState"]["selectedTool"] }
   | { type: "paint-cell"; x: number; y: number }
@@ -71,14 +73,17 @@ export function applyOperation(project: GameProject, op: EditorOperation): OpRes
       return { ok: true, project: next };
     }
     case "set-speed":
-      next.editorState.speed = op.speed;
+      next.editorState.speed = sanitizeSpeed(op.speed, project.editorState.speed);
       return { ok: true, project: next };
-    case "set-map-size":
-      next.map.width = op.width;
-      next.map.height = op.height;
-      next.map.cells = resizeCells(next, op.width, op.height);
+    case "set-map-size": {
+      const width = sanitizeMapSize(op.width, project.map.width);
+      const height = sanitizeMapSize(op.height, project.map.height);
+      next.map.width = width;
+      next.map.height = height;
+      next.map.cells = resizeCells(next, width, height);
       syncPayloadFromCells(next);
       return { ok: true, project: next };
+    }
     default:
       return { ok: false, project, message: "unknown operation" };
   }

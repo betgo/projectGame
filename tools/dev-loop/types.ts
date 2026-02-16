@@ -4,6 +4,7 @@ export type LoopConfig = {
   issueId: string;
   branch: string;
   taskFile: string;
+  continueNextTasks: boolean;
   subtaskId?: string;
   codingCli: "codex" | "custom";
   retryMode: RetryMode;
@@ -19,6 +20,7 @@ export type LoopConfig = {
   fastGateCmd: string;
   fullGateCmd: string;
   docsSyncCmd: string;
+  allowDocContractTests: boolean;
   promptRefs: string[];
   commitType: string;
   commitScope: string;

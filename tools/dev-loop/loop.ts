@@ -1,3 +1,4 @@
+import fs from "node:fs";
 import path from "node:path";
 
 import { parseLoopConfig } from "./config";
@@ -38,6 +39,154 @@ function runAutoFix(cwd: string, command: string | undefined, timeoutMin: number
   });
 }
 
+function isDocContractTest(filePath: string): boolean {
+  return /doc-contract.*\.test\.ts$/i.test(filePath.trim());
+}
+
+function readCommandLines(cwd: string, command: string): string[] {
+  const result = runCommand(command, cwd);
+  if (!result.success) {
+    return [];
+  }
+  return result.stdout
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
+
+function collectNewDocContractTests(cwd: string): string[] {
+  const candidates = new Set<string>();
+  const commands = [
+    "git ls-files --others --exclude-standard",
+    "git diff --name-only --diff-filter=A",
+    "git diff --cached --name-only --diff-filter=A"
+  ];
+
+  for (const command of commands) {
+    for (const file of readCommandLines(cwd, command)) {
+      if (isDocContractTest(file)) {
+        candidates.add(file);
+      }
+    }
+  }
+
+  return [...candidates].sort();
+}
+
+function ensureNoUnauthorizedDocContractTests(cwd: string, allowed: boolean): void {
+  if (allowed) {
+    return;
+  }
+  const added = collectNewDocContractTests(cwd);
+  if (added.length === 0) {
+    return;
+  }
+  throw new Error(
+    `new doc-contract tests are blocked by default: ${added.join(
+      ", "
+    )}. Use --allow-doc-contract-tests=true for explicit authorization.`
+  );
+}
+
+type TaskCard = {
+  fileName: string;
+  absolutePath: string;
+  issueId?: string;
+  done: boolean;
+};
+
+function normalizeIssueId(raw: string): string {
+  const value = raw.trim();
+  if (!value) {
+    return "";
+  }
+  if (/^\d+$/.test(value)) {
+    return String(Number(value));
+  }
+  return value;
+}
+
+function issueIdFromTaskFileName(fileName: string): string | undefined {
+  const match = /^T-(\d+)\b/i.exec(fileName);
+  if (!match) {
+    return undefined;
+  }
+  return normalizeIssueId(match[1]);
+}
+
+function parseTaskDoneState(content: string): boolean {
+  const match = content.match(/^- Status:\s*(.+)$/im);
+  if (!match) {
+    return false;
+  }
+  return match[1].toLowerCase().includes("done");
+}
+
+function sortTaskCards(a: TaskCard, b: TaskCard): number {
+  const aIssue = a.issueId ? Number(a.issueId) : Number.POSITIVE_INFINITY;
+  const bIssue = b.issueId ? Number(b.issueId) : Number.POSITIVE_INFINITY;
+
+  if (aIssue !== bIssue) {
+    return aIssue - bIssue;
+  }
+
+  return a.fileName.localeCompare(b.fileName);
+}
+
+function listTaskCards(cwd: string): TaskCard[] {
+  const tasksDir = path.resolve(cwd, "docs/ai/tasks");
+  if (!fs.existsSync(tasksDir)) {
+    return [];
+  }
+
+  return fs
+    .readdirSync(tasksDir)
+    .filter((file) => file.endsWith(".md"))
+    .filter((file) => !["TEMPLATE.md", "SUBTASK-TEMPLATE.md"].includes(file))
+    .map((fileName) => {
+      const absolutePath = path.resolve(tasksDir, fileName);
+      const content = fs.readFileSync(absolutePath, "utf-8");
+      return {
+        fileName,
+        absolutePath,
+        issueId: issueIdFromTaskFileName(fileName),
+        done: parseTaskDoneState(content)
+      };
+    })
+    .sort(sortTaskCards);
+}
+
+function buildTaskExecutionQueue(
+  cwd: string,
+  startTaskFile: string,
+  continueNextTasks: boolean,
+  hasPinnedSubtask: boolean
+): string[] {
+  const start = path.resolve(cwd, startTaskFile);
+  if (hasPinnedSubtask) {
+    return [start];
+  }
+
+  const cards = listTaskCards(cwd);
+  if (cards.length === 0) {
+    return [start];
+  }
+
+  const startIndex = cards.findIndex((card) => card.absolutePath === start);
+  if (startIndex < 0) {
+    return [start];
+  }
+
+  const candidates = continueNextTasks ? cards.slice(startIndex) : [cards[startIndex]];
+  const pending = candidates.filter((card) => !card.done).map((card) => card.absolutePath);
+
+  if (pending.length > 0) {
+    return pending;
+  }
+
+  return [start];
+}
+
 function quoteForShell(value: string): string {
   return `'${value.replaceAll("'", `'"'"'`)}'`;
 }
@@ -48,7 +197,8 @@ function buildCodexPrompt(config: LoopConfig, subtask: Subtask, mode: "implement
     `Read docs/ai/constitution.md, docs/ai/weekly-summary.md, and ${config.taskFile}.`,
     `Work only on subtask ${subtask.id}: ${subtask.title}.`,
     "Do not commit changes.",
-    "Keep architecture boundaries intact and update docs when contract-level files change."
+    "Keep architecture boundaries intact and update docs when contract-level files change.",
+    "Do not create *doc-contract*.test.ts files unless explicitly authorized."
   ];
 
   if (mode === "autofix") {
@@ -122,6 +272,7 @@ function runGatesWithRetry(
   for (;;) {
     ensureNotTimedOut(startedAt, config.maxDurationMin);
     attempts += 1;
+    ensureNoUnauthorizedDocContractTests(cwd, config.allowDocContractTests);
 
     const fastGate = runGate("FAST_GATE", config.fastGateCmd, cwd);
     gateSummary.fast.push(fastGate);
@@ -230,75 +381,103 @@ function main(): number {
       throw new Error(`missing prompt refs: ${missingPrompts.join(", ")}`);
     }
 
-    const taskContext = readTaskContext(config.taskFile, config.subtaskId);
-
-    for (let subtaskIndex = 0; subtaskIndex < taskContext.subtasks.length; subtaskIndex += 1) {
-      const subtask = taskContext.subtasks[subtaskIndex];
-      ensureNotTimedOut(startedAtMs, config.maxDurationMin);
-      console.log(`\n=== Processing ${subtask.id}: ${subtask.title} ===`);
-
-      const implementCommand = resolveImplementCommand(config, subtask);
-      if (implementCommand) {
-        const implement = runGate("IMPLEMENT", implementCommand, cwd, {
-          streamOutput: true,
-          timeoutMs: config.implementTimeoutMin * 60 * 1000
-        });
-        if (!implement.success) {
-          throw new Error(`implement command failed: ${implement.stderr || implement.stdout}`);
-        }
-      }
-
-      const cycle = runGatesWithRetry(cwd, startedAtMs, config, subtask);
-      gateSummary.fast.push(...cycle.gateSummary.fast);
-      gateSummary.full.push(...cycle.gateSummary.full);
-      gateSummary.autofix.push(...cycle.gateSummary.autofix);
-      docSyncSummary.push(...cycle.docSummaries);
-
-      let commitSha: string | undefined;
-      let memoryCommitSha: string | undefined;
-
-      if (config.autoCommit && !config.dryRun) {
-        markSubtaskDone(taskContext.path, subtask);
-      }
-
-      const changedAfter = runCommand("git status --porcelain", cwd)
-        .stdout.split("\n")
-        .map((line) => line.trim())
-        .filter(Boolean);
-
-      subtaskResults.push({
-        subtaskId: subtask.id,
-        attempts: cycle.attempts,
-        changedFiles: changedAfter,
-        testsRun: [config.fastGateCmd, config.fullGateCmd, config.docsSyncCmd],
-        commitSha,
-        memoryCommitSha,
-        promptRefs: config.promptRefs,
-        status: "success"
-      });
+    const taskQueue = buildTaskExecutionQueue(cwd, config.taskFile, config.continueNextTasks, Boolean(config.subtaskId));
+    if (taskQueue.length > 1) {
+      const queueNames = taskQueue.map((taskFile) => path.basename(taskFile)).join(", ");
+      console.log(`\nTask queue: ${queueNames}`);
     }
 
-    if (config.autoCommit && !config.dryRun) {
-      let memoryCommitSha: string | undefined;
-      if (config.autoFinalizeMemory) {
-        const stagedMemory = stageMemoryArtifacts(cwd);
-        if (stagedMemory.length > 0) {
-          memoryCommitSha = "merged-in-task-commit";
-        }
+    for (let taskIndex = 0; taskIndex < taskQueue.length; taskIndex += 1) {
+      const taskFile = taskQueue[taskIndex];
+      const taskName = path.basename(taskFile);
+      const taskIssueId = issueIdFromTaskFileName(taskName) ?? config.issueId;
+      const taskConfig: LoopConfig = {
+        ...config,
+        issueId: taskIssueId,
+        taskFile
+      };
+      const onlySubtaskId = taskIndex === 0 ? config.subtaskId : undefined;
+      const taskContext = readTaskContext(taskFile, onlySubtaskId);
+      if (taskContext.subtasks.length === 0) {
+        console.log(`\n=== Skipping ${taskName}: no pending subtasks ===`);
+        continue;
       }
 
-      const taskSummary = path.basename(config.taskFile);
-      const taskSubtask = {
-        id: "TASK",
-        title: `${taskSummary} (${taskContext.subtasks.length} subtasks)`,
-        done: false
-      };
-      const docSummary = mergeDocSummary(docSyncSummary);
-      const commitSha = commitMilestone(cwd, config, taskSubtask, gateSummary, docSummary);
-      if (subtaskResults.length > 0) {
-        const last = subtaskResults[subtaskResults.length - 1];
-        last.commitSha = commitSha;
-        last.memoryCommitSha = memoryCommitSha;
+      const taskGateSummary: GateSummary = { fast: [], full: [], autofix: [] };
+      const taskDocSyncSummary: DocSyncSummary[] = [];
+
+      console.log(`\n=== Processing Task ${taskName} (${taskContext.subtasks.length} subtasks) ===`);
+      for (let subtaskIndex = 0; subtaskIndex < taskContext.subtasks.length; subtaskIndex += 1) {
+        const subtask = taskContext.subtasks[subtaskIndex];
+        ensureNotTimedOut(startedAtMs, taskConfig.maxDurationMin);
+        console.log(`\n=== Processing ${subtask.id}: ${subtask.title} ===`);
+
+        const implementCommand = resolveImplementCommand(taskConfig, subtask);
+        if (implementCommand) {
+          const implement = runGate("IMPLEMENT", implementCommand, cwd, {
+            streamOutput: true,
+            timeoutMs: taskConfig.implementTimeoutMin * 60 * 1000
+          });
+          if (!implement.success) {
+            throw new Error(`implement command failed: ${implement.stderr || implement.stdout}`);
+          }
+        }
+
+        const cycle = runGatesWithRetry(cwd, startedAtMs, taskConfig, subtask);
+        gateSummary.fast.push(...cycle.gateSummary.fast);
+        gateSummary.full.push(...cycle.gateSummary.full);
+        gateSummary.autofix.push(...cycle.gateSummary.autofix);
+        docSyncSummary.push(...cycle.docSummaries);
+        taskGateSummary.fast.push(...cycle.gateSummary.fast);
+        taskGateSummary.full.push(...cycle.gateSummary.full);
+        taskGateSummary.autofix.push(...cycle.gateSummary.autofix);
+        taskDocSyncSummary.push(...cycle.docSummaries);
+
+        let commitSha: string | undefined;
+        let memoryCommitSha: string | undefined;
+
+        if (taskConfig.autoCommit && !taskConfig.dryRun) {
+          markSubtaskDone(taskContext.path, subtask);
+        }
+
+        const changedAfter = runCommand("git status --porcelain", cwd)
+          .stdout.split("\n")
+          .map((line) => line.trim())
+          .filter(Boolean);
+
+        subtaskResults.push({
+          subtaskId: `${taskName}#${subtask.id}`,
+          attempts: cycle.attempts,
+          changedFiles: changedAfter,
+          testsRun: [taskConfig.fastGateCmd, taskConfig.fullGateCmd, taskConfig.docsSyncCmd],
+          commitSha,
+          memoryCommitSha,
+          promptRefs: taskConfig.promptRefs,
+          status: "success"
+        });
+      }
+
+      if (taskConfig.autoCommit && !taskConfig.dryRun) {
+        let memoryCommitSha: string | undefined;
+        if (taskConfig.autoFinalizeMemory) {
+          const stagedMemory = stageMemoryArtifacts(cwd);
+          if (stagedMemory.length > 0) {
+            memoryCommitSha = "merged-in-task-commit";
+          }
+        }
+
+        const taskSubtask = {
+          id: "TASK",
+          title: `${taskName} (${taskContext.subtasks.length} subtasks)`,
+          done: false
+        };
+        const docSummary = mergeDocSummary(taskDocSyncSummary);
+        const commitSha = commitMilestone(cwd, taskConfig, taskSubtask, taskGateSummary, docSummary);
+        if (subtaskResults.length > 0) {
+          const last = subtaskResults[subtaskResults.length - 1];
+          last.commitSha = commitSha;
+          last.memoryCommitSha = memoryCommitSha;
+        }
       }
     }
 
