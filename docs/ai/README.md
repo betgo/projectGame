@@ -52,6 +52,9 @@ This folder stores auditable AI memory and prompt governance artifacts.
 
 - `RenderSnapshot` in `runtime/core/types.ts` includes immutable `map` and `path` fields to support deterministic Three.js placeholder rendering in preview.
 - Keep render documentation synchronized with `README.md` and `docs/ai/workflows/continuous-loop.md` whenever contract-level files change.
+- Camera interaction defaults in `runtime/render/three-adapter.ts` are documented as orbit/pan/zoom with deterministic clamp ranges for pitch, distance, and pan focus limits.
+- Resize handling follows `mount -> resize -> dispose` lifecycle, and docs must preserve renderer-size + camera-projection synchronization guarantees.
+- Hover selection affordance stays render-only: tower/enemy placeholders can highlight/unhighlight through adapter metadata callbacks without mutating `runtime/core`.
 
 ## Session Warm Start
 

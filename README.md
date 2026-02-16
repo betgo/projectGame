@@ -69,6 +69,9 @@ pnpm dev:loop -- --issue-id <id> --task-file <task.md>
 
 - `RenderSnapshot` in `runtime/core/types.ts` includes immutable `map` and `path` fields for deterministic preview placeholder rendering.
 - `runtime/render` consumes snapshot data in read-only mode and must not mutate runtime simulation state.
+- Camera interaction contract in `runtime/render/three-adapter.ts`: left drag = orbit, shift/right drag = pan, wheel = zoom, with deterministic clamp ranges for distance/pitch/pan bounds.
+- Resize lifecycle contract stays `mount -> resize -> dispose`, where renderer size and camera projection updates remain synchronized with preview container dimensions.
+- Selection affordance contract applies hover highlight only to tower/enemy placeholders and restores fallback colors when selection exits, without mutating `runtime/core` state.
 
 ## Batch simulation contract
 

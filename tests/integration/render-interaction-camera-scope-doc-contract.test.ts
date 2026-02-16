@@ -6,6 +6,11 @@ import { describe, expect, it } from "vitest";
 
 const projectRoot = path.resolve(fileURLToPath(new URL("../..", import.meta.url)));
 const taskPath = path.join(projectRoot, "docs/ai/tasks/T-015-render-interaction-and-camera.md");
+const renderContractDocPaths = [
+  "README.md",
+  "docs/ai/README.md",
+  "docs/ai/workflows/continuous-loop.md"
+] as const;
 
 function readSection(title: string, content: string): string {
   const escaped = title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -21,7 +26,7 @@ function normalizeMarkdownLine(value: string): string {
   return value.trim().replace(/\s+/g, " ");
 }
 
-describe("T-015 render-interaction-and-camera S3 doc contract", () => {
+describe("T-015 render-interaction-and-camera S4 doc contract", () => {
   it("defines scope boundaries for camera interaction, resize lifecycle, and selection affordance", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const scope = readSection("Scope", taskDoc);
@@ -66,33 +71,52 @@ describe("T-015 render-interaction-and-camera S3 doc contract", () => {
       expect(acceptanceCriteria.some((line) => line.endsWith(criterion))).toBe(true);
     }
 
-    for (const line of acceptanceCriteria.slice(0, 3)) {
+    for (const line of acceptanceCriteria.slice(0, 4)) {
       expect(line.startsWith("- [x]")).toBe(true);
     }
-    for (const line of acceptanceCriteria.slice(3)) {
-      expect(line.startsWith("- [ ]")).toBe(true);
-    }
+    expect(acceptanceCriteria[4].startsWith("- [ ]")).toBe(true);
   });
 
-  it("marks S1-S3 complete while keeping later subtasks pending with rollback scope", () => {
+  it("marks S1-S4 complete while keeping S5 pending with gate evidence retained", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const subtasks = readSection("Subtasks", taskDoc)
       .split("\n")
       .map(normalizeMarkdownLine)
       .filter((line) => line.startsWith("- ["));
     const s3Notes = readSection("S3 Implementation Notes (2026-02-16)", taskDoc);
-    const risksAndRollback = readSection("Risks and Rollback", taskDoc);
 
     expect(subtasks).toContain("- [x] [S1] Define scope and acceptance criteria");
     expect(subtasks).toContain("- [x] [S2] Implement scoped code changes");
     expect(subtasks).toContain("- [x] [S3] Pass fast and full gates");
-    expect(subtasks).toContain("- [ ] [S4] Update docs and risk notes");
+    expect(subtasks).toContain("- [x] [S4] Update docs and risk notes");
     expect(subtasks).toContain("- [ ] [S5] Milestone commit and memory finalize");
     expect(s3Notes).toContain("`pnpm gate:fast`");
     expect(s3Notes).toContain("`pnpm gate:full`");
+  });
+
+  it("synchronizes docs and risk notes for S4 without breaking architecture boundaries", () => {
+    const taskDoc = fs.readFileSync(taskPath, "utf-8");
+    const s4Notes = readSection("S4 Documentation and Risk Notes (2026-02-16)", taskDoc);
+    const risksAndRollback = readSection("Risks and Rollback", taskDoc);
+
+    for (const docPath of renderContractDocPaths) {
+      const docContent = fs.readFileSync(path.join(projectRoot, docPath), "utf-8");
+      const renderContractNote = readSection("Render contract note", docContent);
+
+      expect(renderContractNote).toContain("`runtime/core/types.ts`");
+      expect(renderContractNote).toContain("`runtime/render/three-adapter.ts`");
+      expect(renderContractNote).toContain("orbit");
+      expect(renderContractNote).toContain("resize");
+      expect(renderContractNote.toLowerCase()).toContain("selection");
+      expect(renderContractNote).toContain("`runtime/core`");
+      expect(s4Notes).toContain(`\`${docPath}\``);
+    }
 
     expect(risksAndRollback).toContain("Scope drift may mix interaction/camera delivery");
-    expect(risksAndRollback).toContain("`runtime/core`");
+    expect(risksAndRollback).toContain("Render interaction docs may drift across `README.md`");
+    expect(risksAndRollback).toContain("`README.md`");
+    expect(risksAndRollback).toContain("`docs/ai/README.md`");
+    expect(risksAndRollback).toContain("`docs/ai/workflows/continuous-loop.md`");
     expect(risksAndRollback).toContain("`docs/ai/tasks/T-015-render-interaction-and-camera.md`");
     expect(risksAndRollback).toContain("`tests/integration/render-interaction-camera-scope-doc-contract.test.ts`");
   });

@@ -77,6 +77,9 @@ both `--issue-id` and `--task-file`.
 
 - Render baseline contract expects `RenderSnapshot` in `runtime/core/types.ts` to carry immutable `map` and `path` fields for deterministic preview placeholder rendering.
 - Render adapter responsibilities stay read-only; do not move runtime state mutation logic from `runtime/core` into `runtime/render`.
+- Camera interaction contract in `runtime/render/three-adapter.ts` stays deterministic: left drag orbit, shift/right drag pan, and wheel zoom with explicit clamp bounds.
+- Preview resize contract remains `mount -> resize -> dispose`; renderer viewport and camera projection matrix updates must stay synchronized with container dimensions.
+- Selection affordance contract is hover-only for tower/enemy placeholders; highlight enter/exit must restore fallback state and keep `runtime/core` immutable.
 
 ## Output Artifacts
 
