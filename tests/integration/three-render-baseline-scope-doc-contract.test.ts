@@ -131,12 +131,22 @@ describe("T-014 three-render-baseline scope contract", () => {
     expect(s5Closure).toContain("no runtime/render contract files were changed");
   });
 
-  it("updates loop status board to closed S5 handoff state", () => {
+  it("keeps loop status board in a valid handoff or active-task state", () => {
     const loopStatus = fs.readFileSync(loopStatusPath, "utf-8");
 
-    expect(loopStatus).toContain("- 当前阶段: 子任务收口完成");
-    expect(loopStatus).toContain("- 当前子任务: [S5] Milestone commit and memory finalize");
-    expect(loopStatus).toContain("- 下一个子任务: 无");
-    expect(loopStatus).toContain("`pnpm task:next`");
+    const hasClosedHandoffState =
+      loopStatus.includes("- 当前阶段: 子任务收口完成") &&
+      loopStatus.includes("- 当前子任务: [S5] Milestone commit and memory finalize") &&
+      loopStatus.includes("- 下一个子任务: 无");
+
+    if (hasClosedHandoffState) {
+      expect(loopStatus).toContain("`pnpm task:next`");
+      return;
+    }
+
+    expect(loopStatus).toContain("- 当前阶段:");
+    expect(loopStatus).toContain("- 当前子任务:");
+    expect(loopStatus).toContain("- 下一个子任务:");
+    expect(loopStatus).toContain("- 任务卡:");
   });
 });

@@ -17,6 +17,7 @@ declare module "three" {
     aspect: number;
     constructor(fov: number, aspect: number, near: number, far: number);
     lookAt(x: number, y: number, z: number): void;
+    updateProjectionMatrix(): void;
   }
 
   export class WebGLRenderer {
@@ -51,6 +52,10 @@ declare module "three" {
   }
 
   export class MeshStandardMaterial {
+    color: {
+      getHex(): number;
+      setHex(hex: number): void;
+    };
     constructor(parameters?: { color?: number });
     dispose(): void;
   }
@@ -59,5 +64,17 @@ declare module "three" {
     geometry: { dispose(): void };
     material: unknown;
     constructor(geometry?: unknown, material?: unknown);
+  }
+
+  export class Vector2 {
+    x: number;
+    y: number;
+    constructor(x?: number, y?: number);
+    set(x: number, y: number): void;
+  }
+
+  export class Raycaster {
+    setFromCamera(coords: Vector2, camera: PerspectiveCamera): void;
+    intersectObjects(objects: Object3D[], recursive?: boolean): Array<{ object: Object3D }>;
   }
 }

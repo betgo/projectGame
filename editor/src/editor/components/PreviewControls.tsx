@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 
 import { getWorldSnapshot } from "@runtime/render/snapshot";
-import { ThreeRenderAdapter } from "@runtime/render/three-adapter";
+import { ThreeRenderAdapter, type RenderSelection } from "@runtime/render/three-adapter";
 
 import { startPreview } from "../api";
 import type { GameProject } from "@runtime/core/types";
@@ -12,6 +12,7 @@ type Props = {
 
 export function PreviewControls({ project }: Props) {
   const [lastResult, setLastResult] = useState<string>("idle");
+  const [selectionLabel, setSelectionLabel] = useState<string>("none");
   const [seed, setSeed] = useState<number>(42);
   const session = useMemo(() => startPreview(project, seed), [project, seed]);
   const renderHostRef = useRef<HTMLDivElement | null>(null);
@@ -23,7 +24,15 @@ export function PreviewControls({ project }: Props) {
       return;
     }
 
-    const adapter = new ThreeRenderAdapter(host);
+    const adapter = new ThreeRenderAdapter(host, {
+      onSelectionChange: (selection: RenderSelection | null) => {
+        if (!selection) {
+          setSelectionLabel("none");
+          return;
+        }
+        setSelectionLabel(`${selection.kind}:${selection.id}`);
+      }
+    });
     adapterRef.current = adapter;
     adapter.applySnapshot(getWorldSnapshot(session.world));
 
@@ -32,6 +41,7 @@ export function PreviewControls({ project }: Props) {
       if (adapterRef.current === adapter) {
         adapterRef.current = null;
       }
+      setSelectionLabel("none");
     };
   }, [session]);
 
@@ -83,6 +93,8 @@ export function PreviewControls({ project }: Props) {
         <button onClick={runFull}>Run Full</button>
       </div>
       <div className="preview-stage" ref={renderHostRef} />
+      <div className="small">Controls: Left drag orbit, Shift/Right drag pan, Wheel zoom.</div>
+      <div className="small">Hover: {selectionLabel}</div>
       <div className="small">Seed: {seed}</div>
       <div className="small">{lastResult}</div>
     </div>

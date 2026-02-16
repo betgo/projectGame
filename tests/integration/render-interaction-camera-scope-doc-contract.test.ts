@@ -21,7 +21,7 @@ function normalizeMarkdownLine(value: string): string {
   return value.trim().replace(/\s+/g, " ");
 }
 
-describe("T-015 render-interaction-and-camera S1 doc contract", () => {
+describe("T-015 render-interaction-and-camera S2 doc contract", () => {
   it("defines scope boundaries for camera interaction, resize lifecycle, and selection affordance", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const scope = readSection("Scope", taskDoc);
@@ -67,12 +67,13 @@ describe("T-015 render-interaction-and-camera S1 doc contract", () => {
     }
 
     expect(acceptanceCriteria[0].startsWith("- [x]")).toBe(true);
-    for (const line of acceptanceCriteria.slice(1)) {
+    expect(acceptanceCriteria[1].startsWith("- [x]")).toBe(true);
+    for (const line of acceptanceCriteria.slice(2)) {
       expect(line.startsWith("- [ ]")).toBe(true);
     }
   });
 
-  it("marks only S1 subtask complete and records rollback scope for S1 changes", () => {
+  it("marks S1/S2 complete while keeping later subtasks pending with rollback scope", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const subtasks = readSection("Subtasks", taskDoc)
       .split("\n")
@@ -81,7 +82,7 @@ describe("T-015 render-interaction-and-camera S1 doc contract", () => {
     const risksAndRollback = readSection("Risks and Rollback", taskDoc);
 
     expect(subtasks).toContain("- [x] [S1] Define scope and acceptance criteria");
-    expect(subtasks).toContain("- [ ] [S2] Implement scoped code changes");
+    expect(subtasks).toContain("- [x] [S2] Implement scoped code changes");
     expect(subtasks).toContain("- [ ] [S3] Pass fast and full gates");
     expect(subtasks).toContain("- [ ] [S4] Update docs and risk notes");
     expect(subtasks).toContain("- [ ] [S5] Milestone commit and memory finalize");
@@ -90,5 +91,19 @@ describe("T-015 render-interaction-and-camera S1 doc contract", () => {
     expect(risksAndRollback).toContain("`runtime/core`");
     expect(risksAndRollback).toContain("`docs/ai/tasks/T-015-render-interaction-and-camera.md`");
     expect(risksAndRollback).toContain("`tests/integration/render-interaction-camera-scope-doc-contract.test.ts`");
+  });
+
+  it("documents S2 implementation boundaries and interaction coverage artifacts", () => {
+    const taskDoc = fs.readFileSync(taskPath, "utf-8");
+    const s2Notes = readSection("S2 Implementation Notes (2026-02-16)", taskDoc);
+    const changeList = readSection("Change List", taskDoc);
+
+    expect(s2Notes).toContain("deterministic clamp");
+    expect(s2Notes).toContain("resize");
+    expect(s2Notes).toContain("selection");
+    expect(s2Notes).toContain("`runtime/core`");
+    expect(changeList).toContain("`runtime/render/three-adapter.ts`");
+    expect(changeList).toContain("`editor/src/editor/components/PreviewControls.tsx`");
+    expect(changeList).toContain("`tests/integration/three-render-adapter-interaction.test.ts`");
   });
 });

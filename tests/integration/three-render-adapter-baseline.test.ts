@@ -3,6 +3,45 @@ import { describe, expect, it, vi } from "vitest";
 import type { RenderSnapshot } from "@runtime/core/types";
 
 const threeMock = vi.hoisted(() => {
+  type Listener = (event: unknown) => void;
+
+  class MockCanvasElement {
+    private readonly listeners = new Map<string, Set<Listener>>();
+    private width = 1;
+    private height = 1;
+
+    setViewportSize(width: number, height: number): void {
+      this.width = width;
+      this.height = height;
+    }
+
+    addEventListener(type: string, listener: Listener): void {
+      if (!this.listeners.has(type)) {
+        this.listeners.set(type, new Set());
+      }
+      this.listeners.get(type)?.add(listener);
+    }
+
+    removeEventListener(type: string, listener: Listener): void {
+      this.listeners.get(type)?.delete(listener);
+    }
+
+    dispatch(type: string, event: unknown): void {
+      for (const listener of this.listeners.get(type) ?? []) {
+        listener(event);
+      }
+    }
+
+    getBoundingClientRect(): { left: number; top: number; width: number; height: number } {
+      return {
+        left: 0,
+        top: 0,
+        width: this.width,
+        height: this.height
+      };
+    }
+  }
+
   class MockObject3D {
     children: MockObject3D[] = [];
     position = {
@@ -31,6 +70,7 @@ const threeMock = vi.hoisted(() => {
 
   class MockPerspectiveCamera extends MockObject3D {
     aspect: number;
+    projectionUpdates = 0;
 
     constructor(fov: number, aspect: number, near: number, far: number) {
       super();
@@ -46,6 +86,10 @@ const threeMock = vi.hoisted(() => {
       void z;
       return;
     }
+
+    updateProjectionMatrix(): void {
+      this.projectionUpdates += 1;
+    }
   }
 
   class MockGeometry {
@@ -58,6 +102,21 @@ const threeMock = vi.hoisted(() => {
 
   class MockMaterial {
     disposed = false;
+    private hex: number;
+    color: {
+      getHex: () => number;
+      setHex: (hex: number) => void;
+    };
+
+    constructor(parameters?: { color?: number }) {
+      this.hex = parameters?.color ?? 0;
+      this.color = {
+        getHex: () => this.hex,
+        setHex: (hex: number) => {
+          this.hex = hex;
+        }
+      };
+    }
 
     dispose(): void {
       this.disposed = true;
@@ -75,8 +134,36 @@ const threeMock = vi.hoisted(() => {
     }
   }
 
+  class MockVector2 {
+    x: number;
+    y: number;
+
+    constructor(x = 0, y = 0) {
+      this.x = x;
+      this.y = y;
+    }
+
+    set(x: number, y: number): void {
+      this.x = x;
+      this.y = y;
+    }
+  }
+
+  class MockRaycaster {
+    setFromCamera(coords: MockVector2, camera: MockPerspectiveCamera): void {
+      void coords;
+      void camera;
+    }
+
+    intersectObjects(objects: MockObject3D[], recursive?: boolean): Array<{ object: MockObject3D }> {
+      void objects;
+      void recursive;
+      return [];
+    }
+  }
+
   class MockRenderer {
-    domElement = { id: "mock-canvas" } as unknown as HTMLCanvasElement;
+    domElement = new MockCanvasElement() as unknown as HTMLCanvasElement;
     disposed = false;
     renderCalls = 0;
     width = 0;
@@ -89,6 +176,7 @@ const threeMock = vi.hoisted(() => {
     setSize(width: number, height: number): void {
       this.width = width;
       this.height = height;
+      (this.domElement as unknown as MockCanvasElement).setViewportSize(width, height);
     }
 
     render(scene: MockScene, camera: MockPerspectiveCamera): void {
@@ -117,7 +205,9 @@ const threeMock = vi.hoisted(() => {
       CylinderGeometry: MockGeometry,
       SphereGeometry: MockGeometry,
       MeshStandardMaterial: MockMaterial,
-      Mesh: MockMesh
+      Mesh: MockMesh,
+      Vector2: MockVector2,
+      Raycaster: MockRaycaster
     }
   };
 });
