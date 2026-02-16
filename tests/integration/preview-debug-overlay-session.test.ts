@@ -87,4 +87,32 @@ describe("preview debug overlay session", () => {
     expect(failureState.error?.hints[0]).toContain("enemy");
     expect(failureState.diagnostics.status).toBe("error");
   });
+
+  it("keeps reset and replay diagnostics deterministic", () => {
+    const project = createProject("tower-defense");
+    const firstSession = startPreviewDebugSession(project, 13);
+    const firstResult = firstSession.runToEnd();
+    const firstState = firstSession.getState();
+
+    expect(firstResult).not.toBeNull();
+    expect(firstState.error).toBeNull();
+    expect(firstState.action).toBe("full");
+
+    const resetSession = startPreviewDebugSession(project, 13);
+    const resetInitial = resetSession.getState();
+    expect(resetInitial.action).toBe("init");
+    expect(resetInitial.error).toBeNull();
+    expect(resetInitial.diagnostics.tick).toBe(0);
+    expect(resetInitial.diagnostics.elapsedMs).toBe(0);
+    expect(resetInitial.diagnostics.seed).toBe(13);
+
+    const replayResult = resetSession.runToEnd();
+    const replayState = resetSession.getState();
+    expect(replayResult).toEqual(firstResult);
+    expect(replayState.error).toBeNull();
+    expect(replayState.action).toBe("full");
+    expect(replayState.diagnostics.tick).toBe(firstState.diagnostics.tick);
+    expect(replayState.diagnostics.elapsedMs).toBe(firstState.diagnostics.elapsedMs);
+    expect(replayState.diagnostics.metrics).toEqual(firstState.diagnostics.metrics);
+  });
 });

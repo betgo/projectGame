@@ -21,7 +21,7 @@ function normalizeMarkdownLine(value: string): string {
   return value.trim().replace(/\s+/g, " ");
 }
 
-describe("T-017 preview-debug-overlay S1 scope contract", () => {
+describe("T-017 preview-debug-overlay S3 gate contract", () => {
   it("defines debug diagnostics scope and out-of-scope boundaries", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const scope = readSection("Scope", taskDoc);
@@ -45,7 +45,7 @@ describe("T-017 preview-debug-overlay S1 scope contract", () => {
     }
   });
 
-  it("keeps acceptance criteria measurable and only marks S1 as complete", () => {
+  it("keeps acceptance criteria measurable and marks S1-S3 as complete", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const acceptanceCriteria = readSection("Acceptance Criteria", taskDoc)
       .split("\n")
@@ -66,13 +66,15 @@ describe("T-017 preview-debug-overlay S1 scope contract", () => {
       expect(acceptanceCriteria.some((line) => line.endsWith(criterion))).toBe(true);
     }
 
-    expect(acceptanceCriteria[0].startsWith("- [x]")).toBe(true);
-    for (const line of acceptanceCriteria.slice(1)) {
+    for (const line of acceptanceCriteria.slice(0, 3)) {
+      expect(line.startsWith("- [x]")).toBe(true);
+    }
+    for (const line of acceptanceCriteria.slice(3)) {
       expect(line.startsWith("- [ ]")).toBe(true);
     }
   });
 
-  it("tracks subtask checklist state for S1-only completion", () => {
+  it("tracks subtask checklist state for S3 completion", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const subtasks = readSection("Subtasks", taskDoc)
       .split("\n")
@@ -80,22 +82,26 @@ describe("T-017 preview-debug-overlay S1 scope contract", () => {
       .filter((line) => line.startsWith("- ["));
 
     expect(subtasks).toContain("- [x] [S1] Define scope and acceptance criteria");
-    expect(subtasks).toContain("- [ ] [S2] Implement scoped code changes");
-    expect(subtasks).toContain("- [ ] [S3] Pass fast and full gates");
+    expect(subtasks).toContain("- [x] [S2] Implement scoped code changes");
+    expect(subtasks).toContain("- [x] [S3] Pass fast and full gates");
     expect(subtasks).toContain("- [ ] [S4] Update docs and risk notes");
     expect(subtasks).toContain("- [ ] [S5] Milestone commit and memory finalize");
   });
 
-  it("documents S1 planning notes plus rollback scope", () => {
+  it("documents S1 planning notes, S3 gate evidence, and rollback scope", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const statusMatch = taskDoc.match(/^- Status:\s*(.+)$/m);
     const s1Notes = readSection("S1 Implementation Notes (2026-02-16)", taskDoc);
+    const s3Notes = readSection("S3 Implementation Notes (2026-02-16)", taskDoc);
     const risksAndRollback = readSection("Risks and Rollback", taskDoc);
 
     expect(statusMatch?.[1].trim()).toBe("In Progress");
     expect(s1Notes).toContain("planning-only scope");
     expect(s1Notes).toContain("`S1-S5`");
     expect(s1Notes).toContain("architecture boundary");
+    expect(s3Notes).toContain("`pnpm gate:fast`");
+    expect(s3Notes).toContain("`pnpm gate:full`");
+    expect(s3Notes).toContain("contract-level files");
     expect(risksAndRollback).toContain("Scope drift may mix debug-overlay delivery");
     expect(risksAndRollback).toContain("`runtime/core`");
     expect(risksAndRollback).toContain("`docs/ai/tasks/T-017-preview-debug-overlay.md`");

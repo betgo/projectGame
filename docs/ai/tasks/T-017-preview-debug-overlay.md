@@ -28,8 +28,8 @@ Add preview debug overlay for runtime tick/seed/metrics and error diagnostics.
 ## Acceptance Criteria
 
 - [x] [S1] Scope and acceptance contract explicitly defines debug-overlay diagnostics surface, error-handling boundaries, architecture constraints, and out-of-scope limits for `T-017`.
-- [ ] [S2] Preview debug overlay renders tick/elapsed/seed/key metrics and surfaces validation/runtime error summaries with actionable hints without breaking preview flow.
-- [ ] [S3] Regression tests cover diagnostics rendering, error visibility, and non-crashing behavior across preview step/fast/full/reset paths.
+- [x] [S2] Preview debug overlay renders tick/elapsed/seed/key metrics and surfaces validation/runtime error summaries with actionable hints without breaking preview flow.
+- [x] [S3] Regression tests cover diagnostics rendering, error visibility, and non-crashing behavior across preview step/fast/full/reset paths.
 - [ ] [S4] If contract-level files change (`runtime/core`, `game/schemas`, `ai`), sync `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` in the same loop with task risk/rollback notes updated.
 - [ ] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory-finalize artifacts.
 
@@ -37,7 +37,7 @@ Add preview debug overlay for runtime tick/seed/metrics and error diagnostics.
 
 - [x] [S1] Define scope and acceptance criteria
 - [x] [S2] Implement scoped code changes
-- [ ] [S3] Pass fast and full gates
+- [x] [S3] Pass fast and full gates
 - [ ] [S4] Update docs and risk notes
 - [ ] [S5] Milestone commit and memory finalize
 
@@ -47,16 +47,29 @@ Add preview debug overlay for runtime tick/seed/metrics and error diagnostics.
 - Converted acceptance criteria into measurable `S1-S5` checklist items so follow-up subtasks can close with deterministic evidence.
 - Added explicit architecture boundary and contract-doc sync requirements to prevent cross-layer leakage while implementing overlay diagnostics and error handling.
 
+## S3 Implementation Notes (2026-02-16)
+
+- Ran `pnpm gate:fast` and `pnpm gate:full`; fixed gate instability by aligning `T-017` doc-contract assertions with current S3 checklist state.
+- Extended preview debug-overlay regression coverage to include reset/replay determinism so diagnostics remain stable across new-session resets with identical seed inputs.
+- Reconfirmed S3 closure did not touch contract-level files (`runtime/core`, `game/schemas`, `ai`), so S4 doc-sync trigger remains pending.
+
 ## Change List
 
 - `docs/ai/tasks/T-017-preview-debug-overlay.md`: refined scope boundaries, measurable acceptance criteria, and S1 completion notes.
 - `tests/integration/preview-debug-overlay-scope-doc-contract.test.ts`: added S1 doc-contract regression checks for `T-017` scope and acceptance alignment.
+- `tests/integration/preview-debug-overlay-session.test.ts`: added reset/replay determinism regression coverage for debug-overlay diagnostics.
+- `tests/integration/preview-debug-overlay-scope-doc-contract.test.ts`: updated contract assertions for S3 gate-pass checklist state and gate evidence section.
+- `docs/ai/tasks/T-017-preview-debug-overlay.md`: marked S2/S3 acceptance + subtask completion and captured S3 gate notes/evidence.
 
 ## Test Evidence
 
 - Commands:
   - `pnpm exec eslint tests/integration/preview-debug-overlay-scope-doc-contract.test.ts`
   - `pnpm exec vitest run tests/integration/preview-debug-overlay-scope-doc-contract.test.ts`
+  - `pnpm exec vitest run tests/integration/preview-debug-overlay-session.test.ts`
+- S3 commands:
+  - `pnpm gate:fast`
+  - `pnpm gate:full`
 - Result:
   - pass
 
@@ -67,8 +80,14 @@ Add preview debug overlay for runtime tick/seed/metrics and error diagnostics.
   - Overlay diagnostics can violate architecture boundaries if future implementation tries to mutate `runtime/core` state from UI-layer helpers.
   - Error-summary assertions can become brittle if message taxonomy changes without synchronized test/doc updates.
 - Rollback:
-  - Revert `docs/ai/tasks/T-017-preview-debug-overlay.md` and `tests/integration/preview-debug-overlay-scope-doc-contract.test.ts` together.
+  - Revert `docs/ai/tasks/T-017-preview-debug-overlay.md`, `tests/integration/preview-debug-overlay-scope-doc-contract.test.ts`, and `tests/integration/preview-debug-overlay-session.test.ts` together.
 
 
 ## Subtask Progress
 - [x] [S1] Define scope and acceptance criteria
+- [x] [S2] Implement scoped code changes
+- [x] [S3] Pass fast and full gates
+
+
+## Subtask Progress
+- [x] [S3] Pass fast and full gates
