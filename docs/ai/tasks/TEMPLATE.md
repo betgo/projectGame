@@ -2,7 +2,7 @@
 
 - Status: Planned | In Progress | Done
 - Owner:
-- Branch: `codex/<issue>-<topic>`
+- Branch: `main`
 - Prompt-Plan: `ARCHITECT_v1`, `PLANNER_v1`
 - Prompt-Impl: `BUILDER_v2`
 - Prompt-Review: `GUARDIAN_v1`, `REVIEWER_v1`

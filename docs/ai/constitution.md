@@ -13,7 +13,7 @@ Status: Active
 
 ## Branch and Delivery Rules
 
-1. Use `codex/<issue>-<topic>` branch naming.
+1. Use `main` branch naming.
 2. Enforce `1 Issue = 1 PR`.
 3. Squash merge is preferred for clean history.
 4. Every PR must include risk and test evidence.

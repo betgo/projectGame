@@ -2,7 +2,7 @@
 
 - Status: Done
 - Owner: maintainer
-- Branch: `codex/0001-ai-memory-bootstrap`
+- Branch: `main`
 - Prompt-Plan: `ARCHITECT_v1`, `PLANNER_v1`
 - Prompt-Impl: `BUILDER_v2`
 - Prompt-Review: `GUARDIAN_v1`, `REVIEWER_v1`

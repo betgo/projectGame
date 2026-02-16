@@ -2,7 +2,7 @@
 
 - Status: Planned
 - Owner: maintainer
-- Branch rule: `codex/<issue>-<topic>`
+- Branch rule: `main`
 - Delivery rule: `1 Issue = 1 PR`
 
 ## Issue List

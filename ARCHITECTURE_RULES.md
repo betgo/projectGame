@@ -19,7 +19,7 @@ Version: v1
 ## Git and Delivery Rules
 
 1. One issue maps to one branch and one pull request.
-2. Branch format: `codex/<issue>-<topic>`.
+2. Branch format: `main`.
 3. Commits must include `Prompt-Refs`.
 4. Merge strategy is squash merge with green CI.
 
