@@ -4,7 +4,7 @@ Generated from `docs/ai/commit-log/*.md`.
 
 ## 2026-W08
 
-- Total commits tracked: 23
+- Total commits tracked: 25
 - Key changes:
   - feat(loop): close S1 Criteria 1
   - feat(loop): close S2 Align branch policy implementation and docs to main-only
@@ -29,6 +29,8 @@ Generated from `docs/ai/commit-log/*.md`.
   - feat(loop): close S5 Task closure includes milestone commit + memory finalize evidence.
   - docs(memory): finalize S5 Task closure includes milestone commit + memory finalize evidence.
   - feat(loop): close S1 Define hardening scope and acceptance criteria
+  - docs(memory): finalize S1 Define hardening scope and acceptance criteria
+  - feat(loop): close S2 Implement hardening changes and regression safeguards
 - Prompt refs:
   - ARCHITECT_v1
   - BUILDER_v2
