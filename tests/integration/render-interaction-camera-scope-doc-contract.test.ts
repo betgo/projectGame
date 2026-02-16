@@ -21,7 +21,7 @@ function normalizeMarkdownLine(value: string): string {
   return value.trim().replace(/\s+/g, " ");
 }
 
-describe("T-015 render-interaction-and-camera S2 doc contract", () => {
+describe("T-015 render-interaction-and-camera S3 doc contract", () => {
   it("defines scope boundaries for camera interaction, resize lifecycle, and selection affordance", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const scope = readSection("Scope", taskDoc);
@@ -66,26 +66,30 @@ describe("T-015 render-interaction-and-camera S2 doc contract", () => {
       expect(acceptanceCriteria.some((line) => line.endsWith(criterion))).toBe(true);
     }
 
-    expect(acceptanceCriteria[0].startsWith("- [x]")).toBe(true);
-    expect(acceptanceCriteria[1].startsWith("- [x]")).toBe(true);
-    for (const line of acceptanceCriteria.slice(2)) {
+    for (const line of acceptanceCriteria.slice(0, 3)) {
+      expect(line.startsWith("- [x]")).toBe(true);
+    }
+    for (const line of acceptanceCriteria.slice(3)) {
       expect(line.startsWith("- [ ]")).toBe(true);
     }
   });
 
-  it("marks S1/S2 complete while keeping later subtasks pending with rollback scope", () => {
+  it("marks S1-S3 complete while keeping later subtasks pending with rollback scope", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const subtasks = readSection("Subtasks", taskDoc)
       .split("\n")
       .map(normalizeMarkdownLine)
       .filter((line) => line.startsWith("- ["));
+    const s3Notes = readSection("S3 Implementation Notes (2026-02-16)", taskDoc);
     const risksAndRollback = readSection("Risks and Rollback", taskDoc);
 
     expect(subtasks).toContain("- [x] [S1] Define scope and acceptance criteria");
     expect(subtasks).toContain("- [x] [S2] Implement scoped code changes");
-    expect(subtasks).toContain("- [ ] [S3] Pass fast and full gates");
+    expect(subtasks).toContain("- [x] [S3] Pass fast and full gates");
     expect(subtasks).toContain("- [ ] [S4] Update docs and risk notes");
     expect(subtasks).toContain("- [ ] [S5] Milestone commit and memory finalize");
+    expect(s3Notes).toContain("`pnpm gate:fast`");
+    expect(s3Notes).toContain("`pnpm gate:full`");
 
     expect(risksAndRollback).toContain("Scope drift may mix interaction/camera delivery");
     expect(risksAndRollback).toContain("`runtime/core`");

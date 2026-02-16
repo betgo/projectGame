@@ -29,7 +29,7 @@ Improve render interaction layer with camera controls, resize handling, and enti
 
 - [x] [S1] Scope and acceptance contract explicitly defines camera interaction boundaries, resize lifecycle expectations, selection affordance behavior, and out-of-scope constraints for `T-015`.
 - [x] [S2] Camera defaults (orbit/pan/zoom) are implemented with deterministic clamp behavior and remain isolated to preview render layer + editor integration points.
-- [ ] [S3] Regression tests cover camera interaction mapping, resize stability, and selection highlight behavior for tower/enemy placeholders.
+- [x] [S3] Regression tests cover camera interaction mapping, resize stability, and selection highlight behavior for tower/enemy placeholders.
 - [ ] [S4] Contract-level changes update `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` in the same loop, with task risk/rollback notes synchronized.
 - [ ] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory-finalize artifacts.
 
@@ -37,7 +37,7 @@ Improve render interaction layer with camera controls, resize handling, and enti
 
 - [x] [S1] Define scope and acceptance criteria
 - [x] [S2] Implement scoped code changes
-- [ ] [S3] Pass fast and full gates
+- [x] [S3] Pass fast and full gates
 - [ ] [S4] Update docs and risk notes
 - [ ] [S5] Milestone commit and memory finalize
 
@@ -55,6 +55,11 @@ Improve render interaction layer with camera controls, resize handling, and enti
 - Kept architecture boundaries intact: no simulation mutation moved into `runtime/core`; interaction logic stays in `runtime/render` + editor preview integration.
 - Extended editor preview integration to surface interaction hints and hovered selection labels from adapter callbacks.
 
+## S3 Implementation Notes (2026-02-16)
+
+- Executed `pnpm gate:fast` and confirmed `typecheck`, `test:determinism`, and `test:schema` pass with current interaction + camera changes.
+- Executed `pnpm gate:full` and confirmed lint + full suite + deterministic/schema/smoke replay all pass, with no architecture-boundary regressions.
+
 ## Change List
 
 - `docs/ai/tasks/T-015-render-interaction-and-camera.md`: refined S1 scope boundaries and measurable acceptance criteria.
@@ -64,7 +69,7 @@ Improve render interaction layer with camera controls, resize handling, and enti
 - `editor/src/editor/components/PreviewControls.tsx`: integrated render selection callback and camera control hints into editor preview panel.
 - `tests/integration/three-render-adapter-baseline.test.ts`: updated Three.js mock surface to match interaction-enabled adapter lifecycle.
 - `tests/integration/three-render-adapter-interaction.test.ts`: added regression coverage for camera mapping/clamps, resize lifecycle behavior, and selection highlight entry/exit state.
-- `tests/integration/render-interaction-camera-scope-doc-contract.test.ts`: advanced doc-contract assertions for S2 completion and implementation evidence.
+- `tests/integration/render-interaction-camera-scope-doc-contract.test.ts`: advanced doc-contract assertions for S3 gate status and implementation evidence.
 
 ## Test Evidence
 
@@ -77,6 +82,9 @@ Improve render interaction layer with camera controls, resize handling, and enti
   - `pnpm exec vitest run tests/integration/three-render-adapter-baseline.test.ts tests/integration/three-render-adapter-interaction.test.ts tests/integration/render-interaction-camera-scope-doc-contract.test.ts`
   - `pnpm typecheck`
   - `pnpm docs:sync-check`
+- S3 commands:
+  - `pnpm gate:fast`
+  - `pnpm gate:full`
 - Result:
   - `pnpm exec eslint tests/integration/render-interaction-camera-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/render-interaction-camera-scope-doc-contract.test.ts` pass.
@@ -85,6 +93,8 @@ Improve render interaction layer with camera controls, resize handling, and enti
   - `pnpm exec vitest run tests/integration/three-render-adapter-baseline.test.ts tests/integration/three-render-adapter-interaction.test.ts tests/integration/render-interaction-camera-scope-doc-contract.test.ts` pass.
   - `pnpm typecheck` pass.
   - `pnpm docs:sync-check` pass.
+  - `pnpm gate:fast` pass (`typecheck`, `test:determinism`, `test:schema`).
+  - `pnpm gate:full` pass (`lint`, `test`, `test:determinism`, `test:schema`, `test:smoke-ai-package`).
 
 ## Risks and Rollback
 
@@ -100,7 +110,10 @@ Improve render interaction layer with camera controls, resize handling, and enti
 ## Subtask Progress
 - [x] [S1] Define scope and acceptance criteria
 - [x] [S2] Implement scoped code changes
+- [x] [S3] Pass fast and full gates
+- [ ] [S4] Update docs and risk notes
+- [ ] [S5] Milestone commit and memory finalize
 
 
 ## Subtask Progress
-- [x] [S2] Implement scoped code changes
+- [x] [S3] Pass fast and full gates
