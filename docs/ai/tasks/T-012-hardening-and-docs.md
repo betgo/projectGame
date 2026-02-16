@@ -26,7 +26,7 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 ## Acceptance Criteria
 
 - [x] Regression suite covers core v1 paths and passes in local gates.
-- [ ] Performance baseline command and threshold are documented and reproducible.
+- [x] Performance baseline command and threshold are documented and reproducible.
 - [ ] README and `docs/ai` documents describe build/run/test/release flow without contradictions.
 - [ ] `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass.
 - [ ] Task closure includes milestone commit + memory finalize evidence.
@@ -34,7 +34,7 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 ## Subtasks
 
 - [x] [S1] Regression suite covers core v1 paths and passes in local gates
-- [ ] [S2] Implement hardening changes and regression safeguards
+- [x] [S2] Implement hardening changes and regression safeguards
 - [ ] [S3] Run fast/full/docs gates and collect performance baseline evidence
 - [ ] [S4] Sync README and AI governance docs for release handoff
 - [ ] [S5] Finalize memory and close task
@@ -53,6 +53,21 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 - Result:
   - `pnpm gate:fast` pass
   - `pnpm gate:full` pass
+
+## S2 Implementation Notes (2026-02-16)
+
+- Extended `pnpm simulate:batch` with optional `--max-imbalance=<non-negative-number>` threshold guard so the baseline command can fail fast when the deterministic `imbalanceIndex` exceeds expected bounds.
+- Documented the reproducible baseline command and threshold in `README.md` under the batch simulation contract.
+- Expanded integration coverage to lock CLI threshold behavior and prevent documentation drift for command/threshold contract fields.
+
+## S2 Test Evidence (2026-02-16)
+
+- Commands:
+  - `pnpm exec vitest run tests/integration/simulate-batch-cli.test.ts tests/integration/batch-doc-contract.test.ts`
+  - `pnpm simulate:batch game/examples/td-normal.json 100 --max-imbalance=0.6000`
+- Result:
+  - Integration tests pass with threshold success/failure and reproducibility assertions.
+  - Baseline command pass with deterministic output: `sampleSize=100 winRate=0.0000 avgDuration=5400 leakRate=4.0000 imbalanceIndex=0.5800`
 
 ## Change List
 
@@ -82,3 +97,8 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 
 ## Subtask Progress
 - [x] [S1] Regression suite covers core v1 paths and passes in local gates.
+- [x] [S2] Implement hardening changes and regression safeguards.
+
+
+## Subtask Progress
+- [x] [S2] Performance baseline command and threshold are documented and reproducible.

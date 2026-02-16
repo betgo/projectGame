@@ -38,6 +38,8 @@ pnpm dev:loop -- --issue-id 010 --task-file docs/ai/tasks/T-010.md
 - Command shape: `pnpm simulate:batch <package> <rounds>`
 - Determinism: default seed sequence is `1..rounds`; same package + same rounds yields deterministic aggregate metrics.
 - Input validation: package path and rounds are required; rounds must be a positive integer; package JSON must be readable and pass runtime validation.
+- Performance baseline command (reproducible): `pnpm simulate:batch game/examples/td-normal.json 100 --max-imbalance=0.6000`
+- Performance threshold: `imbalanceIndex <= 0.6000` (CLI exits with code `1` when threshold is exceeded).
 - Output fields (single line, parseable): `sampleSize=<int> winRate=<ratio> avgDuration=<ms> leakRate=<ratio> imbalanceIndex=<score>`
 - Imbalance index formula: `abs(0.5 - winRate) + leakRate * 0.02`
 

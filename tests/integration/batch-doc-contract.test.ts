@@ -24,6 +24,8 @@ describe("batch simulation docs contract", () => {
   it("documents command shape and output field order used by formatter", () => {
     const readme = fs.readFileSync(readmePath, "utf-8");
     const documentedCommand = readBacktickedValue("Command shape", readme);
+    const documentedBaselineCommand = readBacktickedValue("Performance baseline command (reproducible)", readme);
+    const documentedThreshold = readBacktickedValue("Performance threshold", readme);
     const documentedOutput = readBacktickedValue("Output fields (single line, parseable)", readme);
     const sample: BatchResult = {
       seeds: [1, 2, 3],
@@ -37,6 +39,8 @@ describe("batch simulation docs contract", () => {
     const formatterOutput = formatBatchResult(sample);
 
     expect(documentedCommand).toBe("pnpm simulate:batch <package> <rounds>");
+    expect(documentedBaselineCommand).toBe("pnpm simulate:batch game/examples/td-normal.json 100 --max-imbalance=0.6000");
+    expect(documentedThreshold).toContain("imbalanceIndex <= 0.6000");
     expect(documentedOutput).toBe(
       "sampleSize=<int> winRate=<ratio> avgDuration=<ms> leakRate=<ratio> imbalanceIndex=<score>"
     );
