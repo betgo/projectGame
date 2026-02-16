@@ -44,6 +44,12 @@ both `--issue-id` and `--task-file`.
 
 - Build command: `pnpm build`
 - Run command: `pnpm dev`
+- Typecheck command: `pnpm typecheck`
+- Lint command: `pnpm lint`
+- Test command: `pnpm test`
+- Schema regression command: `pnpm test:schema`
+- Determinism regression command: `pnpm test:determinism`
+- AI smoke command: `pnpm test:smoke-ai-package`
 - Fast gate command: `pnpm gate:fast`
 - Full gate command: `pnpm gate:full`
 - Docs sync command: `pnpm docs:sync-check`
@@ -63,3 +69,4 @@ both `--issue-id` and `--task-file`.
 - Run reports: `docs/ai/run-logs/YYYY-MM-DD/<timestamp>.json`
 - Commit memory: `docs/ai/commit-log/YYYY-MM.md`
 - Weekly context: `docs/ai/weekly-summary.md`
+- AI 状态看板（中文，提交后刷新）: `docs/ai/ai-loop-status.md`

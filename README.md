@@ -42,6 +42,12 @@ pnpm dev:loop -- --issue-id <id> --task-file <task.md>
 
 - Build command: `pnpm build`
 - Run command: `pnpm dev`
+- Typecheck command: `pnpm typecheck`
+- Lint command: `pnpm lint`
+- Test command: `pnpm test`
+- Schema regression command: `pnpm test:schema`
+- Determinism regression command: `pnpm test:determinism`
+- AI smoke command: `pnpm test:smoke-ai-package`
 - Fast gate command: `pnpm gate:fast`
 - Full gate command: `pnpm gate:full`
 - Docs sync command: `pnpm docs:sync-check`

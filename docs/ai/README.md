@@ -25,6 +25,12 @@ This folder stores auditable AI memory and prompt governance artifacts.
 
 - Build command: `pnpm build`
 - Run command: `pnpm dev`
+- Typecheck command: `pnpm typecheck`
+- Lint command: `pnpm lint`
+- Test command: `pnpm test`
+- Schema regression command: `pnpm test:schema`
+- Determinism regression command: `pnpm test:determinism`
+- AI smoke command: `pnpm test:smoke-ai-package`
 - Fast gate command: `pnpm gate:fast`
 - Full gate command: `pnpm gate:full`
 - Docs sync command: `pnpm docs:sync-check`
@@ -44,3 +50,4 @@ When opening a fresh AI session, read in this order:
 
 - `workflows/continuous-loop.md`
 - `tasks/SUBTASK-TEMPLATE.md`
+- `ai-loop-status.md` (commit 后更新，中文说明当前 AI 在做什么和下一步计划)

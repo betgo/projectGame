@@ -56,7 +56,7 @@ function buildMemoryMessage(config: LoopConfig, subtask: Subtask): string {
   return `docs(memory): finalize ${subtask.id} ${subtask.title}\n\nWhy:
 Finalize memory artifacts after milestone commit.
 What:
-- Updated commit-log and weekly-summary via git-memory workflow.
+- Updated memory artifacts via git-memory workflow and refreshed loop status.
 Impact:
 - Keeps AI context warm-start accurate for next loop.
 Risk:
@@ -91,10 +91,19 @@ export function commitMilestone(
   return captureCommand("git rev-parse --short HEAD", cwd);
 }
 
-export function finalizeMemoryCommit(cwd: string, config: LoopConfig, subtask: Subtask): string | undefined {
+export function finalizeMemoryCommit(
+  cwd: string,
+  config: LoopConfig,
+  subtask: Subtask,
+  extraFilesToStage: string[] = []
+): string | undefined {
   const finalize = runCommand("bash tools/git-memory/finalize-task.sh", cwd);
   if (!finalize.success) {
     throw new Error(`memory finalize failed: ${finalize.stderr || finalize.stdout}`);
+  }
+
+  for (const file of extraFilesToStage) {
+    runCommand(`git add ${file}`, cwd);
   }
 
   const staged = captureCommand("git diff --cached --name-only", cwd)

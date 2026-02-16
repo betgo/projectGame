@@ -15,6 +15,12 @@ const DOC_PATHS = [
 const FLOW_CONTRACT = {
   "Build command": "pnpm build",
   "Run command": "pnpm dev",
+  "Typecheck command": "pnpm typecheck",
+  "Lint command": "pnpm lint",
+  "Test command": "pnpm test",
+  "Schema regression command": "pnpm test:schema",
+  "Determinism regression command": "pnpm test:determinism",
+  "AI smoke command": "pnpm test:smoke-ai-package",
   "Fast gate command": "pnpm gate:fast",
   "Full gate command": "pnpm gate:full",
   "Docs sync command": "pnpm docs:sync-check",
@@ -41,6 +47,20 @@ function extractPnpmScript(command: string): string {
   return tokens[1];
 }
 
+function readBashBlockUnderHeading(heading: string, content: string): string[] {
+  const escaped = heading.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const pattern = new RegExp(`## ${escaped}\\n\\n\\\`\\\`\\\`bash\\n([\\s\\S]*?)\\n\\\`\\\`\\\``);
+  const match = content.match(pattern);
+  if (!match) {
+    throw new Error(`missing bash block under heading: ${heading}`);
+  }
+
+  return match[1]
+    .split("\n")
+    .map((line) => line.trim())
+    .filter(Boolean);
+}
+
 describe("release flow docs contract", () => {
   it("keeps build/run/test/release contract aligned across README and docs/ai", () => {
     for (const docPath of DOC_PATHS) {
@@ -58,6 +78,12 @@ describe("release flow docs contract", () => {
     const commandLabels = [
       "Build command",
       "Run command",
+      "Typecheck command",
+      "Lint command",
+      "Test command",
+      "Schema regression command",
+      "Determinism regression command",
+      "AI smoke command",
       "Fast gate command",
       "Full gate command",
       "Docs sync command",
@@ -67,6 +93,16 @@ describe("release flow docs contract", () => {
     for (const label of commandLabels) {
       const script = extractPnpmScript(FLOW_CONTRACT[label]);
       expect(pkg.scripts[script], `missing package script for ${label}: ${script}`).toBeTypeOf("string");
+    }
+  });
+
+  it("keeps README core scripts list aligned with documented release-flow commands", () => {
+    const readme = fs.readFileSync(path.join(projectRoot, "README.md"), "utf-8");
+    const coreScripts = readBashBlockUnderHeading("Core scripts", readme);
+    const documentedCommands = Object.values(FLOW_CONTRACT).filter((value) => value.startsWith("pnpm "));
+
+    for (const command of documentedCommands) {
+      expect(coreScripts).toContain(command);
     }
   });
 });

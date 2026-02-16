@@ -4,6 +4,7 @@ import { assertBranchPolicy, commitMilestone, finalizeMemoryCommit } from "./git
 import { verifyPromptRefs, verifyWarmStartFiles } from "./prompts";
 import { runGate } from "./quality";
 import { writeRunReport } from "./report";
+import { writeLoopStatus } from "./status";
 import { shouldRetry } from "./state-machine";
 import { markSubtaskDone, readTaskContext } from "./task";
 import type { DocSyncSummary, GateSummary, LoopConfig, LoopResult, Subtask, SubtaskResult } from "./types";
@@ -204,6 +205,13 @@ function mergeDocSummary(items: DocSyncSummary[]): DocSyncSummary {
   );
 }
 
+function buildNextAction(nextSubtask?: Subtask): string {
+  if (!nextSubtask) {
+    return "当前任务已无剩余子任务，准备结束本次 loop。";
+  }
+  return `准备进入下一个子任务 ${nextSubtask.id}: ${nextSubtask.title}`;
+}
+
 function main(): number {
   const cwd = process.cwd();
   const startedAtMs = Date.now();
@@ -230,7 +238,9 @@ function main(): number {
 
     const taskContext = readTaskContext(config.taskFile, config.subtaskId);
 
-    for (const subtask of taskContext.subtasks) {
+    for (let subtaskIndex = 0; subtaskIndex < taskContext.subtasks.length; subtaskIndex += 1) {
+      const subtask = taskContext.subtasks[subtaskIndex];
+      const nextSubtask = taskContext.subtasks[subtaskIndex + 1];
       ensureNotTimedOut(startedAtMs, config.maxDurationMin);
       console.log(`\n=== Processing ${subtask.id}: ${subtask.title} ===`);
 
@@ -257,10 +267,34 @@ function main(): number {
 
       if (config.autoCommit && !config.dryRun) {
         markSubtaskDone(taskContext.path, subtask);
+        writeLoopStatus(cwd, {
+          issueId: config.issueId,
+          branch: config.branch,
+          taskFile: config.taskFile,
+          subtask,
+          nextSubtask,
+          phase: "里程碑提交",
+          message: "已完成本子任务的开发和门禁检查，正在写入里程碑提交。",
+          nextAction: config.autoFinalizeMemory ? "里程碑提交后将执行记忆收口提交。" : buildNextAction(nextSubtask),
+          promptRefs: config.promptRefs
+        });
         commitSha = commitMilestone(cwd, config, subtask, cycle.gateSummary, docSummary);
 
         if (config.autoFinalizeMemory) {
-          memoryCommitSha = finalizeMemoryCommit(cwd, config, subtask);
+          writeLoopStatus(cwd, {
+            issueId: config.issueId,
+            branch: config.branch,
+            taskFile: config.taskFile,
+            subtask,
+            nextSubtask,
+            phase: "记忆收口提交",
+            message: "已完成里程碑提交，正在写入记忆收口提交。",
+            nextAction: buildNextAction(nextSubtask),
+            commitSha,
+            promptRefs: config.promptRefs
+          });
+          const statusPath = "docs/ai/ai-loop-status.md";
+          memoryCommitSha = finalizeMemoryCommit(cwd, config, subtask, [statusPath]);
         }
       }
 
