@@ -28,7 +28,7 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - [x] [S1] Regression suite definition explicitly covers schema, determinism, editor/headless consistency, and AI smoke paths.
 - [x] [S2] Performance baseline command and threshold contract are documented and reproducible.
 - [x] [S3] README and `docs/ai` release-flow contracts are aligned with build/run/test/release commands.
-- [ ] Task completion requires passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` with recorded evidence.
+- [x] [S4] Task completion requires passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` with recorded evidence.
 - [ ] Risk and rollback expectations are documented before implementation subtasks start.
 
 ## Subtasks
@@ -36,7 +36,7 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - [x] [S1] Define hardening scope and acceptance criteria
 - [x] [S2] Implement hardening changes and regression safeguards
 - [x] [S3] Sync README and AI governance docs for release handoff
-- [ ] [S4] Run fast/full/docs gates and collect performance baseline evidence
+- [x] [S4] Run fast/full/docs gates and collect performance baseline evidence
 - [ ] [S5] Finalize memory and close task
 
 ## Notes
@@ -64,6 +64,13 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - Expanded contract-level command coverage to explicitly include `typecheck`, `lint`, full `test`, and focused regression commands.
 - Strengthened release-flow integration checks so documentation drift is caught when command contracts or README script lists diverge.
 
+## S4 Gate Evidence (2026-02-16)
+
+- Executed `pnpm gate:fast` and confirmed `typecheck`, `test:determinism`, and `test:schema` all pass.
+- Executed `pnpm gate:full` and confirmed `lint`, full `test`, and replayed determinism/schema/smoke suites all pass (15 files, 47 tests in full suite).
+- Executed `pnpm docs:sync-check` and confirmed output `docs-sync-check: pass`.
+- Recorded S4 evidence in-task without widening architecture scope or touching runtime/gameplay contracts.
+
 ## Change List
 
 - `docs/ai/tasks/T-012-hardening-and-docs.md`: rewrote task contract to an S1-complete, S2-S5-pending state with explicit hardening scope and acceptance criteria.
@@ -78,10 +85,14 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 - `docs/ai/README.md`: aligned AI governance release-flow contract labels with runtime package scripts.
 - `docs/ai/workflows/continuous-loop.md`: aligned workflow release-flow contract labels with runtime package scripts.
 - `tests/integration/release-flow-doc-contract.test.ts`: expanded release-flow contract checks and added README core-scripts alignment assertions.
+- `tests/integration/hardening-scope-doc-contract.test.ts`: added S4 closure assertions to require checked gate evidence and command coverage in the task card.
 
 ## Test Evidence
 
 - Commands:
+  - `pnpm gate:fast`
+  - `pnpm gate:full`
+  - `pnpm docs:sync-check`
   - `pnpm exec eslint tests/integration/hardening-scope-doc-contract.test.ts`
   - `pnpm exec vitest run tests/integration/hardening-scope-doc-contract.test.ts`
   - `pnpm exec eslint runtime/templates/tower-defense/validator.ts runtime/core/engine.ts ai/pipeline.ts tests/schema/tower-defense-semantic.test.ts tests/determinism/determinism.test.ts tests/smoke/ai-pipeline-hardening.test.ts`
@@ -107,3 +118,8 @@ Close v1 delivery with production-style hardening and documentation so loop-driv
 
 ## Subtask Progress
 - [x] [S3] README and `docs/ai` release-flow contracts are aligned with build/run/test/release commands.
+- [x] [S4] Run fast/full/docs gates and collect performance baseline evidence.
+
+
+## Subtask Progress
+- [x] [S4] Task completion requires passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` with recorded evidence.

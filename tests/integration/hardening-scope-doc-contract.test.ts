@@ -64,4 +64,39 @@ describe("T-012 hardening scope contract", () => {
       expect(acceptanceCriteria.some((line) => line.endsWith(criterion))).toBe(true);
     }
   });
+
+  it("records S4 gate evidence for required local closure commands", () => {
+    const taskDoc = fs.readFileSync(taskPath, "utf-8");
+    const acceptanceCriteria = readSection("Acceptance Criteria", taskDoc)
+      .split("\n")
+      .map(normalizeMarkdownLine)
+      .filter((line) => line.startsWith("- ["));
+    const subtasks = readSection("Subtasks", taskDoc)
+      .split("\n")
+      .map(normalizeMarkdownLine)
+      .filter((line) => line.startsWith("- ["));
+    const s4EvidenceMatch = taskDoc.match(/## S4 Gate Evidence \(\d{4}-\d{2}-\d{2}\)\n\n([\s\S]*?)(?=\n## |$)/);
+
+    expect(
+      acceptanceCriteria.some(
+        (line) =>
+          line.startsWith("- [x]") &&
+          line.includes(
+            "Task completion requires passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` with recorded evidence."
+          )
+      )
+    ).toBe(true);
+    expect(
+      subtasks.some(
+        (line) => line.startsWith("- [x]") && line.includes("[S4] Run fast/full/docs gates and collect performance baseline evidence")
+      )
+    ).toBe(true);
+    expect(s4EvidenceMatch).not.toBeNull();
+
+    const evidenceBody = s4EvidenceMatch ? s4EvidenceMatch[1] : "";
+    for (const command of ["`pnpm gate:fast`", "`pnpm gate:full`", "`pnpm docs:sync-check`"]) {
+      expect(evidenceBody).toContain(command);
+    }
+    expect(evidenceBody).toContain("pass");
+  });
 });
