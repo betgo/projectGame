@@ -45,7 +45,7 @@ describe("T-016 render-performance-baseline scope contract", () => {
     }
   });
 
-  it("keeps acceptance criteria measurable and aligned with S2-only progress", () => {
+  it("keeps acceptance criteria measurable and aligned with S3 gate completion", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const acceptanceCriteria = readSection("Acceptance Criteria", taskDoc)
       .split("\n")
@@ -66,14 +66,15 @@ describe("T-016 render-performance-baseline scope contract", () => {
       expect(acceptanceCriteria.some((line) => line.endsWith(criterion))).toBe(true);
     }
 
-    expect(acceptanceCriteria[0].startsWith("- [x]")).toBe(true);
-    expect(acceptanceCriteria[1].startsWith("- [x]")).toBe(true);
-    for (const line of acceptanceCriteria.slice(2)) {
+    for (const line of acceptanceCriteria.slice(0, 3)) {
+      expect(line.startsWith("- [x]")).toBe(true);
+    }
+    for (const line of acceptanceCriteria.slice(3)) {
       expect(line.startsWith("- [ ]")).toBe(true);
     }
   });
 
-  it("marks S1 and S2 complete in subtask progress", () => {
+  it("marks S1-S3 complete in subtask progress", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const subtasks = readSection("Subtasks", taskDoc)
       .split("\n")
@@ -82,15 +83,16 @@ describe("T-016 render-performance-baseline scope contract", () => {
 
     expect(subtasks).toContain("- [x] [S1] Define scope and acceptance criteria");
     expect(subtasks).toContain("- [x] [S2] Implement scoped code changes");
-    expect(subtasks).toContain("- [ ] [S3] Pass fast and full gates");
+    expect(subtasks).toContain("- [x] [S3] Pass fast and full gates");
     expect(subtasks).toContain("- [ ] [S4] Update docs and risk notes");
     expect(subtasks).toContain("- [ ] [S5] Milestone commit and memory finalize");
   });
 
-  it("records S1/S2 governance artifacts and rollback scope", () => {
+  it("records S1-S3 governance artifacts and rollback scope", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const s1Notes = readSection("S1 Implementation Notes (2026-02-16)", taskDoc);
     const s2Notes = readSection("S2 Implementation Notes (2026-02-16)", taskDoc);
+    const s3Notes = readSection("S3 Implementation Notes (2026-02-16)", taskDoc);
     const changeList = readSection("Change List", taskDoc);
     const risksAndRollback = readSection("Risks and Rollback", taskDoc);
 
@@ -101,6 +103,9 @@ describe("T-016 render-performance-baseline scope contract", () => {
     expect(s2Notes).toContain("`runtime/render/performance-baseline.ts`");
     expect(s2Notes).toContain("`pnpm simulate:render-baseline`");
     expect(s2Notes).toContain("`runtime/core`");
+    expect(s3Notes).toContain("`pnpm gate:fast`");
+    expect(s3Notes).toContain("`pnpm gate:full`");
+    expect(s3Notes).toContain("contract-level files");
 
     expect(changeList).toContain("`docs/ai/tasks/T-016-render-performance-baseline.md`");
     expect(changeList).toContain("`tests/integration/render-performance-baseline-scope-doc-contract.test.ts`");

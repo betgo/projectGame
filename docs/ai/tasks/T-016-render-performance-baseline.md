@@ -29,7 +29,7 @@ Establish render performance baseline and optimization guardrails for repetitive
 
 - [x] [S1] Scope and acceptance contract explicitly defines measurement protocol, optimization boundaries, architecture constraints, and out-of-scope limits for `T-016`.
 - [x] [S2] Baseline implementation captures reproducible FPS/frame-time/memory-trend metrics for representative packages with low-risk render-path optimizations only.
-- [ ] [S3] Regression tests cover baseline evidence shape and repeated preview restart memory-growth guardrails.
+- [x] [S3] Regression tests cover baseline evidence shape and repeated preview restart memory-growth guardrails.
 - [ ] [S4] If contract-level files change (`runtime/core`, `game/schemas`, `ai`), sync `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` in the same loop with updated risk/rollback notes.
 - [ ] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory-finalize artifacts.
 
@@ -37,7 +37,7 @@ Establish render performance baseline and optimization guardrails for repetitive
 
 - [x] [S1] Define scope and acceptance criteria
 - [x] [S2] Implement scoped code changes
-- [ ] [S3] Pass fast and full gates
+- [x] [S3] Pass fast and full gates
 - [ ] [S4] Update docs and risk notes
 - [ ] [S5] Milestone commit and memory finalize
 
@@ -54,6 +54,12 @@ Establish render performance baseline and optimization guardrails for repetitive
 - Implemented deterministic render baseline collector in `runtime/render/performance-baseline.ts`, measuring FPS, frame-time distribution, and restart memory-trend deltas for `td-easy`, `td-normal`, `td-hard`.
 - Added `pnpm simulate:render-baseline` CLI (`tools/simulate/run-render-baseline.ts`) with parseable report output and optional memory-growth guardrail threshold (`--max-memory-delta-bytes`).
 - Kept implementation scope inside `runtime/render`, `tools/simulate`, and integration tests; no simulation semantics changed in `runtime/core`.
+
+## S3 Implementation Notes (2026-02-16)
+
+- Re-ran `pnpm gate:fast` and confirmed `typecheck`, `test:determinism`, and `test:schema` pass with render-baseline changes enabled.
+- Re-ran `pnpm gate:full` and confirmed lint plus full regression suites pass, including render-baseline metrics/CLI contracts and smoke coverage.
+- Verified gate pass results without touching contract-level files (`runtime/core`, `game/schemas`, `ai`), keeping architecture boundaries intact for upcoming S4/S5 work.
 
 ## Change List
 
@@ -76,11 +82,16 @@ Establish render performance baseline and optimization guardrails for repetitive
   - `pnpm exec vitest run tests/integration/three-render-adapter-baseline.test.ts tests/integration/three-render-adapter-interaction.test.ts tests/integration/render-performance-baseline-metrics.test.ts tests/integration/simulate-render-baseline-cli.test.ts tests/integration/render-performance-baseline-scope-doc-contract.test.ts`
   - `pnpm typecheck`
   - `pnpm docs:sync-check`
+- S3 commands:
+  - `pnpm gate:fast`
+  - `pnpm gate:full`
 - Result:
   - `pnpm exec eslint runtime/render/three-adapter.ts runtime/render/performance-baseline.ts tools/simulate/run-render-baseline.ts tools/simulate/render-baseline-report.ts tests/integration/three-render-adapter-baseline.test.ts tests/integration/three-render-adapter-interaction.test.ts tests/integration/render-performance-baseline-metrics.test.ts tests/integration/simulate-render-baseline-cli.test.ts tests/integration/render-performance-baseline-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/three-render-adapter-baseline.test.ts tests/integration/three-render-adapter-interaction.test.ts tests/integration/render-performance-baseline-metrics.test.ts tests/integration/simulate-render-baseline-cli.test.ts tests/integration/render-performance-baseline-scope-doc-contract.test.ts` pass.
   - `pnpm typecheck` pass.
   - `pnpm docs:sync-check` pass.
+  - `pnpm gate:fast` pass (`typecheck`, `test:determinism`, `test:schema`).
+  - `pnpm gate:full` pass (`lint`, `test`, `test:determinism`, `test:schema`, `test:smoke-ai-package`).
 
 ## Risks and Rollback
 
@@ -93,9 +104,13 @@ Establish render performance baseline and optimization guardrails for repetitive
 
 
 ## Subtask Progress
+
 - [x] [S1] Define scope and acceptance criteria
 - [x] [S2] Implement scoped code changes
+- [x] [S3] Pass fast and full gates
+- [ ] [S4] Update docs and risk notes
+- [ ] [S5] Milestone commit and memory finalize
 
 
 ## Subtask Progress
-- [x] [S2] Implement scoped code changes
+- [x] [S3] Pass fast and full gates
