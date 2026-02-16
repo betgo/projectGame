@@ -36,7 +36,7 @@ Add preview debug overlay for runtime tick/seed/metrics and error diagnostics.
 ## Subtasks
 
 - [x] [S1] Define scope and acceptance criteria
-- [ ] [S2] Implement scoped code changes
+- [x] [S2] Implement scoped code changes
 - [ ] [S3] Pass fast and full gates
 - [ ] [S4] Update docs and risk notes
 - [ ] [S5] Milestone commit and memory finalize

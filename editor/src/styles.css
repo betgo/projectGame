@@ -78,3 +78,19 @@ button.secondary {
   overflow: hidden;
   margin-bottom: 8px;
 }
+
+.preview-debug-overlay {
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  background: #f8fafc;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+
+.preview-error {
+  border: 1px solid #fca5a5;
+  border-radius: 10px;
+  background: #fef2f2;
+  padding: 8px;
+  margin-bottom: 8px;
+}
