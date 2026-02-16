@@ -13,6 +13,7 @@ This folder stores auditable AI memory and prompt governance artifacts.
 ## Daily Workflow
 
 1. Create a task document from `tasks/TEMPLATE.md`.
+   - Auto-create next task card: `pnpm task:next` (or `pnpm task:next -- "<custom title>"`).
 2. Optional: split issue into subtasks using `tasks/SUBTASK-TEMPLATE.md`.
 3. Work directly on `main`.
 4. Run loop: `pnpm dev:loop -- --issue-id <id> --task-file <task.md>`.

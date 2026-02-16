@@ -15,6 +15,7 @@
     "simulate:scenario": "node --import tsx tools/simulate/run-scenario.ts",
     "simulate:batch": "node --import tsx tools/simulate/run-batch.ts",
     "memory:install": "bash tools/git-memory/install.sh",
+    "task:next": "node --import tsx tools/git-memory/task-next.ts",
     "gate:fast": "pnpm typecheck && pnpm test:determinism && pnpm test:schema",
     "gate:full": "pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package",
     "docs:sync-check": "node --import tsx tools/dev-loop/doc-sync.ts --check",
