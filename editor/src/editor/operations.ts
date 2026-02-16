@@ -4,7 +4,7 @@ import { sanitizeMapSize, sanitizeSpeed } from "./inspector-form";
 
 export type EditorOperation =
   | { type: "set-tool"; tool: GameProject["editorState"]["selectedTool"] }
-  | { type: "paint-cell"; x: number; y: number }
+  | { type: "paint-cell"; x: number; y: number; tool?: GameProject["editorState"]["selectedTool"] }
   | { type: "set-speed"; speed: number }
   | { type: "set-map-size"; width: number; height: number };
 
@@ -49,38 +49,67 @@ function syncPayloadFromCells(next: GameProject): void {
     }
   }
 
-  if (path.length >= 2) {
-    next.templatePayload.path = path;
-  }
+  next.templatePayload.path = path;
   next.templatePayload.towers = towers;
 }
 
-export function applyOperation(project: GameProject, op: EditorOperation): OpResult {
-  const next: GameProject = structuredClone(project);
+function toToolCell(tool: GameProject["editorState"]["selectedTool"]): GridCell {
+  if (tool === "path") {
+    return 1;
+  }
+  if (tool === "tower") {
+    return 2;
+  }
+  return 0;
+}
 
+function isCellInMap(project: GameProject, x: number, y: number): boolean {
+  return Boolean(project.map.cells[y]) && typeof project.map.cells[y][x] !== "undefined";
+}
+
+export function applyOperation(project: GameProject, op: EditorOperation): OpResult {
   switch (op.type) {
-    case "set-tool":
+    case "set-tool": {
+      if (project.editorState.selectedTool === op.tool) {
+        return { ok: true, project };
+      }
+      const next: GameProject = structuredClone(project);
       next.editorState.selectedTool = op.tool;
       return { ok: true, project: next };
+    }
     case "paint-cell": {
-      const tool = next.editorState.selectedTool;
-      const value: GridCell = tool === "path" ? 1 : tool === "tower" ? 2 : 0;
-      if (!next.map.cells[op.y] || typeof next.map.cells[op.y][op.x] === "undefined") {
+      if (!isCellInMap(project, op.x, op.y)) {
         return { ok: false, project, message: "cell out of range" };
       }
+      const tool = op.tool ?? project.editorState.selectedTool;
+      const value = toToolCell(tool);
+      if (project.map.cells[op.y][op.x] === value) {
+        return { ok: true, project };
+      }
+      const next: GameProject = structuredClone(project);
       next.map.cells[op.y][op.x] = value;
       syncPayloadFromCells(next);
       return { ok: true, project: next };
     }
-    case "set-speed":
-      next.editorState.speed = sanitizeSpeed(op.speed, project.editorState.speed);
+    case "set-speed": {
+      const speed = sanitizeSpeed(op.speed, project.editorState.speed);
+      if (speed === project.editorState.speed) {
+        return { ok: true, project };
+      }
+      const next: GameProject = structuredClone(project);
+      next.editorState.speed = speed;
       return { ok: true, project: next };
+    }
     case "set-map-size": {
       const width = sanitizeMapSize(op.width, project.map.width);
       const height = sanitizeMapSize(op.height, project.map.height);
+      if (width === project.map.width && height === project.map.height) {
+        return { ok: true, project };
+      }
+      const next: GameProject = structuredClone(project);
       next.map.width = width;
       next.map.height = height;
-      next.map.cells = resizeCells(next, width, height);
+      next.map.cells = resizeCells(project, width, height);
       syncPayloadFromCells(next);
       return { ok: true, project: next };
     }
