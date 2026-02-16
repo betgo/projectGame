@@ -4,7 +4,7 @@ Generated from `docs/ai/commit-log/*.md`.
 
 ## 2026-W08
 
-- Total commits tracked: 55
+- Total commits tracked: 57
 - Key changes:
   - feat(loop): close S1 Criteria 1
   - feat(loop): close S2 Align branch policy implementation and docs to main-only
@@ -61,6 +61,8 @@ Generated from `docs/ai/commit-log/*.md`.
   - feat(loop): close S2 Implement scoped code changes
   - docs(memory): finalize S2 Implement scoped code changes
   - feat(loop): close S3 Pass fast and full gates
+  - docs(memory): finalize S3 Pass fast and full gates
+  - feat(loop): close S4 Update docs and risk notes
 - Prompt refs:
   - ARCHITECT_v1
   - BUILDER_v2
