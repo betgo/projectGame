@@ -4,7 +4,7 @@ Generated from `docs/ai/commit-log/*.md`.
 
 ## 2026-W08
 
-- Total commits tracked: 9
+- Total commits tracked: 20
 - Key changes:
   - feat(loop): close S1 Criteria 1
   - feat(loop): close S2 Align branch policy implementation and docs to main-only
@@ -15,6 +15,17 @@ Generated from `docs/ai/commit-log/*.md`.
   - feat(loop): close S2 Performance baseline command and threshold are documented and reproducible.
   - feat(loop): close S3 README and `docs/ai` documents describe build/run/test/release flow without contradictions.
   - feat(loop): close S4 `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass.
+  - docs(loop): align workflow docs with main branch mode
+  - docs(memory): finalize S1 Criteria 1
+  - docs(memory): finalize S2 Align branch policy implementation and docs to main-only
+  - docs(memory): finalize S3 Run and stabilize fast/full/doc gates
+  - docs(memory): finalize S4 Verify PR/governance documentation consistency
+  - docs(memory): finalize S5 Finalize memory and close task
+  - docs(loop): finalize T-011 status and loop report
+  - docs(memory): finalize S1 Regression suite covers core v1 paths and passes in local gates.
+  - docs(memory): finalize S2 Performance baseline command and threshold are documented and reproducible.
+  - docs(memory): finalize S3 README and `docs/ai` documents describe build/run/test/release flow without contradictions.
+  - docs(memory): finalize S4 `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass.
 - Prompt refs:
   - ARCHITECT_v1
   - BUILDER_v2
@@ -22,11 +33,14 @@ Generated from `docs/ai/commit-log/*.md`.
   - PLANNER_v1
   - REVIEWER_v1
 - Carry-over risks:
+  - Low.
+  - Low. Changes are documentation and logging artifacts only.
+  - Low. Documentation-only update.
   - Medium. Verify integration on follow-up subtasks.
 
 ## 2026-W07
 
-- Total commits tracked: 8
+- Total commits tracked: 10
 - Key changes:
   - docs(ai): bootstrap memory governance
   - feat(loop): close S2 Implement scoped code changes
@@ -36,6 +50,8 @@ Generated from `docs/ai/commit-log/*.md`.
   - docs(memory): finalize S3 Pass fast and full gates
   - docs(memory): finalize S4 Update docs and risk notes
   - feat(loop): close S5 Milestone commit and memory finalize
+  - feat(loop): stabilize continuous dev workflow
+  - docs(memory): finalize S5 Milestone commit and memory finalize
 - Prompt refs:
   - ARCHITECT_v1
   - BUILDER_v2
@@ -45,4 +61,5 @@ Generated from `docs/ai/commit-log/*.md`.
 - Carry-over risks:
   - Hook policy might be bypassed if not installed.
   - Low.
+  - Medium. Loop behavior changed in branch policy and task resolution; monitor first few runs.
   - Medium. Verify integration on follow-up subtasks.

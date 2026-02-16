@@ -4,7 +4,21 @@ set -euo pipefail
 root_dir="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 cd "$root_dir"
 
-refs=("$@")
+include_missing=0
+refs=()
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --missing)
+      include_missing=1
+      ;;
+    *)
+      refs+=("$1")
+      ;;
+  esac
+  shift
+done
+
 if [[ ${#refs[@]} -eq 0 ]]; then
   refs=("HEAD")
 fi
@@ -66,7 +80,21 @@ expand_refs() {
     git rev-list --reverse "$ref"
     return
   fi
+  if [[ "$include_missing" -eq 1 ]]; then
+    git rev-list --reverse "$ref"
+    return
+  fi
   echo "$ref"
+}
+
+collect_logged_shas() {
+  if [[ ! -d docs/ai/commit-log ]]; then
+    return
+  fi
+
+  while IFS= read -r file; do
+    grep -oE '\`[0-9a-f]{7,40}\`' "$file" 2>/dev/null | tr -d '`' || true
+  done < <(find docs/ai/commit-log -maxdepth 1 -name '*.md' -type f | sort)
 }
 
 append_commit() {
@@ -88,7 +116,7 @@ append_commit() {
   local log_file
   log_file="$(ensure_log_file "$month")"
 
-  if grep -q "\`${short_sha}\`" "$log_file"; then
+  if collect_logged_shas | grep -Fxq "$short_sha"; then
     echo "Commit ${short_sha} already exists in ${log_file}, skipping."
     return 0
   fi
@@ -133,7 +161,37 @@ for raw_ref in "${refs[@]}"; do
   done < <(expand_refs "$raw_ref")
 done
 
+if [[ "$include_missing" -eq 1 ]]; then
+  filtered_refs=()
+  logged_sha_file="$(mktemp)"
+  seen_sha_file="$(mktemp)"
+  trap 'rm -f "$logged_sha_file" "$seen_sha_file"' EXIT
+  collect_logged_shas | sort -u >"$logged_sha_file"
+
+  for commit_ref in "${commit_refs[@]}"; do
+    short_sha="$(git rev-parse --short "$commit_ref")"
+    commit_body="$(git show -s --format=%b "$commit_ref")"
+    if [[ "$commit_body" != *"Prompt-Refs:"* ]]; then
+      continue
+    fi
+    if grep -Fxq "$short_sha" "$seen_sha_file"; then
+      continue
+    fi
+    echo "$short_sha" >>"$seen_sha_file"
+    if grep -Fxq "$short_sha" "$logged_sha_file"; then
+      continue
+    fi
+    filtered_refs+=("$commit_ref")
+  done
+
+  commit_refs=("${filtered_refs[@]}")
+fi
+
 if [[ ${#commit_refs[@]} -eq 0 ]]; then
+  if [[ "$include_missing" -eq 1 ]]; then
+    echo "No missing commits to append."
+    exit 0
+  fi
   echo "No commit refs resolved from input." >&2
   exit 1
 fi

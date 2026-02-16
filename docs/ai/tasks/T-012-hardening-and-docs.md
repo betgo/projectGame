@@ -1,6 +1,6 @@
 # T-012: hardening-and-docs
 
-- Status: In Progress
+- Status: Done
 - Owner: maintainer
 - Branch: `main`
 - Prompt-Plan: `ARCHITECT_v1`, `PLANNER_v1`
@@ -29,7 +29,7 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 - [x] Performance baseline command and threshold are documented and reproducible.
 - [x] README and `docs/ai` documents describe build/run/test/release flow without contradictions.
 - [x] `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass.
-- [ ] Task closure includes milestone commit + memory finalize evidence.
+- [x] Task closure includes milestone commit + memory finalize evidence.
 
 ## Subtasks
 
@@ -37,7 +37,7 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 - [x] [S2] Implement hardening changes and regression safeguards
 - [x] [S3] Sync README and AI governance docs for release handoff
 - [x] [S4] Run fast/full/docs gates and collect performance baseline evidence
-- [ ] [S5] Finalize memory and close task
+- [x] [S5] Finalize memory and close task
 
 ## S1 Implementation Notes (2026-02-16)
 
@@ -102,45 +102,59 @@ Close v1 delivery with production-style hardening and documentation so the loop 
   - `pnpm docs:sync-check` pass
   - Baseline output remains deterministic: `sampleSize=100 winRate=0.0000 avgDuration=5400 leakRate=4.0000 imbalanceIndex=0.5800`
 
+## S5 Implementation Notes (2026-02-16)
+
+- Extended `tools/git-memory/append-commit-log.sh` with `--missing` mode so memory finalize can backfill any untracked commit summaries (including missed milestone/memory commits) before regenerating weekly context.
+- Updated `tools/git-memory/finalize-task.sh` to call `append-commit-log.sh --missing HEAD`, making task-closure memory refresh idempotent and no-op safe when nothing is missing.
+- Added regression coverage in `tests/integration/git-memory-append-commit-log.test.ts` for `--missing` backfill + duplicate prevention.
+- Backfilled missing memory-finalize evidence into `docs/ai/commit-log/2026-02.md` and regenerated `docs/ai/weekly-summary.md` so closure evidence is auditable in Git-tracked artifacts.
+
+## S5 Test Evidence (2026-02-16)
+
+- Commands:
+  - `pnpm exec vitest run tests/integration/git-memory-append-commit-log.test.ts tests/integration/git-memory-weekly-summary.test.ts`
+  - `pnpm docs:sync-check`
+  - `pnpm gate:fast`
+  - `pnpm gate:full`
+- Result:
+  - All listed commands pass.
+
 ## Change List
 
 - Target areas (expected):
-  - `/Users/wxx/Desktop/code/projectA/tests/*`
+  - `/Users/wxx/Desktop/code/projectA/tools/git-memory/*`
+  - `/Users/wxx/Desktop/code/projectA/tests/integration/*`
   - `/Users/wxx/Desktop/code/projectA/README.md`
   - `/Users/wxx/Desktop/code/projectA/docs/ai/*`
 
 ## Test Evidence
 
 - Commands:
+  - `pnpm exec vitest run tests/integration/git-memory-append-commit-log.test.ts tests/integration/git-memory-weekly-summary.test.ts`
+  - `pnpm docs:sync-check`
   - `pnpm gate:fast`
   - `pnpm gate:full`
-  - `pnpm docs:sync-check`
-  - `pnpm simulate:batch game/examples/td-normal.json 100`
 - Result:
-  - `pnpm gate:fast` pass
-  - `pnpm gate:full` pass
-  - `pnpm docs:sync-check` pass
-  - `pnpm simulate:batch game/examples/td-normal.json 100` pass with deterministic output
+  - Integration tests pass for git-memory append backfill and weekly summary rendering.
+  - `pnpm docs:sync-check` pass.
+  - `pnpm gate:fast` pass.
+  - `pnpm gate:full` pass.
 
 ## Risks and Rollback
 
 - Risk:
-  - Hardening changes may slow loop iteration if tests are too heavy.
+  - Backfilling missing commit summaries can append older commit entries after newer entries in month logs.
 - Rollback:
-  - Revert T-012 commits and restore previous gate/test baseline.
-
+  - Revert `tools/git-memory/append-commit-log.sh`, `tools/git-memory/finalize-task.sh`, `tests/integration/git-memory-append-commit-log.test.ts`, `README.md`, `docs/ai/README.md`, `docs/ai/workflows/continuous-loop.md`, `docs/ai/commit-log/2026-02.md`, `docs/ai/weekly-summary.md`, and `docs/ai/tasks/T-012-hardening-and-docs.md`.
 
 ## Subtask Progress
+
 - [x] [S1] Regression suite covers core v1 paths and passes in local gates.
-- [x] [S2] Performance baseline command and threshold are documented and reproducible.
-- [x] [S3] README and `docs/ai` flow docs are synchronized without contradictions.
-- [x] [S4] `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass with baseline evidence.
-
-
-## Subtask Progress
-- [x] [S3] README and `docs/ai` documents describe build/run/test/release flow without contradictions.
+- [x] [S2] Implement hardening changes and regression safeguards.
+- [x] [S3] Sync README and AI governance docs for release handoff.
 - [x] [S4] Run fast/full/docs gates and collect performance baseline evidence.
+- [x] [S5] Finalize memory and close task.
 
 
 ## Subtask Progress
-- [x] [S4] `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass.
+- [x] [S5] Task closure includes milestone commit + memory finalize evidence.

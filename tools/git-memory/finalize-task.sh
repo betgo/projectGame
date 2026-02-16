@@ -9,11 +9,10 @@ if ! git rev-parse --verify HEAD >/dev/null 2>&1; then
   exit 1
 fi
 
-bash tools/git-memory/append-commit-log.sh HEAD
+bash tools/git-memory/append-commit-log.sh --missing HEAD
 bash tools/git-memory/update-weekly-summary.sh
 
 git add docs/ai/commit-log docs/ai/weekly-summary.md
 
 echo "Task memory finalized."
 echo "Next step: commit staged memory files, then open PR."
-

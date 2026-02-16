@@ -196,4 +196,87 @@ Prompt-Refs: BUILDER_v2`,
     const matches = log.match(new RegExp(`\\\`${sha}\\\``, "g")) ?? [];
     expect(matches).toHaveLength(1);
   });
+
+  it("backfills missing commit summaries with --missing and keeps entries unique", () => {
+    const repo = initRepo();
+
+    const firstSha = commit(
+      repo,
+      `feat(loop): close S1
+
+Why:
+Close first subtask.
+What:
+- Add first change.
+Impact:
+- Moves task forward.
+Risk:
+- Low.
+Test:
+pnpm gate:fast
+Prompt-Refs: BUILDER_v2`,
+      { "s1.txt": "s1\n" },
+      "2026-02-14T00:00:00Z"
+    );
+
+    const secondSha = commit(
+      repo,
+      `docs(memory): finalize S1
+
+Why:
+Finalize S1 memory.
+What:
+- Refresh memory docs.
+Impact:
+- Keep context up to date.
+Risk:
+- Low.
+Test:
+bash tools/git-memory/finalize-task.sh
+Prompt-Refs: BUILDER_v2`,
+      { "s1-memory.txt": "memory\n" },
+      "2026-02-14T00:01:00Z"
+    );
+
+    const unstructuredSha = commit(
+      repo,
+      "wip quick note",
+      { "note.txt": "note\n" },
+      "2026-02-14T00:01:30Z"
+    );
+
+    const thirdSha = commit(
+      repo,
+      `feat(loop): close S2
+
+Why:
+Close second subtask.
+What:
+- Add second change.
+Impact:
+- Continue task delivery.
+Risk:
+- Medium.
+Test:
+pnpm gate:full
+Prompt-Refs: BUILDER_v2`,
+      { "s2.txt": "s2\n" },
+      "2026-02-14T00:02:00Z"
+    );
+
+    expectSuccess(run("bash", [appendScript, "HEAD"], repo), "append latest only");
+    expectSuccess(run("bash", [appendScript, "--missing", "HEAD"], repo), "backfill missing commits");
+    expectSuccess(run("bash", [appendScript, "--missing", "HEAD"], repo), "no-op missing backfill");
+
+    const log = readCommitLog(repo);
+    const firstMatches = log.match(new RegExp(`\\\`${firstSha}\\\``, "g")) ?? [];
+    const secondMatches = log.match(new RegExp(`\\\`${secondSha}\\\``, "g")) ?? [];
+    const thirdMatches = log.match(new RegExp(`\\\`${thirdSha}\\\``, "g")) ?? [];
+    const unstructuredMatches = log.match(new RegExp(`\\\`${unstructuredSha}\\\``, "g")) ?? [];
+
+    expect(firstMatches).toHaveLength(1);
+    expect(secondMatches).toHaveLength(1);
+    expect(thirdMatches).toHaveLength(1);
+    expect(unstructuredMatches).toHaveLength(0);
+  });
 });
