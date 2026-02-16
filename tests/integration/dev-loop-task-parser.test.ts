@@ -18,6 +18,21 @@ function withTempTask(content: string, run: (taskPath: string) => void): void {
 }
 
 describe("dev-loop task parser", () => {
+  it("does not create default subtask when task subtasks are already done", () => {
+    withTempTask(
+      `# T-999: done-subtasks
+
+## Subtasks
+- [x] [S1] Planning done
+- [x] [S2] Implement done
+`,
+      (taskPath) => {
+        const context = readTaskContext(taskPath);
+        expect(context.subtasks).toEqual([]);
+      }
+    );
+  });
+
   it("reads pending subtasks only from Subtasks section", () => {
     withTempTask(
       `# T-999: parser-check
@@ -37,6 +52,33 @@ describe("dev-loop task parser", () => {
         expect(context.subtasks).toHaveLength(1);
         expect(context.subtasks[0].id).toBe("S2");
         expect(context.subtasks[0].title).toBe("Implement task logic");
+      }
+    );
+  });
+
+  it("keeps default fallback only when no checklist-like subtasks exist", () => {
+    withTempTask(
+      `# T-999: fallback
+
+## Goal
+No subtask checklist in this file.
+`,
+      (taskPath) => {
+        const context = readTaskContext(taskPath);
+        expect(context.subtasks).toEqual([{ id: "S1", title: "default-subtask", done: false }]);
+      }
+    );
+  });
+
+  it("fails when explicitly targeting a subtask that is already done", () => {
+    withTempTask(
+      `# T-999: done-target
+
+## Subtasks
+- [x] [S1] Completed already
+`,
+      (taskPath) => {
+        expect(() => readTaskContext(taskPath, "S1")).toThrowError("subtask already done: S1");
       }
     );
   });

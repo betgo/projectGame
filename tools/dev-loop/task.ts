@@ -76,14 +76,19 @@ export function readTaskContext(taskPath: string, onlySubtaskId?: string): TaskC
     parsed = parseSubtasksInRange(lines, 0, lines.length);
   }
 
+  const hasDeclaredSubtasks = parsed.length > 0;
   let subtasks = parsed.filter((item) => !item.done);
-  if (subtasks.length === 0) {
+  if (subtasks.length === 0 && !hasDeclaredSubtasks) {
     subtasks = [{ id: "S1", title: "default-subtask", done: false }];
   }
 
   if (onlySubtaskId) {
     subtasks = subtasks.filter((item) => item.id === onlySubtaskId);
     if (subtasks.length === 0) {
+      const doneSubtask = parsed.find((item) => item.id === onlySubtaskId && item.done);
+      if (doneSubtask) {
+        throw new Error(`subtask already done: ${onlySubtaskId}`);
+      }
       throw new Error(`subtask not found: ${onlySubtaskId}`);
     }
   }
