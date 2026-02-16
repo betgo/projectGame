@@ -1,12 +1,12 @@
 # AI 循环状态
 
-- 更新时间: 2026-02-16T14:59:40Z
-- Issue: 16
+- 更新时间: 2026-02-16T23:55:00Z
+- Issue: 17
 - 分支: main
-- 任务卡: `/Users/wxx/Desktop/code/projectA/docs/ai/tasks/T-016-render-performance-baseline.md`
+- 任务卡: `/Users/wxx/Desktop/code/projectA/docs/ai/tasks/T-017-preview-debug-overlay.md`
 - 当前阶段: 子任务收口完成
 - 当前子任务: [S5] Milestone commit and memory finalize
-- 当前 AI 在做: T-016 收口已完成，等待启动下一任务。
+- 当前 AI 在做: T-017 收口已完成，等待启动下一任务。
 - 下一步准备: 运行 `pnpm task:next` 生成下一任务卡并进入新一轮 loop。
 - 下一个子任务: 无
 - 里程碑提交: 未创建（按本轮“Do not commit changes”约束）

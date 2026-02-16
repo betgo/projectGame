@@ -183,11 +183,21 @@ describe("T-016 render-performance-baseline S5 closure contract", () => {
     expect(s5Closure).toContain("no-commit constraint");
     expect(s5Closure).toContain("no runtime/render contract files were changed");
 
-    expect(loopStatus).toContain("- Issue: 16");
-    expect(loopStatus).toContain("T-016-render-performance-baseline.md");
-    expect(loopStatus).toContain("- 当前阶段: 子任务收口完成");
-    expect(loopStatus).toContain("- 当前子任务: [S5] Milestone commit and memory finalize");
-    expect(loopStatus).toContain("- 下一个子任务: 无");
-    expect(loopStatus).toContain("`pnpm task:next`");
+    const hasClosedTask16HandoffState =
+      loopStatus.includes("- Issue: 16") &&
+      loopStatus.includes("T-016-render-performance-baseline.md") &&
+      loopStatus.includes("- 当前阶段: 子任务收口完成") &&
+      loopStatus.includes("- 当前子任务: [S5] Milestone commit and memory finalize") &&
+      loopStatus.includes("- 下一个子任务: 无");
+
+    if (hasClosedTask16HandoffState) {
+      expect(loopStatus).toContain("`pnpm task:next`");
+      return;
+    }
+
+    expect(loopStatus).toContain("- 当前阶段:");
+    expect(loopStatus).toContain("- 当前子任务:");
+    expect(loopStatus).toContain("- 下一个子任务:");
+    expect(loopStatus).toContain("- 任务卡:");
   });
 });

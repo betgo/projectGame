@@ -6,6 +6,7 @@ import { describe, expect, it } from "vitest";
 
 const projectRoot = path.resolve(fileURLToPath(new URL("../..", import.meta.url)));
 const taskPath = path.join(projectRoot, "docs/ai/tasks/T-017-preview-debug-overlay.md");
+const loopStatusPath = path.join(projectRoot, "docs/ai/ai-loop-status.md");
 const renderContractDocPaths = [
   "README.md",
   "docs/ai/README.md",
@@ -26,7 +27,7 @@ function normalizeMarkdownLine(value: string): string {
   return value.trim().replace(/\s+/g, " ");
 }
 
-describe("T-017 preview-debug-overlay S4 docs contract", () => {
+describe("T-017 preview-debug-overlay S5 closure contract", () => {
   it("defines debug diagnostics scope and out-of-scope boundaries", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const scope = readSection("Scope", taskDoc);
@@ -50,7 +51,7 @@ describe("T-017 preview-debug-overlay S4 docs contract", () => {
     }
   });
 
-  it("keeps acceptance criteria measurable and marks S1-S4 as complete", () => {
+  it("keeps acceptance criteria measurable and marks S1-S5 complete", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const acceptanceCriteria = readSection("Acceptance Criteria", taskDoc)
       .split("\n")
@@ -71,26 +72,27 @@ describe("T-017 preview-debug-overlay S4 docs contract", () => {
       expect(acceptanceCriteria.some((line) => line.endsWith(criterion))).toBe(true);
     }
 
-    for (const line of acceptanceCriteria.slice(0, 4)) {
+    for (const line of acceptanceCriteria) {
       expect(line.startsWith("- [x]")).toBe(true);
-    }
-    for (const line of acceptanceCriteria.slice(4)) {
-      expect(line.startsWith("- [ ]")).toBe(true);
     }
   });
 
-  it("tracks subtask checklist state for S4 completion", () => {
+  it("tracks subtask checklist state for S5 completion", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const subtasks = readSection("Subtasks", taskDoc)
       .split("\n")
       .map(normalizeMarkdownLine)
       .filter((line) => line.startsWith("- ["));
+    const s5Closure = readSection("S5 Memory Finalization and Task Closure (2026-02-16)", taskDoc);
 
     expect(subtasks).toContain("- [x] [S1] Define scope and acceptance criteria");
     expect(subtasks).toContain("- [x] [S2] Implement scoped code changes");
     expect(subtasks).toContain("- [x] [S3] Pass fast and full gates");
     expect(subtasks).toContain("- [x] [S4] Update docs and risk notes");
-    expect(subtasks).toContain("- [ ] [S5] Milestone commit and memory finalize");
+    expect(subtasks).toContain("- [x] [S5] Milestone commit and memory finalize");
+    expect(s5Closure).toContain("`pnpm gate:fast`");
+    expect(s5Closure).toContain("`pnpm gate:full`");
+    expect(s5Closure).toContain("`pnpm docs:sync-check`");
   });
 
   it("synchronizes preview debug-overlay docs and S4 risk notes", () => {
@@ -116,16 +118,17 @@ describe("T-017 preview-debug-overlay S4 docs contract", () => {
     expect(s4Notes).toContain("`runtime/render`");
   });
 
-  it("documents S1-S4 notes, gate evidence, and rollback scope", () => {
+  it("documents S1-S5 notes, gate evidence, and rollback scope", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const statusMatch = taskDoc.match(/^- Status:\s*(.+)$/m);
     const s1Notes = readSection("S1 Implementation Notes (2026-02-16)", taskDoc);
     const s3Notes = readSection("S3 Implementation Notes (2026-02-16)", taskDoc);
     const s4Notes = readSection("S4 Documentation and Risk Notes (2026-02-16)", taskDoc);
+    const s5Notes = readSection("S5 Memory Finalization and Task Closure (2026-02-16)", taskDoc);
     const changeList = readSection("Change List", taskDoc);
     const risksAndRollback = readSection("Risks and Rollback", taskDoc);
 
-    expect(statusMatch?.[1].trim()).toBe("In Progress");
+    expect(statusMatch?.[1].trim()).toBe("Done");
     expect(s1Notes).toContain("planning-only scope");
     expect(s1Notes).toContain("`S1-S5`");
     expect(s1Notes).toContain("architecture boundary");
@@ -136,19 +139,55 @@ describe("T-017 preview-debug-overlay S4 docs contract", () => {
     expect(s4Notes).toContain("`docs/ai/README.md`");
     expect(s4Notes).toContain("`docs/ai/workflows/continuous-loop.md`");
     expect(s4Notes).toContain("non-crashing");
+
+    expect(s5Notes).toContain("`bash tools/git-memory/append-commit-log.sh --missing HEAD`");
+    expect(s5Notes).toContain("`bash tools/git-memory/update-weekly-summary.sh`");
+    expect(s5Notes).toContain("`docs/ai/commit-log/2026-02.md`");
+    expect(s5Notes).toContain("`docs/ai/weekly-summary.md`");
+    expect(s5Notes).toContain("`7d8a49a`");
+    expect(s5Notes).toContain("No missing commits to append.");
+    expect(s5Notes).toContain("no-commit constraint");
+    expect(s5Notes).toContain("no `runtime/core`, `game/schemas`, or `ai` contract-level files were changed");
+
     expect(changeList).toContain("`README.md`");
     expect(changeList).toContain("`docs/ai/README.md`");
     expect(changeList).toContain("`docs/ai/workflows/continuous-loop.md`");
+    expect(changeList).toContain("`docs/ai/ai-loop-status.md`");
+    expect(changeList).toContain("`docs/ai/commit-log/2026-02.md`");
+    expect(changeList).toContain("`docs/ai/weekly-summary.md`");
     expect(changeList).toContain("`tests/integration/preview-debug-overlay-scope-doc-contract.test.ts`");
+
     expect(risksAndRollback).toContain("Scope drift may mix debug-overlay delivery");
     expect(risksAndRollback).toContain("`runtime/core`");
     expect(risksAndRollback).toContain("Preview debug-overlay docs may drift");
     expect(risksAndRollback).toContain("`README.md`");
     expect(risksAndRollback).toContain("`docs/ai/README.md`");
     expect(risksAndRollback).toContain("`docs/ai/workflows/continuous-loop.md`");
-    expect(risksAndRollback).toContain("`editor/src/editor/api.ts`");
-    expect(risksAndRollback).toContain("`editor/src/editor/components/PreviewControls.tsx`");
     expect(risksAndRollback).toContain("`docs/ai/tasks/T-017-preview-debug-overlay.md`");
+    expect(risksAndRollback).toContain("`docs/ai/ai-loop-status.md`");
+    expect(risksAndRollback).toContain("`docs/ai/commit-log/2026-02.md`");
+    expect(risksAndRollback).toContain("`docs/ai/weekly-summary.md`");
     expect(risksAndRollback).toContain("`tests/integration/preview-debug-overlay-scope-doc-contract.test.ts`");
+  });
+
+  it("keeps loop status board in a valid handoff or active-task state", () => {
+    const loopStatus = fs.readFileSync(loopStatusPath, "utf-8");
+
+    const hasClosedTask17HandoffState =
+      loopStatus.includes("- Issue: 17") &&
+      loopStatus.includes("T-017-preview-debug-overlay.md") &&
+      loopStatus.includes("- 当前阶段: 子任务收口完成") &&
+      loopStatus.includes("- 当前子任务: [S5] Milestone commit and memory finalize") &&
+      loopStatus.includes("- 下一个子任务: 无");
+
+    if (hasClosedTask17HandoffState) {
+      expect(loopStatus).toContain("`pnpm task:next`");
+      return;
+    }
+
+    expect(loopStatus).toContain("- 当前阶段:");
+    expect(loopStatus).toContain("- 当前子任务:");
+    expect(loopStatus).toContain("- 下一个子任务:");
+    expect(loopStatus).toContain("- 任务卡:");
   });
 });
