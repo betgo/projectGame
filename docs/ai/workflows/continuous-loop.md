@@ -80,6 +80,9 @@ both `--issue-id` and `--task-file`.
 - Camera interaction contract in `runtime/render/three-adapter.ts` stays deterministic: left drag orbit, shift/right drag pan, and wheel zoom with explicit clamp bounds.
 - Preview resize contract remains `mount -> resize -> dispose`; renderer viewport and camera projection matrix updates must stay synchronized with container dimensions.
 - Selection affordance contract is hover-only for tower/enemy placeholders; highlight enter/exit must restore fallback state and keep `runtime/core` immutable.
+- Preview debug-overlay contract in `editor/src/editor/api.ts` + `editor/src/editor/components/PreviewControls.tsx` exposes `tick`, `elapsedMs`, `tickMs`, `seed`, status/lives/entity counts, and runtime metrics for `step`/`fast`/`full` actions.
+- Validation/runtime failures in preview debug sessions must expose `phase`, summary, scoped issues, and actionable hints while actions remain non-crashing (`playStep`/`playFast`/`runToEnd` return `null`, diagnostics status becomes `error`).
+- Diagnostics sourcing stays in preview/runtime APIs and overlay rendering remains editor-only; keep `runtime/core` ownership and `runtime/render` read-only responsibilities intact.
 - Render baseline collector in `runtime/render/performance-baseline.ts` must stay render-side and replay snapshots without mutating `runtime/core`.
 - Baseline command contract: `pnpm simulate:render-baseline [package-json ...]`; when no packages are passed, run `game/examples/td-easy.json`, `game/examples/td-normal.json`, and `game/examples/td-hard.json`.
 - Protocol default contract: `restarts=5`, `warmupFrames=8`, `measuredFrames=120`, `seed=1`; supported overrides are `--restarts`, `--warmup-frames`, `--measured-frames`, and `--seed`.

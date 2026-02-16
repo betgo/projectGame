@@ -55,6 +55,9 @@ This folder stores auditable AI memory and prompt governance artifacts.
 - Camera interaction defaults in `runtime/render/three-adapter.ts` are documented as orbit/pan/zoom with deterministic clamp ranges for pitch, distance, and pan focus limits.
 - Resize handling follows `mount -> resize -> dispose` lifecycle, and docs must preserve renderer-size + camera-projection synchronization guarantees.
 - Hover selection affordance stays render-only: tower/enemy placeholders can highlight/unhighlight through adapter metadata callbacks without mutating `runtime/core`.
+- Preview debug-overlay contract in `editor/src/editor/api.ts` + `editor/src/editor/components/PreviewControls.tsx` exposes `tick`, `elapsedMs`, `tickMs`, `seed`, status/lives/entity counts, and runtime metrics for `step`/`fast`/`full` actions.
+- Validation/runtime failures in preview debug sessions surface `phase`, summary, scoped issues, and actionable hints while actions remain non-crashing (`playStep`/`playFast`/`runToEnd` return `null` and diagnostics status becomes `error`).
+- Diagnostics sourcing stays in preview/runtime APIs and overlay rendering remains editor-only; preserve `runtime/core` simulation ownership and `runtime/render` read-only boundaries.
 - Render baseline collector in `runtime/render/performance-baseline.ts` remains render-side and consumes replayed snapshots without mutating `runtime/core`.
 - Render performance baseline command: `pnpm simulate:render-baseline [package-json ...]` (default package set: `game/examples/td-easy.json`, `game/examples/td-normal.json`, `game/examples/td-hard.json`).
 - Baseline protocol defaults: `restarts=5`, `warmupFrames=8`, `measuredFrames=120`, `seed=1`; override using `--restarts`, `--warmup-frames`, `--measured-frames`, and `--seed`.
