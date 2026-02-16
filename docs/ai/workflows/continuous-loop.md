@@ -6,7 +6,7 @@ This workflow enforces the local cycle:
 
 ## Preconditions
 
-1. Current branch must be `main` or match `main`.
+1. Current branch must be `main`.
 2. Prompt files must exist and be versioned under `docs/ai/prompts/`.
 3. A task card should exist under `docs/ai/tasks/`.
 

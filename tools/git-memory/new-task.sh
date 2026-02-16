@@ -11,7 +11,7 @@ shift
 title="$*"
 
 slug="$(echo "$title" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')"
-branch="codex/${issue_id}-${slug}"
+branch="main"
 task_file="docs/ai/tasks/T-${issue_id}-${slug}.md"
 
 mkdir -p docs/ai/tasks
@@ -55,5 +55,4 @@ cat >"$task_file" <<EOF
 EOF
 
 echo "Created task file: $task_file"
-echo "Suggested branch: $branch"
-
+echo "Working branch: $branch"

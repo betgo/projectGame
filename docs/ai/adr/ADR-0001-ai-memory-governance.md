@@ -18,7 +18,7 @@ Adopt a layered memory system under `docs/ai/`:
 - Monthly commit logs and weekly rollups for rapid context recovery.
 - Versioned role prompts with commit-level `Prompt-Refs`.
 
-Git workflow adopts trunk-based collaboration with short-lived `codex/*` branches
+Git workflow adopts trunk-based collaboration on `main`
 and `1 Issue = 1 PR`.
 
 ## Consequences
@@ -43,4 +43,3 @@ Both were rejected due to poor auditability and weak merge review integration.
 
 - [ ] Install git hooks on contributor machines.
 - [ ] Add CI check for commit message policy (optional next step).
-

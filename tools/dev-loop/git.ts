@@ -12,9 +12,8 @@ export function currentBranch(cwd: string): string {
 
 export function assertBranchPolicy(cwd: string, expectedBranch: string): void {
   const branch = currentBranch(cwd);
-  const isAllowed = branch === "main" || branch.startsWith("codex/");
-  if (!isAllowed) {
-    throw new Error(`branch must be main or start with codex/, current: ${branch}`);
+  if (branch !== "main") {
+    throw new Error(`branch must be main, current: ${branch}`);
   }
   if (expectedBranch && expectedBranch !== branch) {
     throw new Error(`branch mismatch, expected ${expectedBranch}, got ${branch}`);
