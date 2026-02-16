@@ -27,7 +27,7 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 
 - [x] Regression suite covers core v1 paths and passes in local gates.
 - [x] Performance baseline command and threshold are documented and reproducible.
-- [ ] README and `docs/ai` documents describe build/run/test/release flow without contradictions.
+- [x] README and `docs/ai` documents describe build/run/test/release flow without contradictions.
 - [ ] `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` all pass.
 - [ ] Task closure includes milestone commit + memory finalize evidence.
 
@@ -35,8 +35,8 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 
 - [x] [S1] Regression suite covers core v1 paths and passes in local gates
 - [x] [S2] Implement hardening changes and regression safeguards
-- [ ] [S3] Run fast/full/docs gates and collect performance baseline evidence
-- [ ] [S4] Sync README and AI governance docs for release handoff
+- [x] [S3] Sync README and AI governance docs for release handoff
+- [ ] [S4] Run fast/full/docs gates and collect performance baseline evidence
 - [ ] [S5] Finalize memory and close task
 
 ## S1 Implementation Notes (2026-02-16)
@@ -69,11 +69,25 @@ Close v1 delivery with production-style hardening and documentation so the loop 
   - Integration tests pass with threshold success/failure and reproducibility assertions.
   - Baseline command pass with deterministic output: `sampleSize=100 winRate=0.0000 avgDuration=5400 leakRate=4.0000 imbalanceIndex=0.5800`
 
+## S3 Implementation Notes (2026-02-16)
+
+- Added a shared build/run/test/release contract section to `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` so command policy and delivery rules are documented with identical wording.
+- Aligned all release-facing docs to the same `main` + `1 Issue = 1 PR` policy and canonical loop entry command (`pnpm dev:loop -- --issue-id <id> --task-file <task.md>`).
+- Added `tests/integration/release-flow-doc-contract.test.ts` to prevent future command drift between README, AI governance docs, and `package.json` scripts.
+
+## S3 Test Evidence (2026-02-16)
+
+- Commands:
+  - `pnpm exec vitest run tests/integration/release-flow-doc-contract.test.ts tests/integration/batch-doc-contract.test.ts`
+  - `pnpm docs:sync-check`
+- Result:
+  - Documentation contract tests pass for README + `docs/ai` flow alignment.
+  - `pnpm docs:sync-check` pass.
+
 ## Change List
 
 - Target areas (expected):
   - `/Users/wxx/Desktop/code/projectA/tests/*`
-  - `/Users/wxx/Desktop/code/projectA/tools/*`
   - `/Users/wxx/Desktop/code/projectA/README.md`
   - `/Users/wxx/Desktop/code/projectA/docs/ai/*`
 
@@ -97,8 +111,9 @@ Close v1 delivery with production-style hardening and documentation so the loop 
 
 ## Subtask Progress
 - [x] [S1] Regression suite covers core v1 paths and passes in local gates.
-- [x] [S2] Implement hardening changes and regression safeguards.
+- [x] [S2] Performance baseline command and threshold are documented and reproducible.
+- [x] [S3] README and `docs/ai` flow docs are synchronized without contradictions.
 
 
 ## Subtask Progress
-- [x] [S2] Performance baseline command and threshold are documented and reproducible.
+- [x] [S3] README and `docs/ai` documents describe build/run/test/release flow without contradictions.

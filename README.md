@@ -22,16 +22,32 @@ pnpm dev
 ## Core scripts
 
 ```bash
+pnpm build
+pnpm dev
 pnpm typecheck
 pnpm lint
 pnpm test
 pnpm test:schema
 pnpm test:determinism
 pnpm test:smoke-ai-package
+pnpm gate:fast
+pnpm gate:full
+pnpm docs:sync-check
 pnpm simulate:scenario game/examples/td-easy.json 1
 pnpm simulate:batch game/examples/td-easy.json 100
-pnpm dev:loop -- --issue-id 010 --task-file docs/ai/tasks/T-010.md
+pnpm dev:loop -- --issue-id <id> --task-file <task.md>
 ```
+
+## Build/Run/Test/Release contract
+
+- Build command: `pnpm build`
+- Run command: `pnpm dev`
+- Fast gate command: `pnpm gate:fast`
+- Full gate command: `pnpm gate:full`
+- Docs sync command: `pnpm docs:sync-check`
+- Release loop command: `pnpm dev:loop -- --issue-id <id> --task-file <task.md>`
+- Delivery branch: `main`
+- Delivery rule: `1 Issue = 1 PR`
 
 ## Batch simulation contract
 

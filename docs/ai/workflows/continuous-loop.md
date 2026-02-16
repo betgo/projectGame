@@ -40,6 +40,17 @@ both `--issue-id` and `--task-file`.
 - Full gate: `pnpm gate:full`
 - Doc sync check: `pnpm docs:sync-check`
 
+## Build/Run/Test/Release contract
+
+- Build command: `pnpm build`
+- Run command: `pnpm dev`
+- Fast gate command: `pnpm gate:fast`
+- Full gate command: `pnpm gate:full`
+- Docs sync command: `pnpm docs:sync-check`
+- Release loop command: `pnpm dev:loop -- --issue-id <id> --task-file <task.md>`
+- Delivery branch: `main`
+- Delivery rule: `1 Issue = 1 PR`
+
 ## Enforcement
 
 1. Runtime boundary violations fail the loop.
