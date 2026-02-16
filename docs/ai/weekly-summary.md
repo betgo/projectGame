@@ -4,7 +4,7 @@ Generated from `docs/ai/commit-log/*.md`.
 
 ## 2026-W08
 
-- Total commits tracked: 31
+- Total commits tracked: 33
 - Key changes:
   - feat(loop): close S1 Criteria 1
   - feat(loop): close S2 Align branch policy implementation and docs to main-only
@@ -37,6 +37,8 @@ Generated from `docs/ai/commit-log/*.md`.
   - feat(loop): close S4 Task completion requires passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` with recorded evidence.
   - docs(memory): finalize S4 Task completion requires passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` with recorded evidence.
   - feat(loop): close S5 Risk and rollback expectations are documented before implementation subtasks start.
+  - docs(memory): finalize S5 Risk and rollback expectations are documented before implementation subtasks start.
+  - feat(loop): close S3 Sync README and AI governance docs for release handoff
 - Prompt refs:
   - ARCHITECT_v1
   - BUILDER_v2
