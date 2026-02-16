@@ -75,7 +75,8 @@ both `--issue-id` and `--task-file`.
 
 ## Render contract note
 
-- Render baseline contract expects `RenderSnapshot` to carry immutable `map` and `path` fields for deterministic preview placeholder rendering.
+- Render baseline contract expects `RenderSnapshot` in `runtime/core/types.ts` to carry immutable `map` and `path` fields for deterministic preview placeholder rendering.
+- Render adapter responsibilities stay read-only; do not move runtime state mutation logic from `runtime/core` into `runtime/render`.
 
 ## Output Artifacts
 

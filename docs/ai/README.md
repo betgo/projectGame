@@ -50,7 +50,8 @@ This folder stores auditable AI memory and prompt governance artifacts.
 
 ## Render contract note
 
-- `RenderSnapshot` baseline now includes immutable `map` and `path` fields to support deterministic Three.js placeholder rendering in preview.
+- `RenderSnapshot` in `runtime/core/types.ts` includes immutable `map` and `path` fields to support deterministic Three.js placeholder rendering in preview.
+- Keep render documentation synchronized with `README.md` and `docs/ai/workflows/continuous-loop.md` whenever contract-level files change.
 
 ## Session Warm Start
 

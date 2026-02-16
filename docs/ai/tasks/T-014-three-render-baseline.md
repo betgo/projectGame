@@ -27,17 +27,17 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 ## Acceptance Criteria
 
 - [x] [S1] Scope and acceptance contract explicitly defines render boundaries, lifecycle expectations, and out-of-scope constraints for `T-014`.
-- [ ] [S2] Three.js baseline renders map/path/tower/enemy placeholders from `RenderSnapshot` without mutating runtime simulation state.
-- [ ] [S3] Render lifecycle regression tests cover create/update/dispose and repeated preview session cleanup behavior.
-- [ ] [S4] Render contract docs are synchronized when contract-level files change, with risk and rollback notes updated in this task.
+- [x] [S2] Three.js baseline renders map/path/tower/enemy placeholders from `RenderSnapshot` without mutating runtime simulation state.
+- [x] [S3] Render lifecycle regression tests cover create/update/dispose and repeated preview session cleanup behavior.
+- [x] [S4] Render contract docs are synchronized when contract-level files change, with risk and rollback notes updated in this task.
 - [ ] [S5] Task closure evidence includes passing `pnpm gate:fast`, `pnpm gate:full`, and `pnpm docs:sync-check` plus memory finalize artifacts.
 
 ## Subtasks
 
 - [x] [S1] Define scope and acceptance criteria
-- [ ] [S2] Implement scoped code changes
+- [x] [S2] Implement scoped code changes
 - [x] [S3] Pass fast and full gates
-- [ ] [S4] Update docs and risk notes
+- [x] [S4] Update docs and risk notes
 - [ ] [S5] Milestone commit and memory finalize
 
 ## S1 Implementation Notes (2026-02-16)
@@ -57,6 +57,12 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 - Executed `pnpm gate:fast` and confirmed `typecheck`, `test:determinism`, and `test:schema` pass with current render-baseline changes.
 - Executed `pnpm gate:full` and confirmed lint + full suite + deterministic/schema/smoke replay all pass for gate-level regression coverage.
 
+## S4 Documentation and Risk Notes (2026-02-16)
+
+- Re-validated that contract-level change `runtime/core/types.ts` (`RenderSnapshot.map` + `RenderSnapshot.path`) is documented in `README.md`, `docs/ai/README.md`, and `docs/ai/workflows/continuous-loop.md` with deterministic/immutable rendering expectations.
+- Confirmed docs remain architecture-safe: render behavior is described as read-only consumption of snapshot data, and no `runtime/core` mutation responsibilities were moved into `runtime/render`.
+- Expanded task-level risk and rollback notes to explicitly cover render-contract documentation drift and rollback scope across docs + doc-contract tests.
+
 ## Change List
 
 - `docs/ai/tasks/T-014-three-render-baseline.md`: finalized S1 scope boundaries and measurable acceptance criteria.
@@ -71,6 +77,10 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 - `tests/integration/three-render-snapshot-contract.test.ts`: added snapshot immutability and frame-mapping regression coverage.
 - `tests/integration/three-render-adapter-baseline.test.ts`: added adapter baseline rendering and lifecycle cleanup regression coverage.
 - `tests/integration/three-render-baseline-scope-doc-contract.test.ts`: synchronized task-progress assertions with S3 gate pass status.
+- `README.md`: added render contract note for immutable `RenderSnapshot.map/path` expectations.
+- `docs/ai/README.md`: clarified render contract and documentation sync expectation for contract-level changes.
+- `docs/ai/workflows/continuous-loop.md`: clarified render contract note with immutable snapshot fields and architecture boundary wording.
+- `tests/integration/three-render-baseline-scope-doc-contract.test.ts`: extended assertions for S4 doc-sync and risk/rollback coverage.
 
 ## Test Evidence
 
@@ -86,6 +96,10 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 - S3 commands:
   - `pnpm gate:fast`
   - `pnpm gate:full`
+- S4 commands:
+  - `pnpm exec eslint tests/integration/three-render-baseline-scope-doc-contract.test.ts`
+  - `pnpm exec vitest run tests/integration/three-render-baseline-scope-doc-contract.test.ts`
+  - `pnpm docs:sync-check`
 - Result:
   - `pnpm exec eslint tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass (3 tests).
@@ -96,10 +110,15 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
   - `pnpm docs:sync-check` pass.
   - `pnpm gate:fast` pass (`typecheck`, `test:determinism`, `test:schema`).
   - `pnpm gate:full` pass (`lint`, `test`, `test:determinism`, `test:schema`, `test:smoke-ai-package`).
+  - `pnpm exec eslint tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass.
+  - `pnpm exec vitest run tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass.
+  - `pnpm docs:sync-check` pass.
 
 ## Risks and Rollback
 
 - Risk:
   - Scope drift may mix render-baseline delivery with camera/performance/debug-overlay work planned for later tasks.
+  - Render contract docs may drift from `runtime/core/types.ts` if `RenderSnapshot` fields are extended without synchronized updates in handoff docs.
+  - Rollback in docs/tests only may hide immutable `map/path` assumptions and cause future preview regressions to bypass doc-contract checks.
 - Rollback:
-  - Revert `docs/ai/tasks/T-014-three-render-baseline.md` and `tests/integration/three-render-baseline-scope-doc-contract.test.ts` together.
+  - Revert `README.md`, `docs/ai/README.md`, `docs/ai/workflows/continuous-loop.md`, `docs/ai/tasks/T-014-three-render-baseline.md`, and `tests/integration/three-render-baseline-scope-doc-contract.test.ts` together.

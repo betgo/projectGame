@@ -65,6 +65,11 @@ pnpm dev:loop -- --issue-id <id> --task-file <task.md>
 - Record gate evidence in task card under `docs/ai/tasks/`.
 - Refresh memory artifacts before handoff: `bash tools/git-memory/finalize-task.sh`
 
+## Render contract note
+
+- `RenderSnapshot` in `runtime/core/types.ts` includes immutable `map` and `path` fields for deterministic preview placeholder rendering.
+- `runtime/render` consumes snapshot data in read-only mode and must not mutate runtime simulation state.
+
 ## Batch simulation contract
 
 - Command shape: `pnpm simulate:batch <package> <rounds>`

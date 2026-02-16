@@ -6,6 +6,11 @@ import { describe, expect, it } from "vitest";
 
 const projectRoot = path.resolve(fileURLToPath(new URL("../..", import.meta.url)));
 const taskPath = path.join(projectRoot, "docs/ai/tasks/T-014-three-render-baseline.md");
+const renderContractDocPaths = [
+  "README.md",
+  "docs/ai/README.md",
+  "docs/ai/workflows/continuous-loop.md"
+] as const;
 
 function readSection(title: string, content: string): string {
   const escaped = title.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -65,13 +70,13 @@ describe("T-014 three-render-baseline scope contract", () => {
       expect(acceptanceCriteria.some((line) => line.endsWith(criterion))).toBe(true);
     }
 
-    expect(acceptanceCriteria[0].startsWith("- [x]")).toBe(true);
-    for (const line of acceptanceCriteria.slice(1)) {
-      expect(line.startsWith("- [ ]")).toBe(true);
+    for (const line of acceptanceCriteria.slice(0, 4)) {
+      expect(line.startsWith("- [x]")).toBe(true);
     }
+    expect(acceptanceCriteria[4].startsWith("- [ ]")).toBe(true);
   });
 
-  it("marks S3 gate completion while keeping later subtasks open", () => {
+  it("marks S4 doc/risk completion while keeping S5 open", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const subtasks = readSection("Subtasks", taskDoc)
       .split("\n")
@@ -79,9 +84,31 @@ describe("T-014 three-render-baseline scope contract", () => {
       .filter((line) => line.startsWith("- ["));
 
     expect(subtasks).toContain("- [x] [S1] Define scope and acceptance criteria");
-    expect(subtasks).toContain("- [ ] [S2] Implement scoped code changes");
+    expect(subtasks).toContain("- [x] [S2] Implement scoped code changes");
     expect(subtasks).toContain("- [x] [S3] Pass fast and full gates");
-    expect(subtasks).toContain("- [ ] [S4] Update docs and risk notes");
+    expect(subtasks).toContain("- [x] [S4] Update docs and risk notes");
     expect(subtasks).toContain("- [ ] [S5] Milestone commit and memory finalize");
+  });
+
+  it("synchronizes render contract docs and updates risk rollback notes for S4", () => {
+    const taskDoc = fs.readFileSync(taskPath, "utf-8");
+    const s4Notes = readSection("S4 Documentation and Risk Notes (2026-02-16)", taskDoc);
+    const risksAndRollback = readSection("Risks and Rollback", taskDoc);
+
+    for (const docPath of renderContractDocPaths) {
+      const docContent = fs.readFileSync(path.join(projectRoot, docPath), "utf-8");
+      const renderContractNote = readSection("Render contract note", docContent);
+
+      expect(renderContractNote).toContain("`runtime/core/types.ts`");
+      expect(renderContractNote).toContain("immutable `map` and `path`");
+      expect(s4Notes).toContain(`\`${docPath}\``);
+    }
+
+    expect(risksAndRollback).toContain("Render contract docs may drift from `runtime/core/types.ts`");
+    expect(risksAndRollback).toContain("`README.md`");
+    expect(risksAndRollback).toContain("`docs/ai/README.md`");
+    expect(risksAndRollback).toContain("`docs/ai/workflows/continuous-loop.md`");
+    expect(risksAndRollback).toContain("`docs/ai/tasks/T-014-three-render-baseline.md`");
+    expect(risksAndRollback).toContain("`tests/integration/three-render-baseline-scope-doc-contract.test.ts`");
   });
 });
