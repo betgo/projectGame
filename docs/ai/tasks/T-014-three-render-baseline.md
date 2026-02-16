@@ -36,7 +36,7 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 
 - [x] [S1] Define scope and acceptance criteria
 - [ ] [S2] Implement scoped code changes
-- [ ] [S3] Pass fast and full gates
+- [x] [S3] Pass fast and full gates
 - [ ] [S4] Update docs and risk notes
 - [ ] [S5] Milestone commit and memory finalize
 
@@ -52,6 +52,11 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 - Implemented `runtime/render` placeholder-frame mapping and Three.js adapter layer updates for map cells, path nodes, towers, and enemies.
 - Wired editor preview panel to create/update/dispose a `ThreeRenderAdapter` session without mutating runtime simulation state.
 
+## S3 Implementation Notes (2026-02-16)
+
+- Executed `pnpm gate:fast` and confirmed `typecheck`, `test:determinism`, and `test:schema` pass with current render-baseline changes.
+- Executed `pnpm gate:full` and confirmed lint + full suite + deterministic/schema/smoke replay all pass for gate-level regression coverage.
+
 ## Change List
 
 - `docs/ai/tasks/T-014-three-render-baseline.md`: finalized S1 scope boundaries and measurable acceptance criteria.
@@ -65,6 +70,7 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
 - `editor/src/styles.css`: added preview stage container styles for Three.js canvas mounting.
 - `tests/integration/three-render-snapshot-contract.test.ts`: added snapshot immutability and frame-mapping regression coverage.
 - `tests/integration/three-render-adapter-baseline.test.ts`: added adapter baseline rendering and lifecycle cleanup regression coverage.
+- `tests/integration/three-render-baseline-scope-doc-contract.test.ts`: synchronized task-progress assertions with S3 gate pass status.
 
 ## Test Evidence
 
@@ -77,6 +83,9 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
   - `pnpm exec eslint runtime/render/three-adapter.ts runtime/render/placeholder-model.ts editor/src/editor/components/PreviewControls.tsx tests/integration/three-render-snapshot-contract.test.ts tests/integration/three-render-adapter-baseline.test.ts`
   - `pnpm typecheck`
   - `pnpm docs:sync-check`
+- S3 commands:
+  - `pnpm gate:fast`
+  - `pnpm gate:full`
 - Result:
   - `pnpm exec eslint tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass.
   - `pnpm exec vitest run tests/integration/three-render-baseline-scope-doc-contract.test.ts` pass (3 tests).
@@ -85,6 +94,8 @@ Build first usable Three.js visual baseline for map cells, path, towers, and ene
   - `pnpm exec eslint runtime/core/types.ts runtime/render/snapshot.ts runtime/render/three-adapter.ts runtime/render/placeholder-model.ts runtime/render/three.d.ts editor/src/editor/components/PreviewControls.tsx tests/integration/three-render-snapshot-contract.test.ts tests/integration/three-render-adapter-baseline.test.ts` pass.
   - `pnpm typecheck` pass.
   - `pnpm docs:sync-check` pass.
+  - `pnpm gate:fast` pass (`typecheck`, `test:determinism`, `test:schema`).
+  - `pnpm gate:full` pass (`lint`, `test`, `test:determinism`, `test:schema`, `test:smoke-ai-package`).
 
 ## Risks and Rollback
 

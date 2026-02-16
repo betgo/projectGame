@@ -71,7 +71,7 @@ describe("T-014 three-render-baseline scope contract", () => {
     }
   });
 
-  it("marks only S1 as done in subtask checklist during planning", () => {
+  it("marks S3 gate completion while keeping later subtasks open", () => {
     const taskDoc = fs.readFileSync(taskPath, "utf-8");
     const subtasks = readSection("Subtasks", taskDoc)
       .split("\n")
@@ -80,7 +80,7 @@ describe("T-014 three-render-baseline scope contract", () => {
 
     expect(subtasks).toContain("- [x] [S1] Define scope and acceptance criteria");
     expect(subtasks).toContain("- [ ] [S2] Implement scoped code changes");
-    expect(subtasks).toContain("- [ ] [S3] Pass fast and full gates");
+    expect(subtasks).toContain("- [x] [S3] Pass fast and full gates");
     expect(subtasks).toContain("- [ ] [S4] Update docs and risk notes");
     expect(subtasks).toContain("- [ ] [S5] Milestone commit and memory finalize");
   });
