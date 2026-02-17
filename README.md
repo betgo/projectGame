@@ -8,7 +8,7 @@ and local-first AI memory governance.
 - Browser editor: map grid, rules inspector, wave panel, preview controls.
 - Runtime core: fixed-tick deterministic simulation.
 - Three render baseline: deterministic map/path/tower/enemy placeholders from immutable `RenderSnapshot`.
-- Template plugin: `tower-defense` systems + semantic validator.
+- Template plugin: `tower-defense` and `rpg-topdown` systems + semantic validators.
 - AI pipeline: provider abstraction + mock provider + OpenAI adapter placeholder.
 - Data contracts: JSON Schemas + examples.
 - Collaboration governance: trunk-based workflow, hooks, prompts, commit memory logs.
@@ -103,7 +103,14 @@ pnpm dev:loop -- --issue-id <id> --task-file <task.md>
 - `game/schemas/rpg-topdown.schema.json` defines MVP payload structure for RPG `map`, `entities`, and `rules` domains (walkable metadata, stat blocks, spawn/layout, tick/combat config).
 - Template-aware branches in `game/schemas/game-project.schema.json` and `game/schemas/game-package.schema.json` support both `tower-defense` and `rpg-topdown` without changing tower-defense schema behavior.
 - RPG onboarding fixtures live in `game/examples/rpg-topdown-mvp.project.json` and `game/examples/rpg-topdown-mvp.package.json` for deterministic schema regression coverage.
-- Semantic/runtime behavior for RPG templates remains out of scope for this contract task and stays owned by downstream runtime/editor template subtasks.
+
+## RPG runtime min-systems contract
+
+- `runtime/templates/rpg-topdown/systems.ts` owns deterministic movement/combat/quest-lite simulation (`reach-exit`, `defeat-all-enemies`, `survive-duration`) with explicit `running -> won/lost` transitions.
+- `runtime/templates/rpg-topdown/validator.ts` owns RPG semantic checks (walkable-grid placement, spawn-zone validity, enemy profile references, and reach-exit path reachability).
+- `runtime/core/engine.ts` keeps orchestration ownership and resolves fixed tick config per template branch (`spawnRules.tickMs` for TD, `rules.tick.tickMs` for RPG) before headless scenario looping.
+- Runtime template state remains template-scoped via `RuntimeWorld.internal.templateState`; cross-layer ownership stays unchanged (`runtime/core` orchestration, template-local behavior, no editor/AI leakage).
+- Existing tower-defense runtime behavior remains compatible through the shared Template SDK entrypoints.
 
 ## Template SDK core contract
 

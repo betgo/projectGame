@@ -105,7 +105,14 @@ When a task is completed, loop continues to the next pending task card by defaul
 - `game/schemas/rpg-topdown.schema.json` defines RPG MVP payload contract sections for `map`, `entities`, and `rules`, including walkable metadata, stat blocks, spawn/layout, and tick/combat baseline constraints.
 - `game/schemas/game-project.schema.json` and `game/schemas/game-package.schema.json` must keep template-aware branches (`tower-defense`, `rpg-topdown`) aligned whenever either branch evolves.
 - RPG schema onboarding fixtures are `game/examples/rpg-topdown-mvp.project.json` and `game/examples/rpg-topdown-mvp.package.json`; regression tests must keep both valid fixture pass and invalid-state rejection deterministic.
-- Runtime/editor semantic ownership for RPG remains in follow-up template tasks (`T-025`, `T-026`); this contract loop must not move semantic logic out of template validators/runtime entrypoints.
+
+## RPG runtime min-systems contract note
+
+- `runtime/templates/rpg-topdown/systems.ts` must keep deterministic movement/combat/quest-lite behavior (`reach-exit`, `defeat-all-enemies`, `survive-duration`) with explicit `running -> won/lost` transitions.
+- `runtime/templates/rpg-topdown/validator.ts` must enforce RPG semantic constraints for walkable-grid placement, spawn-zone validity, enemy references, and reach-exit path reachability.
+- `runtime/core/engine.ts` keeps runtime orchestration ownership and resolves template tick source by branch (`spawnRules.tickMs` for TD, `rules.tick.tickMs` for RPG) before fixed-tick scenario loops.
+- Template-only mutable state remains isolated under `RuntimeWorld.internal.templateState`; do not move RPG semantic/runtime behavior into `game/schemas`, `editor`, or `ai`.
+- Shared runtime entrypoints (`validateRuntimePackage`, `loadPackage`, `runScenario`, `runBatch`) must stay compatible for both `tower-defense` and `rpg-topdown`.
 
 ## Template SDK core contract note
 

@@ -1,6 +1,6 @@
 export type TemplateId = "tower-defense" | (string & {});
 
-export type GridCell = 0 | 1 | 2;
+export type GridCell = 0 | 1 | 2 | 3;
 
 export type Vec2 = {
   x: number;
@@ -133,6 +133,7 @@ export type RuntimeWorld = {
   internal: {
     spawnQueue: SpawnEvent[];
     nextEnemyInstanceId: number;
+    templateState?: unknown;
   };
 };
 

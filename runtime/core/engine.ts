@@ -1,4 +1,5 @@
 import { towerDefenseTemplate } from "../templates/tower-defense";
+import { rpgTopdownTemplate } from "../templates/rpg-topdown";
 import { normalizeGamePackageSchemaVersion } from "@game/schemas/index";
 import type {
   BatchResult,
@@ -64,6 +65,7 @@ function toUnknownTemplateIssue(templateId: string): ValidationIssue {
 }
 
 registerTemplate(towerDefenseTemplate);
+registerTemplate(rpgTopdownTemplate);
 
 export function registerTemplate(template: RuntimeTemplate): void {
   const id = assertTemplateContract(template);
@@ -130,7 +132,7 @@ export function runScenario(pkg: GamePackage, seed: number): MatchResult {
   }
 
   const world = loadPackage(pkg, seed);
-  const tickMs = world.pkg.rules.payload.spawnRules.tickMs;
+  const tickMs = resolveRuntimeTickMs(world.pkg);
   const maxTicks = Math.max(1, Math.floor((30 * 60 * 1000) / tickMs));
 
   for (let i = 0; i < maxTicks; i += 1) {
@@ -153,6 +155,24 @@ export function runScenario(pkg: GamePackage, seed: number): MatchResult {
     seed,
     metrics: { ...world.metrics }
   };
+}
+
+function resolveRuntimeTickMs(pkg: GamePackage): number {
+  const payload = pkg.rules?.payload as Record<string, unknown> | undefined;
+  const spawnRules = payload?.spawnRules as Record<string, unknown> | undefined;
+  const spawnTickMs = spawnRules?.tickMs;
+  if (typeof spawnTickMs === "number" && Number.isFinite(spawnTickMs) && spawnTickMs > 0) {
+    return Math.floor(spawnTickMs);
+  }
+
+  const rpgRules = payload?.rules as Record<string, unknown> | undefined;
+  const tickConfig = rpgRules?.tick as Record<string, unknown> | undefined;
+  const rpgTickMs = tickConfig?.tickMs;
+  if (typeof rpgTickMs === "number" && Number.isFinite(rpgTickMs) && rpgTickMs > 0) {
+    return Math.floor(rpgTickMs);
+  }
+
+  throw new Error("invalid game package: missing runtime tick configuration");
 }
 
 export function createBatchSeeds(rounds: number, startSeed = 1): number[] {

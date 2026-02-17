@@ -79,7 +79,14 @@ This folder stores auditable AI memory and prompt governance artifacts.
 - `game/schemas/rpg-topdown.schema.json` defines RPG MVP payload structure across `map`, `entities`, and `rules` sections with explicit bounds and required fields.
 - `game/schemas/game-project.schema.json` + `game/schemas/game-package.schema.json` use template-aware branches to keep both `tower-defense` and `rpg-topdown` contracts valid.
 - RPG fixture onboarding coverage uses `game/examples/rpg-topdown-mvp.project.json` and `game/examples/rpg-topdown-mvp.package.json` with deterministic schema regression tests.
-- Runtime/editor semantic behavior for RPG remains out of scope in this schema task and is deferred to follow-up template implementation tasks.
+
+## RPG runtime min-systems contract note
+
+- `runtime/templates/rpg-topdown/systems.ts` owns deterministic RPG movement/combat/quest-lite progression and explicit objective state transitions.
+- `runtime/templates/rpg-topdown/validator.ts` owns RPG semantic validation for walkable-grid placement, spawn-zone integrity, enemy reference consistency, and reach-exit path reachability.
+- Runtime orchestration remains in `runtime/core/engine.ts`, with template-aware fixed tick resolution for both TD (`spawnRules.tickMs`) and RPG (`rules.tick.tickMs`) package branches.
+- Template-scoped state is isolated in `RuntimeWorld.internal.templateState`; no RPG semantic logic is pushed into `game/schemas`, `editor`, or `ai` ownership layers.
+- Existing tower-defense runtime contracts remain compatible through shared entrypoints (`validateRuntimePackage`, `loadPackage`, `runScenario`, `runBatch`).
 
 ## Template SDK core contract note
 
