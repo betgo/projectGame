@@ -10,6 +10,7 @@ import type {
   BatchResult,
   GamePackage,
   GameProject,
+  GameMap,
   MatchResult,
   RuntimeMetrics,
   RuntimeStatus,
@@ -19,13 +20,24 @@ import type {
 
 import { applyOperation as applyEditorOperationImpl, type EditorOperation, type OpResult } from "./operations";
 import { createDefaultProject } from "./store";
+import {
+  applyTemplateSwitch as applyTemplateSwitchInternal,
+  getProjectTemplateId,
+  getRpgPayload,
+  previewTemplateSwitch as previewTemplateSwitchInternal,
+  resolveSupportedTemplateId,
+  type SupportedTemplateId,
+  type TemplateSwitchPreview as TemplateSwitchPreviewContract,
+  type TemplateSwitchResolution as TemplateSwitchResolutionContract
+} from "./template-switch";
 
 export type DiagnosticsSeverity = "error" | "warning";
 export type DiagnosticsSource =
   | "editor/api"
   | "game/schemas"
   | "runtime/core"
-  | "runtime/templates/tower-defense";
+  | "runtime/templates/tower-defense"
+  | "runtime/templates/rpg-topdown";
 export type DiagnosticsOperation = "import" | "export";
 
 export type ImportExportDiagnostic = {
@@ -102,6 +114,9 @@ export type PreviewOverlaySession = {
   runToEnd: () => MatchResult | null;
 };
 
+export type TemplateSwitchPreview = TemplateSwitchPreviewContract;
+export type TemplateSwitchResolution = TemplateSwitchResolutionContract;
+
 const PREVIEW_MAX_DURATION_MS = 30 * 60 * 1000;
 const MAX_DIAGNOSTIC_ISSUES = 3;
 const MAX_IMPORT_EXPORT_DIAGNOSTICS = 12;
@@ -121,7 +136,7 @@ function normalizeSchemaIssuePath(issue: ValidationIssue): string {
   return issue.path || "/";
 }
 
-function normalizeSemanticIssuePath(issue: ValidationIssue): string {
+function normalizeSemanticIssuePath(issue: ValidationIssue, templateId: string): string {
   const path = issue.path || "/";
   if (path === "/rules/payload") {
     return "/templatePayload";
@@ -129,24 +144,42 @@ function normalizeSemanticIssuePath(issue: ValidationIssue): string {
   if (path.startsWith("/rules/payload/")) {
     return `/templatePayload/${path.slice("/rules/payload/".length)}`;
   }
-  if (path === "/entities/towers") {
-    return "/templatePayload/towers";
-  }
-  if (path.startsWith("/entities/towers/")) {
-    return `/templatePayload/towers/${path.slice("/entities/towers/".length)}`;
-  }
-  if (path.startsWith("/entities/enemies")) {
-    return "/templatePayload/spawnRules";
-  }
   if (path === "/version") {
     return "/meta/version";
   }
+
+  if (templateId === "tower-defense") {
+    if (path === "/entities/towers") {
+      return "/templatePayload/towers";
+    }
+    if (path.startsWith("/entities/towers/")) {
+      return `/templatePayload/towers/${path.slice("/entities/towers/".length)}`;
+    }
+    if (path.startsWith("/entities/enemies")) {
+      return "/templatePayload/spawnRules";
+    }
+    return path;
+  }
+
+  if (templateId === "rpg-topdown") {
+    if (path.startsWith("/entities/player")) {
+      return "/templatePayload/entities/player";
+    }
+    if (path.startsWith("/entities/enemies")) {
+      return "/templatePayload/map/spawnZones";
+    }
+    if (path.startsWith("/winCondition")) {
+      return "/templatePayload/rules";
+    }
+    return path;
+  }
+
   return path;
 }
 
-function normalizeExportSchemaIssuePath(issue: ValidationIssue): string {
+function normalizeExportSchemaIssuePath(issue: ValidationIssue, templateId: string): string {
   return normalizeSchemaIssuePath({
-    path: normalizeSemanticIssuePath(issue),
+    path: normalizeSemanticIssuePath(issue, templateId),
     message: issue.message
   });
 }
@@ -242,6 +275,12 @@ function classifySemanticIssue(issue: ValidationIssue): { detail: string; hint: 
       hint: "Set wave.enemyId to an existing enemy definition (for tower-defense use `grunt`)."
     };
   }
+  if (message.includes("unknown enemy type") || message.includes("unknown typeid")) {
+    return {
+      detail: "unknown-reference",
+      hint: "Ensure enemy references point to existing payload enemy profiles."
+    };
+  }
   if (message.includes("out of map range")) {
     return {
       detail: "out-of-range",
@@ -263,6 +302,9 @@ function classifySemanticIssue(issue: ValidationIssue): { detail: string; hint: 
 function semanticDiagnosticsSource(templateId: string): DiagnosticsSource {
   if (templateId === "tower-defense") {
     return "runtime/templates/tower-defense";
+  }
+  if (templateId === "rpg-topdown") {
+    return "runtime/templates/rpg-topdown";
   }
   return "runtime/core";
 }
@@ -338,8 +380,9 @@ function toParseDiagnostics(error: unknown): ImportExportDiagnostic[] {
 }
 
 function semanticReportForProject(project: GameProject): ValidationReport {
+  const templateId = getProjectTemplateId(project);
   const semanticReport = validateRuntimePackage(exportPackage(project));
-  return cloneIssuesWithPath(semanticReport, (issue) => normalizeSemanticIssuePath(issue));
+  return cloneIssuesWithPath(semanticReport, (issue) => normalizeSemanticIssuePath(issue, templateId));
 }
 
 function asProject(value: unknown): GameProject | null {
@@ -489,7 +532,7 @@ function errorMessage(error: unknown): string {
 function hintForRuntimeError(message: string): string {
   const normalized = message.toLowerCase();
   if (normalized.includes("unknown template")) {
-    return "Use a registered templateId (currently tower-defense) and retry preview.";
+    return "Use a registered templateId (tower-defense or rpg-topdown) and retry preview.";
   }
   if (normalized.includes("invalid game package")) {
     return "Fix package validation issues, then reset preview.";
@@ -535,9 +578,36 @@ function toMatchResult(world: RuntimeWorld): MatchResult {
 }
 
 export function createProject(templateId: string): GameProject {
-  const project = createDefaultProject();
-  project.templateId = templateId;
-  return project;
+  const resolved = resolveSupportedTemplateId(templateId);
+  return createDefaultProject(resolved ?? "tower-defense");
+}
+
+export function previewTemplateSwitch(
+  project: GameProject,
+  toTemplateId: SupportedTemplateId
+): TemplateSwitchPreview {
+  return previewTemplateSwitchInternal(project, toTemplateId);
+}
+
+export function applyTemplateSwitch(
+  project: GameProject,
+  toTemplateId: string,
+  force = false
+): TemplateSwitchResolution {
+  const resolved = resolveSupportedTemplateId(toTemplateId);
+  if (!resolved) {
+    return {
+      fromTemplateId: getProjectTemplateId(project),
+      toTemplateId: getProjectTemplateId(project),
+      candidate: project,
+      warnings: [],
+      requiresConfirmation: false,
+      applied: false,
+      project,
+      message: `unsupported template: ${toTemplateId}`
+    };
+  }
+  return applyTemplateSwitchInternal(project, resolved, force);
 }
 
 export function loadProject(json: GameProject): LoadResult {
@@ -573,10 +643,39 @@ export function validateProject(project: GameProject): ValidationReport {
   return validateGameProject(project);
 }
 
-export function exportPackage(project: GameProject): GamePackage {
+function findFirstWalkableCell(map: GameMap, walkableTiles: Set<number>): { x: number; y: number } {
+  for (let y = 0; y < map.height; y += 1) {
+    for (let x = 0; x < map.width; x += 1) {
+      if (walkableTiles.has(map.cells[y]?.[x] ?? -1)) {
+        return { x, y };
+      }
+    }
+  }
+  return { x: 0, y: 0 };
+}
+
+function findWalkableCellInZone(
+  map: GameMap,
+  walkableTiles: Set<number>,
+  zone: { x: number; y: number; width: number; height: number }
+): { x: number; y: number } | null {
+  for (let y = zone.y; y < zone.y + zone.height; y += 1) {
+    for (let x = zone.x; x < zone.x + zone.width; x += 1) {
+      if (x < 0 || y < 0 || x >= map.width || y >= map.height) {
+        continue;
+      }
+      if (walkableTiles.has(map.cells[y]?.[x] ?? -1)) {
+        return { x, y };
+      }
+    }
+  }
+  return null;
+}
+
+function exportTowerDefensePackage(project: GameProject): GamePackage {
   return {
     version: project.meta.version,
-    templateId: project.templateId,
+    templateId: "tower-defense",
     map: project.map,
     entities: {
       towers: project.templatePayload.towers,
@@ -598,12 +697,95 @@ export function exportPackage(project: GameProject): GamePackage {
   };
 }
 
+function exportRpgPackage(project: GameProject): GamePackage {
+  const payload = getRpgPayload(project);
+  const walkableTiles = new Set(payload.map.walkableTiles);
+  const playerSpawn = findFirstWalkableCell(project.map, walkableTiles);
+  const behaviors = ["guard", "patrol", "chase"] as const;
+
+  const enemies = payload.map.spawnZones.map((zone, index) => {
+    const spawn = findWalkableCellInZone(project.map, walkableTiles, zone) ?? playerSpawn;
+    return {
+      instanceId: `${zone.enemyTypeId}-${index + 1}`,
+      typeId: zone.enemyTypeId,
+      x: spawn.x,
+      y: spawn.y,
+      behavior: behaviors[index % behaviors.length]
+    };
+  });
+
+  const normalizedEnemies =
+    enemies.length > 0
+      ? enemies
+      : [
+          {
+            instanceId: "enemy-1",
+            typeId: payload.entities.enemies[0]?.id ?? "slime",
+            x: playerSpawn.x,
+            y: playerSpawn.y,
+            behavior: "guard" as const
+          }
+        ];
+
+  return {
+    version: project.meta.version,
+    templateId: "rpg-topdown",
+    map: project.map,
+    entities: {
+      player: {
+        id: "hero",
+        x: playerSpawn.x,
+        y: playerSpawn.y,
+        profileId: "hero-default"
+      },
+      enemies: normalizedEnemies
+    },
+    rules: {
+      payload
+    },
+    winCondition: {
+      objective: "reach-exit",
+      maxPlayerDeaths: 3
+    }
+  } as unknown as GamePackage;
+}
+
+function tickMsFromPackage(pkg: GamePackage): number {
+  const spawnRules = (pkg.rules.payload as Record<string, unknown>).spawnRules;
+  if (typeof spawnRules === "object" && spawnRules !== null) {
+    const tickMs = (spawnRules as Record<string, unknown>).tickMs;
+    if (typeof tickMs === "number" && Number.isFinite(tickMs) && tickMs > 0) {
+      return Math.floor(tickMs);
+    }
+  }
+
+  const rpgRules = (pkg.rules.payload as Record<string, unknown>).rules;
+  if (typeof rpgRules === "object" && rpgRules !== null) {
+    const tick = (rpgRules as Record<string, unknown>).tick;
+    if (typeof tick === "object" && tick !== null) {
+      const tickMs = (tick as Record<string, unknown>).tickMs;
+      if (typeof tickMs === "number" && Number.isFinite(tickMs) && tickMs > 0) {
+        return Math.floor(tickMs);
+      }
+    }
+  }
+
+  return 100;
+}
+
+export function exportPackage(project: GameProject): GamePackage {
+  if (getProjectTemplateId(project) === "rpg-topdown") {
+    return exportRpgPackage(project);
+  }
+  return exportTowerDefensePackage(project);
+}
+
 export function exportPackageWithDiagnostics(project: GameProject): ExportDiagnosticsResult {
   const pkg = exportPackage(project);
   const schemaReport = validateGamePackage(pkg);
   if (!schemaReport.valid) {
     const normalizedSchemaReport = cloneIssuesWithPath(schemaReport, (issue) =>
-      normalizeExportSchemaIssuePath(issue)
+      normalizeExportSchemaIssuePath(issue, pkg.templateId)
     );
     return {
       ok: false,
@@ -614,7 +796,7 @@ export function exportPackageWithDiagnostics(project: GameProject): ExportDiagno
   }
 
   const semanticReport = cloneIssuesWithPath(validateRuntimePackage(pkg), (issue) =>
-    normalizeSemanticIssuePath(issue)
+    normalizeSemanticIssuePath(issue, pkg.templateId)
   );
   if (!semanticReport.valid) {
     return {
@@ -639,18 +821,19 @@ export function exportPackageWithDiagnostics(project: GameProject): ExportDiagno
 export function startPreview(project: GameProject, seed = 1): PreviewSession {
   const pkg = exportPackage(project);
   const world = loadPackage(pkg, seed);
+  const tickMs = tickMsFromPackage(pkg);
 
   return {
     world,
-    tickMs: pkg.rules.payload.spawnRules.tickMs,
-    playStep: () => step(world, pkg.rules.payload.spawnRules.tickMs),
+    tickMs,
+    playStep: () => step(world, tickMs),
     runToEnd: () => runScenario(pkg, seed)
   };
 }
 
 export function startPreviewDebugSession(project: GameProject, seed = 1): PreviewOverlaySession {
   const pkg = exportPackage(project);
-  const tickMs = pkg.rules.payload.spawnRules.tickMs;
+  const tickMs = tickMsFromPackage(pkg);
   const projectReport = validateProject(project);
   let world: RuntimeWorld | null = null;
   let state: PreviewOverlayState;

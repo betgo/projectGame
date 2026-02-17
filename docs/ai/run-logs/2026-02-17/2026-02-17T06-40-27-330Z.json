@@ -1,0 +1,230 @@
+{
+  "status": "failed",
+  "startedAt": "2026-02-17T05:53:33.029Z",
+  "endedAt": "2026-02-17T06:40:27.328Z",
+  "issueId": "25",
+  "branch": "main",
+  "taskFile": "/Users/wxx/Desktop/code/projectA/docs/ai/tasks/T-025-rpg-runtime-min-systems.md",
+  "gateSummary": {
+    "fast": [
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2530,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 16ms\n ✓ tests/determinism/batch.test.ts (5 tests) 18ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  14:00:43\n   Duration  368ms (transform 66ms, setup 0ms, collect 192ms, tests 34ms, environment 0ms, prepare 131ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 18ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 20ms\n ✓ tests/schema/rpg-topdown-schema.test.ts (5 tests) 23ms\n\n Test Files  4 passed (4)\n      Tests  14 passed (14)\n   Start at  14:00:44\n   Duration  325ms (transform 70ms, setup 0ms, collect 321ms, tests 63ms, environment 0ms, prepare 178ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 3788,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 20ms\n ✓ tests/determinism/batch.test.ts (5 tests) 25ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  14:13:01\n   Duration  992ms (transform 84ms, setup 0ms, collect 256ms, tests 45ms, environment 0ms, prepare 130ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 19ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 19ms\n ✓ tests/schema/rpg-topdown-schema.test.ts (5 tests) 25ms\n\n Test Files  4 passed (4)\n      Tests  14 passed (14)\n   Start at  14:13:03\n   Duration  434ms (transform 86ms, setup 0ms, collect 377ms, tests 65ms, environment 0ms, prepare 255ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 3210,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 18ms\n ✓ tests/determinism/batch.test.ts (5 tests) 19ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  14:20:14\n   Duration  453ms (transform 86ms, setup 0ms, collect 269ms, tests 37ms, environment 0ms, prepare 132ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 5ms\n ✓ tests/schema/schema.test.ts (2 tests) 36ms\n ✓ tests/schema/rpg-topdown-schema.test.ts (5 tests) 32ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 21ms\n\n Test Files  4 passed (4)\n      Tests  14 passed (14)\n   Start at  14:20:15\n   Duration  547ms (transform 199ms, setup 0ms, collect 742ms, tests 93ms, environment 0ms, prepare 544ms)",
+        "stderr": ""
+      }
+    ],
+    "full": [
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7970,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/template-sdk-core-runtime.test.ts (4 tests) 45ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 49ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 46ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 53ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 21ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 319ms\n   ✓ render-weekly-summary > normalizes risk bullet prefixes from commit logs  319ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 79ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 35ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 57ms\n ✓ tests/schema/rpg-topdown-schema.test.ts (5 tests) 31ms\n ✓ tests/regression/golden-pack-regression.test.ts (6 tests) 24ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 19ms\n ✓ tests/integration/rpg-runtime-min-systems-runtime.test.ts (5 tests) 34ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 25ms\n ✓ tests/schema/schema.test.ts (2 tests) 23ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 30ms\n ✓ tests/determinism/batch.test.ts (5 tests) 23ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 19ms\n ✓ tests/integration/rpg-runtime-min-systems-scope.test.ts (3 tests) 2ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/template-sdk-core-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 3ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 22ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 4ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 7ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 4ms\n ✓ tests/integration/rpg-topdown-mvp-schema-scope.test.ts (4 tests) 7ms\n ✓ tests/integration/golden-pack-regression-scope.test.ts (4 tests) 6ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 3ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2256ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  653ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  835ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  767ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 3114ms\n   ✓ simulate:batch cli > fails when package argument is missing  590ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  402ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  450ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  441ms\n   ✓ simulate:batch cli > fails when --max-imbalance option is invalid  323ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  476ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3894ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1840ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  905ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1149ms\n\n Test Files  35 passed (35)\n      Tests  132 passed (132)\n   Start at  14:00:46\n   Duration  4.23s (transform 561ms, setup 0ms, collect 3.17s, tests 10.27s, environment 3ms, prepare 2.22s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 16ms\n ✓ tests/determinism/batch.test.ts (5 tests) 18ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  14:00:50\n   Duration  330ms (transform 69ms, setup 0ms, collect 185ms, tests 34ms, environment 0ms, prepare 101ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 50ms\n ✓ tests/schema/schema.test.ts (2 tests) 44ms\n ✓ tests/schema/rpg-topdown-schema.test.ts (5 tests) 58ms\n\n Test Files  4 passed (4)\n      Tests  14 passed (14)\n   Start at  14:00:51\n   Duration  371ms (transform 72ms, setup 0ms, collect 304ms, tests 154ms, environment 0ms, prepare 185ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 15ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 15ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  14:00:52\n   Duration  325ms (transform 60ms, setup 0ms, collect 174ms, tests 30ms, environment 0ms, prepare 78ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 9071,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/rpg-runtime-min-systems-runtime.test.ts (5 tests) 34ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 41ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 50ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 34ms\n ✓ tests/regression/golden-pack-regression.test.ts (6 tests) 30ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 327ms\n   ✓ render-weekly-summary > normalizes risk bullet prefixes from commit logs  326ms\n ✓ tests/schema/rpg-topdown-schema.test.ts (5 tests) 41ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 58ms\n ✓ tests/integration/template-sdk-core-runtime.test.ts (4 tests) 42ms\n ✓ tests/determinism/batch.test.ts (5 tests) 42ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 33ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 19ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 4ms\n ✓ tests/schema/schema.test.ts (2 tests) 21ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 27ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 22ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 35ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 21ms\n ✓ tests/integration/template-sdk-core-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 3ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 5ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 6ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 26ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 27ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 48ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/golden-pack-regression-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/rpg-runtime-min-systems-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 28ms\n ✓ tests/integration/rpg-topdown-mvp-schema-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2639ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  678ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  941ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  1019ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 3598ms\n   ✓ simulate:batch cli > fails when package argument is missing  650ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  489ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  442ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  560ms\n   ✓ simulate:batch cli > fails when --max-imbalance option is invalid  495ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  435ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 4549ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  2460ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  908ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1180ms\n\n Test Files  35 passed (35)\n      Tests  133 passed (133)\n   Start at  14:13:05\n   Duration  4.86s (transform 803ms, setup 0ms, collect 3.57s, tests 11.84s, environment 4ms, prepare 2.88s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 16ms\n ✓ tests/determinism/batch.test.ts (5 tests) 17ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  14:13:10\n   Duration  368ms (transform 53ms, setup 0ms, collect 180ms, tests 33ms, environment 0ms, prepare 70ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 17ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 18ms\n ✓ tests/schema/rpg-topdown-schema.test.ts (5 tests) 28ms\n\n Test Files  4 passed (4)\n      Tests  14 passed (14)\n   Start at  14:13:11\n   Duration  320ms (transform 61ms, setup 0ms, collect 277ms, tests 65ms, environment 0ms, prepare 212ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 15ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 16ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  14:13:12\n   Duration  337ms (transform 60ms, setup 0ms, collect 190ms, tests 30ms, environment 0ms, prepare 123ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 10762,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/template-sdk-core-runtime.test.ts (4 tests) 53ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 37ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 49ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 51ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 393ms\n   ✓ render-weekly-summary > normalizes risk bullet prefixes from commit logs  393ms\n ✓ tests/schema/schema.test.ts (2 tests) 33ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 69ms\n ✓ tests/integration/rpg-runtime-min-systems-runtime.test.ts (5 tests) 53ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 49ms\n ✓ tests/schema/rpg-topdown-schema.test.ts (5 tests) 32ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 30ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 51ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 13ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 32ms\n ✓ tests/determinism/batch.test.ts (5 tests) 50ms\n ✓ tests/regression/golden-pack-regression.test.ts (6 tests) 58ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 46ms\n ✓ tests/integration/rpg-topdown-mvp-schema-scope.test.ts (4 tests) 6ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 15ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 7ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 24ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 25ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 56ms\n ✓ tests/integration/golden-pack-regression-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/template-sdk-core-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 5ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/integration/editor-template-switching-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/rpg-runtime-min-systems-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2793ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  788ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  1306ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  698ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 3724ms\n   ✓ simulate:batch cli > fails when package argument is missing  788ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  511ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  729ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  381ms\n   ✓ simulate:batch cli > fails when --max-imbalance option is invalid  429ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  427ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 4866ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  2598ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  793ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1475ms\n\n Test Files  36 passed (36)\n      Tests  137 passed (137)\n   Start at  14:20:17\n   Duration  5.23s (transform 734ms, setup 0ms, collect 4.24s, tests 12.65s, environment 8ms, prepare 3.57s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 23ms\n ✓ tests/determinism/batch.test.ts (5 tests) 25ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  14:20:23\n   Duration  481ms (transform 96ms, setup 0ms, collect 295ms, tests 48ms, environment 0ms, prepare 88ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 53ms\n ✓ tests/schema/schema.test.ts (2 tests) 73ms\n ✓ tests/schema/rpg-topdown-schema.test.ts (5 tests) 89ms\n\n Test Files  4 passed (4)\n      Tests  14 passed (14)\n   Start at  14:20:24\n   Duration  871ms (transform 224ms, setup 0ms, collect 973ms, tests 223ms, environment 2ms, prepare 505ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 16ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 17ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  14:20:26\n   Duration  414ms (transform 58ms, setup 0ms, collect 193ms, tests 33ms, environment 0ms, prepare 108ms)",
+        "stderr": ""
+      }
+    ],
+    "autofix": []
+  },
+  "docSyncSummary": [
+    {
+      "required": true,
+      "passed": true,
+      "changedFiles": [
+        "EADME.md",
+        "docs/ai/README.md",
+        "docs/ai/tasks/T-025-rpg-runtime-min-systems.md",
+        "docs/ai/workflows/continuous-loop.md",
+        "runtime/core/engine.ts",
+        "runtime/core/types.ts",
+        "docs/ai/run-logs/2026-02-17/",
+        "runtime/templates/rpg-topdown/",
+        "tests/integration/rpg-runtime-min-systems-runtime.test.ts",
+        "tests/integration/rpg-runtime-min-systems-scope.test.ts"
+      ],
+      "contractFiles": [
+        "runtime/core/engine.ts",
+        "runtime/core/types.ts"
+      ],
+      "docFiles": [
+        "docs/ai/tasks/T-025-rpg-runtime-min-systems.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": true,
+      "passed": true,
+      "changedFiles": [
+        "EADME.md",
+        "docs/ai/README.md",
+        "docs/ai/ai-loop-status.md",
+        "docs/ai/commit-log/2026-02.md",
+        "docs/ai/tasks/T-025-rpg-runtime-min-systems.md",
+        "docs/ai/weekly-summary.md",
+        "docs/ai/workflows/continuous-loop.md",
+        "runtime/core/engine.ts",
+        "runtime/core/types.ts",
+        "docs/ai/run-logs/2026-02-17/",
+        "runtime/templates/rpg-topdown/",
+        "tests/integration/rpg-runtime-min-systems-runtime.test.ts",
+        "tests/integration/rpg-runtime-min-systems-scope.test.ts"
+      ],
+      "contractFiles": [
+        "runtime/core/engine.ts",
+        "runtime/core/types.ts"
+      ],
+      "docFiles": [
+        "docs/ai/tasks/T-025-rpg-runtime-min-systems.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-026-editor-template-switching.md",
+        "tests/integration/editor-template-switching-scope.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    }
+  ],
+  "subtaskResults": [
+    {
+      "subtaskId": "T-025-rpg-runtime-min-systems.md#S3",
+      "attempts": 1,
+      "changedFiles": [
+        "M README.md",
+        "M docs/ai/README.md",
+        "M docs/ai/tasks/T-025-rpg-runtime-min-systems.md",
+        "M docs/ai/workflows/continuous-loop.md",
+        "M runtime/core/engine.ts",
+        "M runtime/core/types.ts",
+        "?? docs/ai/run-logs/2026-02-17/",
+        "?? runtime/templates/rpg-topdown/",
+        "?? tests/integration/rpg-runtime-min-systems-runtime.test.ts",
+        "?? tests/integration/rpg-runtime-min-systems-scope.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-025-rpg-runtime-min-systems.md#S4",
+      "attempts": 1,
+      "changedFiles": [
+        "M README.md",
+        "M docs/ai/README.md",
+        "M docs/ai/ai-loop-status.md",
+        "M docs/ai/commit-log/2026-02.md",
+        "M docs/ai/tasks/T-025-rpg-runtime-min-systems.md",
+        "M docs/ai/weekly-summary.md",
+        "M docs/ai/workflows/continuous-loop.md",
+        "M runtime/core/engine.ts",
+        "M runtime/core/types.ts",
+        "?? docs/ai/run-logs/2026-02-17/",
+        "?? runtime/templates/rpg-topdown/",
+        "?? tests/integration/rpg-runtime-min-systems-runtime.test.ts",
+        "?? tests/integration/rpg-runtime-min-systems-scope.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "commitSha": "e212dfc",
+      "memoryCommitSha": "merged-in-task-commit",
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-026-editor-template-switching.md#S1",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-026-editor-template-switching.md",
+        "?? tests/integration/editor-template-switching-scope.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    }
+  ],
+  "promptRefs": [
+    "ARCHITECT_v1",
+    "PLANNER_v1",
+    "BUILDER_v2",
+    "GUARDIAN_v1",
+    "REVIEWER_v1"
+  ],
+  "message": "implement command failed: command timed out"
+}

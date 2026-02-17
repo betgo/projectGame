@@ -4,7 +4,7 @@ Generated from `docs/ai/commit-log/*.md`.
 
 ## 2026-W08
 
-- Total commits tracked: 76
+- Total commits tracked: 77
 - Key changes:
   - feat(loop): close TASK T-018-inspector-form-ux-polish.md (3 subtasks)
   - feat(loop): close TASK T-019-map-editing-ergonomics.md (4 subtasks)
@@ -12,6 +12,7 @@ Generated from `docs/ai/commit-log/*.md`.
   - feat(loop): close TASK T-021-import-export-diagnostics.md (4 subtasks)
   - feat(loop): close TASK T-022-golden-pack-regression-suite.md (4 subtasks)
   - feat(loop): close TASK T-024-rpg-topdown-mvp-schema.md (4 subtasks)
+  - feat(loop): close TASK T-025-rpg-runtime-min-systems.md (2 subtasks)
   - feat(loop): close S1 Criteria 1
   - feat(loop): close S2 Align branch policy implementation and docs to main-only
   - feat(loop): close S3 Run and stabilize fast/full/doc gates

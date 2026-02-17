@@ -1,12 +1,23 @@
 import type { GameProject, GridCell } from "@runtime/core/types";
 
 import { sanitizeMapSize, sanitizeSpeed } from "./inspector-form";
+import {
+  applyTemplateSwitch,
+  getCurrentEditorTool,
+  getProjectTemplateId,
+  isTemplateTool,
+  normalizeRpgProjectPayload,
+  normalizeTemplateTool,
+  resolveSupportedTemplateId,
+  type EditorTool
+} from "./template-switch";
 
 export type EditorOperation =
-  | { type: "set-tool"; tool: GameProject["editorState"]["selectedTool"] }
-  | { type: "paint-cell"; x: number; y: number; tool?: GameProject["editorState"]["selectedTool"] }
+  | { type: "set-tool"; tool: EditorTool }
+  | { type: "paint-cell"; x: number; y: number; tool?: EditorTool }
   | { type: "set-speed"; speed: number }
-  | { type: "set-map-size"; width: number; height: number };
+  | { type: "set-map-size"; width: number; height: number }
+  | { type: "switch-template"; templateId: string; force?: boolean };
 
 export type OpResult = {
   ok: boolean;
@@ -26,7 +37,7 @@ function resizeCells(project: GameProject, width: number, height: number): GridC
   return rows;
 }
 
-function syncPayloadFromCells(next: GameProject): void {
+function syncTowerDefensePayloadFromCells(next: GameProject): void {
   const path: GameProject["templatePayload"]["path"] = [];
   const towers: GameProject["templatePayload"]["towers"] = [];
 
@@ -53,7 +64,20 @@ function syncPayloadFromCells(next: GameProject): void {
   next.templatePayload.towers = towers;
 }
 
-function toToolCell(tool: GameProject["editorState"]["selectedTool"]): GridCell {
+function toToolCell(tool: EditorTool, templateId: ReturnType<typeof getProjectTemplateId>): GridCell {
+  if (templateId === "rpg-topdown") {
+    if (tool === "terrain") {
+      return 1;
+    }
+    if (tool === "spawn") {
+      return 2;
+    }
+    if (tool === "entity") {
+      return 3;
+    }
+    return 0;
+  }
+
   if (tool === "path") {
     return 1;
   }
@@ -70,25 +94,41 @@ function isCellInMap(project: GameProject, x: number, y: number): boolean {
 export function applyOperation(project: GameProject, op: EditorOperation): OpResult {
   switch (op.type) {
     case "set-tool": {
-      if (project.editorState.selectedTool === op.tool) {
+      const templateId = getProjectTemplateId(project);
+      if (!isTemplateTool(templateId, op.tool)) {
+        return {
+          ok: false,
+          project,
+          message: `tool ${op.tool} is not supported for template ${templateId}`
+        };
+      }
+
+      if (getCurrentEditorTool(project) === op.tool) {
         return { ok: true, project };
       }
+
       const next: GameProject = structuredClone(project);
-      next.editorState.selectedTool = op.tool;
+      next.editorState.selectedTool = op.tool as GameProject["editorState"]["selectedTool"];
       return { ok: true, project: next };
     }
     case "paint-cell": {
       if (!isCellInMap(project, op.x, op.y)) {
         return { ok: false, project, message: "cell out of range" };
       }
-      const tool = op.tool ?? project.editorState.selectedTool;
-      const value = toToolCell(tool);
+
+      const templateId = getProjectTemplateId(project);
+      const baseTool = op.tool ?? getCurrentEditorTool(project);
+      const tool = baseTool === "empty" ? baseTool : normalizeTemplateTool(templateId, baseTool);
+      const value = toToolCell(tool, templateId);
       if (project.map.cells[op.y][op.x] === value) {
         return { ok: true, project };
       }
+
       const next: GameProject = structuredClone(project);
       next.map.cells[op.y][op.x] = value;
-      syncPayloadFromCells(next);
+      if (templateId === "tower-defense") {
+        syncTowerDefensePayloadFromCells(next);
+      }
       return { ok: true, project: next };
     }
     case "set-speed": {
@@ -110,8 +150,24 @@ export function applyOperation(project: GameProject, op: EditorOperation): OpRes
       next.map.width = width;
       next.map.height = height;
       next.map.cells = resizeCells(project, width, height);
-      syncPayloadFromCells(next);
+      if (getProjectTemplateId(project) === "tower-defense") {
+        syncTowerDefensePayloadFromCells(next);
+      } else {
+        normalizeRpgProjectPayload(next);
+      }
       return { ok: true, project: next };
+    }
+    case "switch-template": {
+      const targetTemplateId = resolveSupportedTemplateId(op.templateId);
+      if (!targetTemplateId) {
+        return { ok: false, project, message: `unsupported template: ${op.templateId}` };
+      }
+      const result = applyTemplateSwitch(project, targetTemplateId, op.force ?? false);
+      return {
+        ok: result.applied,
+        project: result.project,
+        message: result.message
+      };
     }
     default:
       return { ok: false, project, message: "unknown operation" };

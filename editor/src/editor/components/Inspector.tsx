@@ -7,27 +7,39 @@ import {
   commitMapSizeDraft,
   commitSpeedDraft,
   formatInspectorNumber,
+  getInspectorToolOptions,
   getMapSizeDraftHint,
   getSpeedDraftHint,
+  getTemplateOptions,
   INSPECTOR_MAP_SIZE_MAX,
   INSPECTOR_MAP_SIZE_MIN,
   INSPECTOR_SPEED_MAX,
   INSPECTOR_SPEED_MIN,
   INSPECTOR_SPEED_STEP,
+  sanitizeTemplateSelection,
   type MapAxis
 } from "../inspector-form";
 import type { EditorOperation } from "../operations";
+import {
+  getProjectTemplateId,
+  getRpgPayload,
+  type SupportedTemplateId,
+  type TemplateSwitchWarning
+} from "../template-switch";
+
+type PendingTemplateSwitch = {
+  targetTemplateId: SupportedTemplateId;
+  warnings: TemplateSwitchWarning[];
+};
 
 type Props = {
   project: GameProject;
   dispatch: Dispatch<EditorOperation>;
+  pendingTemplateSwitch: PendingTemplateSwitch | null;
+  onTemplateSwitchRequest: (templateId: SupportedTemplateId) => void;
+  onTemplateSwitchConfirm: () => void;
+  onTemplateSwitchCancel: () => void;
 };
-
-const toolOptions: Array<{ tool: GameProject["editorState"]["selectedTool"]; label: string }> = [
-  { tool: "empty", label: "Empty" },
-  { tool: "path", label: "Path" },
-  { tool: "tower", label: "Tower" }
-];
 
 const speedPresets = [0.5, 1, 2, 4];
 
@@ -37,7 +49,15 @@ const mapPresets = [
   { width: 16, height: 16, label: "16 x 16" }
 ];
 
-export function Inspector({ project, dispatch }: Props) {
+export function Inspector({
+  project,
+  dispatch,
+  pendingTemplateSwitch,
+  onTemplateSwitchRequest,
+  onTemplateSwitchConfirm,
+  onTemplateSwitchCancel
+}: Props) {
+  const templateId = getProjectTemplateId(project);
   const [speedDraft, setSpeedDraft] = useState(() => formatInspectorNumber(project.editorState.speed));
   const [speedHint, setSpeedHint] = useState<string | null>(null);
   const [widthDraft, setWidthDraft] = useState(() => `${project.map.width}`);
@@ -97,16 +117,62 @@ export function Inspector({ project, dispatch }: Props) {
     applyMapSize();
   };
 
+  const toolOptions = getInspectorToolOptions(templateId);
+  const templateOptions = getTemplateOptions();
+  const selectedTool = project.editorState.selectedTool;
+  const rpgPayload = templateId === "rpg-topdown" ? getRpgPayload(project) : null;
+  const templateSelectValue = pendingTemplateSwitch?.targetTemplateId ?? templateId;
+
   return (
     <div className="panel inspector-panel">
       <h3>Inspector</h3>
+      <section className="inspector-section">
+        <h4>Template</h4>
+        <div className="field-row">
+          <label htmlFor="inspector-template">Mode</label>
+          <select
+            id="inspector-template"
+            value={templateSelectValue}
+            onChange={(event) => {
+              const nextTemplate = sanitizeTemplateSelection(event.target.value, templateId);
+              if (nextTemplate !== templateId) {
+                onTemplateSwitchRequest(nextTemplate);
+              }
+            }}
+          >
+            {templateOptions.map((option) => (
+              <option key={option.id} value={option.id}>
+                {option.label}
+              </option>
+            ))}
+          </select>
+        </div>
+        {pendingTemplateSwitch ? (
+          <div className="switch-warning-block" role="status" aria-live="polite">
+            {pendingTemplateSwitch.warnings.map((warning) => (
+              <div className="small field-hint" key={`${warning.code}-${warning.path}`}>
+                {warning.message}
+              </div>
+            ))}
+            <div className="small">Apply switch to {pendingTemplateSwitch.targetTemplateId}?</div>
+            <div className="row">
+              <button type="button" onClick={onTemplateSwitchConfirm}>
+                Confirm Switch
+              </button>
+              <button type="button" className="secondary" onClick={onTemplateSwitchCancel}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        ) : null}
+      </section>
       <section className="inspector-section">
         <h4>Paint Tool</h4>
         <div className="tool-grid" role="radiogroup" aria-label="Paint tool">
           {toolOptions.map((option) => (
             <label
               key={option.tool}
-              className={`tool-option${project.editorState.selectedTool === option.tool ? " active" : ""}`}
+              className={`tool-option${selectedTool === option.tool ? " active" : ""}`}
               htmlFor={`inspector-tool-${option.tool}`}
             >
               <input
@@ -114,7 +180,7 @@ export function Inspector({ project, dispatch }: Props) {
                 type="radio"
                 name="inspector-tool"
                 value={option.tool}
-                checked={project.editorState.selectedTool === option.tool}
+                checked={selectedTool === option.tool}
                 onChange={() => dispatch({ type: "set-tool", tool: option.tool })}
               />
               <span>{option.label}</span>
@@ -225,9 +291,21 @@ export function Inspector({ project, dispatch }: Props) {
           ))}
         </div>
       </section>
-      <div className="small">Map: {project.map.width} x {project.map.height}</div>
-      <div className="small">Path Nodes: {project.templatePayload.path.length}</div>
-      <div className="small">Tower Count: {project.templatePayload.towers.length}</div>
+      <div className="small">Template: {templateId}</div>
+      <div className="small">
+        Map: {project.map.width} x {project.map.height}
+      </div>
+      {templateId === "tower-defense" ? (
+        <>
+          <div className="small">Path Nodes: {project.templatePayload.path.length}</div>
+          <div className="small">Tower Count: {project.templatePayload.towers.length}</div>
+        </>
+      ) : (
+        <>
+          <div className="small">Walkable Tiles: {rpgPayload?.map.walkableTiles.length ?? 0}</div>
+          <div className="small">Spawn Zones: {rpgPayload?.map.spawnZones.length ?? 0}</div>
+        </>
+      )}
     </div>
   );
 }

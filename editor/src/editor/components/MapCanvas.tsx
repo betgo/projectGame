@@ -4,6 +4,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { GameProject } from "@runtime/core/types";
 
 import type { EditorOperation } from "../operations";
+import {
+  getCurrentEditorTool,
+  getProjectTemplateId,
+  type EditorTool
+} from "../template-switch";
 
 type Props = {
   project: GameProject;
@@ -15,13 +20,26 @@ type CellPosition = {
   y: number;
 };
 
-type BrushTool = GameProject["editorState"]["selectedTool"];
+type BrushTool = EditorTool;
 
 function keyForCell(x: number, y: number): string {
   return `${x}-${y}`;
 }
 
-function classNameForCell(value: number): string {
+function classNameForCell(value: number, templateId: ReturnType<typeof getProjectTemplateId>): string {
+  if (templateId === "rpg-topdown") {
+    if (value === 1) {
+      return "cell terrain";
+    }
+    if (value === 2) {
+      return "cell spawn";
+    }
+    if (value === 3) {
+      return "cell entity";
+    }
+    return "cell";
+  }
+
   if (value === 1) {
     return "cell path";
   }
@@ -31,7 +49,20 @@ function classNameForCell(value: number): string {
   return "cell";
 }
 
-function labelForCellValue(value: number): string {
+function labelForCellValue(value: number, templateId: ReturnType<typeof getProjectTemplateId>): string {
+  if (templateId === "rpg-topdown") {
+    if (value === 1) {
+      return "terrain";
+    }
+    if (value === 2) {
+      return "spawn";
+    }
+    if (value === 3) {
+      return "entity";
+    }
+    return "empty";
+  }
+
   if (value === 1) {
     return "path";
   }
@@ -56,6 +87,8 @@ export function isBrushPointerActive(buttons: number): boolean {
 }
 
 export function MapCanvas({ project, dispatch }: Props) {
+  const templateId = getProjectTemplateId(project);
+  const selectedTool = getCurrentEditorTool(project);
   const { map } = project;
   const [targetCell, setTargetCell] = useState<CellPosition | null>(null);
   const [activeStrokeTool, setActiveStrokeTool] = useState<BrushTool | null>(null);
@@ -103,7 +136,7 @@ export function MapCanvas({ project, dispatch }: Props) {
   );
 
   const onCellPointerDown = (event: PointerEvent<HTMLButtonElement>, cell: CellPosition) => {
-    const strokeTool = resolvePointerBrushTool(event.button, project.editorState.selectedTool);
+    const strokeTool = resolvePointerBrushTool(event.button, selectedTool);
     if (!strokeTool) {
       return;
     }
@@ -135,17 +168,15 @@ export function MapCanvas({ project, dispatch }: Props) {
       return;
     }
     event.preventDefault();
-    paintCell(cell.x, cell.y, project.editorState.selectedTool, false);
+    paintCell(cell.x, cell.y, selectedTool, false);
   };
 
-  const brushLabel = useMemo(
-    () => activeStrokeTool ?? project.editorState.selectedTool,
-    [activeStrokeTool, project.editorState.selectedTool]
-  );
+  const brushLabel = useMemo(() => activeStrokeTool ?? selectedTool, [activeStrokeTool, selectedTool]);
 
   return (
     <div className="panel">
       <h3>Map Editor</h3>
+      <div className="small">Template: {templateId}</div>
       <div className="small">Brush: {brushLabel}</div>
       <div className="small">Left-drag paints selected tool. Right-drag erases to empty.</div>
       <div className="small">
@@ -166,7 +197,7 @@ export function MapCanvas({ project, dispatch }: Props) {
           row.map((value, x) => (
             <button
               key={`${x}-${y}`}
-              className={`${classNameForCell(value)}${
+              className={`${classNameForCell(value, templateId)}${
                 targetCell?.x === x && targetCell?.y === y ? " active" : ""
               }`}
               onPointerDown={(event) => onCellPointerDown(event, { x, y })}
@@ -179,7 +210,7 @@ export function MapCanvas({ project, dispatch }: Props) {
                 }
               }}
               title={`(${x}, ${y})`}
-              aria-label={`Cell (${x}, ${y}) ${labelForCellValue(value)}`}
+              aria-label={`Cell (${x}, ${y}) ${labelForCellValue(value, templateId)}`}
             />
           ))
         )}

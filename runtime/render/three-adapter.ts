@@ -172,6 +172,10 @@ export class ThreeRenderAdapter {
   };
   private readonly selectableObjects: THREE.Object3D[] = [];
   private readonly selectionByObject = new WeakMap<THREE.Object3D, SelectionMeta>();
+  private viewportSize = {
+    width: 0,
+    height: 0
+  };
   private panLimit = {
     x: CAMERA_MIN_PAN_LIMIT,
     z: CAMERA_MIN_PAN_LIMIT
@@ -189,6 +193,12 @@ export class ThreeRenderAdapter {
     this.camera = new THREE.PerspectiveCamera(60, 1, 0.1, 200);
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true });
+    const domElement = this.renderer.domElement as { style?: { width?: string; height?: string; display?: string } };
+    if (domElement.style) {
+      domElement.style.width = "100%";
+      domElement.style.height = "100%";
+      domElement.style.display = "block";
+    }
     container.appendChild(this.renderer.domElement);
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2);
@@ -476,7 +486,15 @@ export class ThreeRenderAdapter {
   private syncViewportSize(): void {
     const width = Math.max(1, Math.floor(this.container.clientWidth));
     const height = Math.max(1, Math.floor(this.container.clientHeight));
-    this.renderer.setSize(width, height);
+    if (this.viewportSize.width === width && this.viewportSize.height === height) {
+      return;
+    }
+    this.viewportSize = { width, height };
+    (
+      this.renderer as unknown as {
+        setSize: (nextWidth: number, nextHeight: number, updateStyle?: boolean) => void;
+      }
+    ).setSize(width, height, false);
     this.camera.aspect = width / height;
     this.camera.updateProjectionMatrix();
   }

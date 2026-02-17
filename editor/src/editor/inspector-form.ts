@@ -1,3 +1,11 @@
+import {
+  TEMPLATE_LABELS,
+  getTemplateToolOptions,
+  resolveSupportedTemplateId,
+  type SupportedTemplateId,
+  type TemplateToolOption
+} from "./template-switch";
+
 export const INSPECTOR_SPEED_MIN = 0.5;
 export const INSPECTOR_SPEED_MAX = 8;
 export const INSPECTOR_SPEED_STEP = 0.5;
@@ -11,6 +19,18 @@ export type NumericDraftCommit = {
   blocked: boolean;
   message: string | null;
 };
+
+export type TemplateOption = {
+  id: SupportedTemplateId;
+  label: string;
+};
+
+export type PayloadPanelMode = SupportedTemplateId;
+
+const TEMPLATE_OPTIONS: TemplateOption[] = [
+  { id: "tower-defense", label: TEMPLATE_LABELS["tower-defense"] },
+  { id: "rpg-topdown", label: TEMPLATE_LABELS["rpg-topdown"] }
+];
 
 function toFiniteNumber(value: number, fallback: number): number {
   return Number.isFinite(value) ? value : fallback;
@@ -142,4 +162,23 @@ export function commitMapSizeDraft(raw: string, fallback: number, axis: MapAxis)
     blocked: false,
     message: null
   };
+}
+
+export function getTemplateOptions(): TemplateOption[] {
+  return TEMPLATE_OPTIONS;
+}
+
+export function sanitizeTemplateSelection(
+  raw: string,
+  fallback: SupportedTemplateId
+): SupportedTemplateId {
+  return resolveSupportedTemplateId(raw) ?? fallback;
+}
+
+export function getInspectorToolOptions(templateId: SupportedTemplateId): TemplateToolOption[] {
+  return getTemplateToolOptions(templateId);
+}
+
+export function resolvePayloadPanelMode(templateId: SupportedTemplateId): PayloadPanelMode {
+  return templateId;
 }

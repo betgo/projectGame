@@ -15,6 +15,9 @@ import {
 } from "@editor/editor/inspector-form";
 import { applyOperation } from "@editor/editor/operations";
 import { createDefaultProject } from "@editor/editor/store";
+import type { SupportedTemplateId } from "@editor/editor/template-switch";
+
+const noopTemplateSwitch: (templateId: SupportedTemplateId) => void = () => undefined;
 
 describe("inspector form ux polish", () => {
   it("supports deterministic tool switching through editor operations", () => {
@@ -59,17 +62,23 @@ describe("inspector form ux polish", () => {
     const html = renderToStaticMarkup(
       createElement(Inspector, {
         project: createDefaultProject(),
-        dispatch: () => undefined
+        dispatch: () => undefined,
+        pendingTemplateSwitch: null,
+        onTemplateSwitchRequest: noopTemplateSwitch,
+        onTemplateSwitchConfirm: () => undefined,
+        onTemplateSwitchCancel: () => undefined
       })
     );
 
+    const templateIndex = html.indexOf('id="inspector-template"');
     const toolIndex = html.indexOf('name="inspector-tool"');
     const speedIndex = html.indexOf('id="inspector-speed"');
     const widthIndex = html.indexOf('id="inspector-map-width"');
     const heightIndex = html.indexOf('id="inspector-map-height"');
     const submitIndex = html.indexOf('type="submit"');
 
-    expect(toolIndex).toBeGreaterThan(-1);
+    expect(templateIndex).toBeGreaterThan(-1);
+    expect(toolIndex).toBeGreaterThan(templateIndex);
     expect(speedIndex).toBeGreaterThan(toolIndex);
     expect(widthIndex).toBeGreaterThan(speedIndex);
     expect(heightIndex).toBeGreaterThan(widthIndex);
@@ -77,6 +86,7 @@ describe("inspector form ux polish", () => {
     expect(html).toContain('for="inspector-speed"');
     expect(html).toContain('for="inspector-map-width"');
     expect(html).toContain('for="inspector-map-height"');
+    expect(html).toContain('for="inspector-template"');
     expect(html).toContain(`min="${INSPECTOR_SPEED_MIN}"`);
     expect(html).toContain(`max="${INSPECTOR_SPEED_MAX}"`);
   });
