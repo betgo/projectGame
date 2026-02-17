@@ -1,0 +1,78 @@
+{
+  "meta": {
+    "name": "rpg-topdown-mvp",
+    "version": "0.2.0"
+  },
+  "templateId": "rpg-topdown",
+  "map": {
+    "width": 10,
+    "height": 8,
+    "cells": [
+      [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+      [0, 1, 1, 1, 0, 0, 1, 1, 1, 0],
+      [0, 1, 2, 1, 0, 0, 1, 2, 1, 0],
+      [0, 1, 1, 1, 0, 0, 1, 1, 1, 0],
+      [0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+      [0, 1, 1, 1, 1, 1, 1, 0, 1, 0],
+      [0, 1, 2, 2, 2, 2, 1, 0, 1, 0],
+      [0, 1, 1, 1, 1, 1, 1, 1, 1, 0]
+    ]
+  },
+  "templatePayload": {
+    "map": {
+      "walkableTiles": [0, 1],
+      "spawnZones": [
+        {
+          "id": "north-cave",
+          "x": 6,
+          "y": 1,
+          "width": 2,
+          "height": 2,
+          "enemyTypeId": "slime"
+        }
+      ],
+      "exit": {
+        "x": 9,
+        "y": 7
+      }
+    },
+    "entities": {
+      "player": {
+        "maxHp": 120,
+        "attack": 16,
+        "defense": 8,
+        "moveSpeed": 3.5
+      },
+      "enemies": [
+        {
+          "id": "slime",
+          "maxHp": 40,
+          "attack": 10,
+          "defense": 2,
+          "moveSpeed": 2.2,
+          "aggroRange": 4,
+          "xpReward": 6
+        }
+      ]
+    },
+    "rules": {
+      "tick": {
+        "tickMs": 50,
+        "aiStepMs": 100
+      },
+      "combat": {
+        "baseContactDamage": 8,
+        "invulnerabilityMs": 300,
+        "critChance": 0.1
+      },
+      "spawn": {
+        "maxActiveEnemies": 4,
+        "respawnDelayMs": 1200
+      }
+    }
+  },
+  "editorState": {
+    "selectedTool": "terrain",
+    "speed": 1
+  }
+}

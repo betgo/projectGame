@@ -98,6 +98,21 @@ pnpm dev:loop -- --issue-id <id> --task-file <task.md>
 - Unsupported versions fail fast with version-path diagnostics (`/meta/version` or `/version`): major mismatch, future minor, or stale minor outside the one-step migration window.
 - Ownership boundaries: version parsing/migration helpers stay in `game/schemas`; editor load path upgrades in `editor/src/editor/api.ts`; runtime load path upgrades in `runtime/core/engine.ts` before template semantic validation.
 
+## RPG topdown schema contract
+
+- `game/schemas/rpg-topdown.schema.json` defines MVP payload structure for RPG `map`, `entities`, and `rules` domains (walkable metadata, stat blocks, spawn/layout, tick/combat config).
+- Template-aware branches in `game/schemas/game-project.schema.json` and `game/schemas/game-package.schema.json` support both `tower-defense` and `rpg-topdown` without changing tower-defense schema behavior.
+- RPG onboarding fixtures live in `game/examples/rpg-topdown-mvp.project.json` and `game/examples/rpg-topdown-mvp.package.json` for deterministic schema regression coverage.
+- Semantic/runtime behavior for RPG templates remains out of scope for this contract task and stays owned by downstream runtime/editor template subtasks.
+
+## Template SDK core contract
+
+- Template registry orchestration stays in `runtime/core/engine.ts`; editor/runtime callers should not bypass it.
+- `registerTemplate()` fails fast when `templateId` is invalid, required hooks (`validate`, `createWorld`, `step`) are missing/invalid, or `templateId` is already registered.
+- `validateRuntimePackage()` is the shared runtime entrypoint for template resolution and template-level semantic validation diagnostics.
+- Unknown template diagnostics use path `/templateId` and message `unknown template: <templateId>`; `loadPackage`/`runScenario`/`runBatch` fail fast on that contract.
+- `editor/src/editor/api.ts` consumes runtime validation orchestration while template validators remain responsible for template-specific semantic checks.
+
 ## Git memory workflow
 
 ```bash

@@ -2,15 +2,16 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "game-package.schema.json",
   "title": "GamePackage",
-  "type": "object",
-  "required": ["version", "templateId", "map", "entities", "rules", "winCondition"],
-  "properties": {
+  "oneOf": [
+    { "$ref": "#/$defs/towerDefensePackage" },
+    { "$ref": "#/$defs/rpgTopdownPackage" }
+  ],
+  "$defs": {
     "version": {
       "type": "string",
       "pattern": "^(0|[1-9]\\d*)\\.(0|[1-9]\\d*)\\.(0|[1-9]\\d*)$"
     },
-    "templateId": { "type": "string", "const": "tower-defense" },
-    "map": {
+    "towerDefenseMap": {
       "type": "object",
       "required": ["width", "height", "cells"],
       "properties": {
@@ -26,60 +27,151 @@
       },
       "additionalProperties": false
     },
-    "entities": {
+    "rpgTopdownMap": {
       "type": "object",
-      "required": ["towers", "enemies"],
+      "required": ["width", "height", "cells"],
       "properties": {
-        "towers": {
+        "width": { "type": "integer", "minimum": 4 },
+        "height": { "type": "integer", "minimum": 4 },
+        "cells": {
           "type": "array",
           "items": {
-            "type": "object",
-            "required": ["id", "x", "y", "range", "damage", "cooldownMs", "cost"],
-            "properties": {
-              "id": { "type": "string", "minLength": 1 },
-              "x": { "type": "integer", "minimum": 0 },
-              "y": { "type": "integer", "minimum": 0 },
-              "range": { "type": "number", "exclusiveMinimum": 0 },
-              "damage": { "type": "number", "exclusiveMinimum": 0 },
-              "cooldownMs": { "type": "integer", "minimum": 50 },
-              "cost": { "type": "integer", "minimum": 0 }
-            },
-            "additionalProperties": false
-          }
-        },
-        "enemies": {
-          "type": "array",
-          "items": {
-            "type": "object",
-            "required": ["id", "hp", "speed", "reward"],
-            "properties": {
-              "id": { "type": "string", "minLength": 1 },
-              "hp": { "type": "number", "exclusiveMinimum": 0 },
-              "speed": { "type": "number", "exclusiveMinimum": 0 },
-              "reward": { "type": "integer", "minimum": 0 }
-            },
-            "additionalProperties": false
+            "type": "array",
+            "items": { "type": "integer", "minimum": 0, "maximum": 3 }
           }
         }
       },
       "additionalProperties": false
     },
-    "rules": {
+    "towerDefinition": {
       "type": "object",
-      "required": ["payload"],
+      "required": ["id", "x", "y", "range", "damage", "cooldownMs", "cost"],
       "properties": {
-        "payload": { "$ref": "tower-defense.schema.json" }
+        "id": { "type": "string", "minLength": 1 },
+        "x": { "type": "integer", "minimum": 0 },
+        "y": { "type": "integer", "minimum": 0 },
+        "range": { "type": "number", "exclusiveMinimum": 0 },
+        "damage": { "type": "number", "exclusiveMinimum": 0 },
+        "cooldownMs": { "type": "integer", "minimum": 50 },
+        "cost": { "type": "integer", "minimum": 0 }
       },
       "additionalProperties": false
     },
-    "winCondition": {
+    "enemyDefinition": {
       "type": "object",
-      "required": ["maxLeaks"],
+      "required": ["id", "hp", "speed", "reward"],
       "properties": {
-        "maxLeaks": { "type": "integer", "minimum": 1 }
+        "id": { "type": "string", "minLength": 1 },
+        "hp": { "type": "number", "exclusiveMinimum": 0 },
+        "speed": { "type": "number", "exclusiveMinimum": 0 },
+        "reward": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "towerDefensePackage": {
+      "type": "object",
+      "required": ["version", "templateId", "map", "entities", "rules", "winCondition"],
+      "properties": {
+        "version": { "$ref": "#/$defs/version" },
+        "templateId": { "type": "string", "const": "tower-defense" },
+        "map": { "$ref": "#/$defs/towerDefenseMap" },
+        "entities": {
+          "type": "object",
+          "required": ["towers", "enemies"],
+          "properties": {
+            "towers": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/towerDefinition" }
+            },
+            "enemies": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/enemyDefinition" }
+            }
+          },
+          "additionalProperties": false
+        },
+        "rules": {
+          "type": "object",
+          "required": ["payload"],
+          "properties": {
+            "payload": { "$ref": "tower-defense.schema.json" }
+          },
+          "additionalProperties": false
+        },
+        "winCondition": {
+          "type": "object",
+          "required": ["maxLeaks"],
+          "properties": {
+            "maxLeaks": { "type": "integer", "minimum": 1 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "rpgTopdownPackage": {
+      "type": "object",
+      "required": ["version", "templateId", "map", "entities", "rules", "winCondition"],
+      "properties": {
+        "version": { "$ref": "#/$defs/version" },
+        "templateId": { "type": "string", "const": "rpg-topdown" },
+        "map": { "$ref": "#/$defs/rpgTopdownMap" },
+        "entities": {
+          "type": "object",
+          "required": ["player", "enemies"],
+          "properties": {
+            "player": {
+              "type": "object",
+              "required": ["id", "x", "y", "profileId"],
+              "properties": {
+                "id": { "type": "string", "minLength": 1 },
+                "x": { "type": "integer", "minimum": 0 },
+                "y": { "type": "integer", "minimum": 0 },
+                "profileId": { "type": "string", "minLength": 1 }
+              },
+              "additionalProperties": false
+            },
+            "enemies": {
+              "type": "array",
+              "minItems": 1,
+              "items": {
+                "type": "object",
+                "required": ["instanceId", "typeId", "x", "y", "behavior"],
+                "properties": {
+                  "instanceId": { "type": "string", "minLength": 1 },
+                  "typeId": { "type": "string", "minLength": 1 },
+                  "x": { "type": "integer", "minimum": 0 },
+                  "y": { "type": "integer", "minimum": 0 },
+                  "behavior": { "type": "string", "enum": ["patrol", "guard", "chase"] }
+                },
+                "additionalProperties": false
+              }
+            }
+          },
+          "additionalProperties": false
+        },
+        "rules": {
+          "type": "object",
+          "required": ["payload"],
+          "properties": {
+            "payload": { "$ref": "rpg-topdown.schema.json" }
+          },
+          "additionalProperties": false
+        },
+        "winCondition": {
+          "type": "object",
+          "required": ["objective", "maxPlayerDeaths"],
+          "properties": {
+            "objective": {
+              "type": "string",
+              "enum": ["reach-exit", "defeat-all-enemies", "survive-duration"]
+            },
+            "maxPlayerDeaths": { "type": "integer", "minimum": 0, "maximum": 9 }
+          },
+          "additionalProperties": false
+        }
       },
       "additionalProperties": false
     }
-  },
-  "additionalProperties": false
+  }
 }

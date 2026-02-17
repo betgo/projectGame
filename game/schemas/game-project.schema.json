@@ -2,9 +2,11 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "game-project.schema.json",
   "title": "GameProject",
-  "type": "object",
-  "required": ["meta", "templateId", "map", "templatePayload", "editorState"],
-  "properties": {
+  "oneOf": [
+    { "$ref": "#/$defs/towerDefenseProject" },
+    { "$ref": "#/$defs/rpgTopdownProject" }
+  ],
+  "$defs": {
     "meta": {
       "type": "object",
       "required": ["name", "version"],
@@ -17,8 +19,7 @@
       },
       "additionalProperties": false
     },
-    "templateId": { "type": "string", "const": "tower-defense" },
-    "map": {
+    "towerDefenseMap": {
       "type": "object",
       "required": ["width", "height", "cells"],
       "properties": {
@@ -34,16 +35,61 @@
       },
       "additionalProperties": false
     },
-    "templatePayload": { "$ref": "tower-defense.schema.json" },
-    "editorState": {
+    "rpgTopdownMap": {
       "type": "object",
-      "required": ["selectedTool", "speed"],
+      "required": ["width", "height", "cells"],
       "properties": {
-        "selectedTool": { "type": "string", "enum": ["empty", "path", "tower"] },
-        "speed": { "type": "number", "minimum": 0.5, "maximum": 8 }
+        "width": { "type": "integer", "minimum": 4 },
+        "height": { "type": "integer", "minimum": 4 },
+        "cells": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": { "type": "integer", "minimum": 0, "maximum": 3 }
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "towerDefenseProject": {
+      "type": "object",
+      "required": ["meta", "templateId", "map", "templatePayload", "editorState"],
+      "properties": {
+        "meta": { "$ref": "#/$defs/meta" },
+        "templateId": { "type": "string", "const": "tower-defense" },
+        "map": { "$ref": "#/$defs/towerDefenseMap" },
+        "templatePayload": { "$ref": "tower-defense.schema.json" },
+        "editorState": {
+          "type": "object",
+          "required": ["selectedTool", "speed"],
+          "properties": {
+            "selectedTool": { "type": "string", "enum": ["empty", "path", "tower"] },
+            "speed": { "type": "number", "minimum": 0.5, "maximum": 8 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "rpgTopdownProject": {
+      "type": "object",
+      "required": ["meta", "templateId", "map", "templatePayload", "editorState"],
+      "properties": {
+        "meta": { "$ref": "#/$defs/meta" },
+        "templateId": { "type": "string", "const": "rpg-topdown" },
+        "map": { "$ref": "#/$defs/rpgTopdownMap" },
+        "templatePayload": { "$ref": "rpg-topdown.schema.json" },
+        "editorState": {
+          "type": "object",
+          "required": ["selectedTool", "speed"],
+          "properties": {
+            "selectedTool": { "type": "string", "enum": ["terrain", "spawn", "entity"] },
+            "speed": { "type": "number", "minimum": 0.5, "maximum": 8 }
+          },
+          "additionalProperties": false
+        }
       },
       "additionalProperties": false
     }
-  },
-  "additionalProperties": false
+  }
 }

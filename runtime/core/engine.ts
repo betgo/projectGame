@@ -1,13 +1,76 @@
 import { towerDefenseTemplate } from "../templates/tower-defense";
-import type { BatchResult, GamePackage, MatchResult, RuntimeTemplate, RuntimeWorld, TickResult } from "./types";
 import { normalizeGamePackageSchemaVersion } from "@game/schemas/index";
+import type {
+  BatchResult,
+  GamePackage,
+  MatchResult,
+  RuntimeTemplate,
+  RuntimeTemplateHookName,
+  RuntimeWorld,
+  TickResult,
+  ValidationIssue,
+  ValidationReport
+} from "./types";
 
 const templates = new Map<string, RuntimeTemplate>();
+const REQUIRED_TEMPLATE_HOOKS: RuntimeTemplateHookName[] = ["validate", "createWorld", "step"];
 
-templates.set(towerDefenseTemplate.id, towerDefenseTemplate);
+function invalidTemplateContract(message: string): Error {
+  return new Error(`invalid runtime template: ${message}`);
+}
+
+function parseTemplateId(value: unknown): string {
+  if (typeof value !== "string") {
+    throw invalidTemplateContract("template id must be a string");
+  }
+
+  const normalized = value.trim();
+  if (!normalized) {
+    throw invalidTemplateContract("template id must be a non-empty string");
+  }
+
+  if (normalized !== value) {
+    throw invalidTemplateContract("template id must not include surrounding whitespace");
+  }
+
+  return normalized;
+}
+
+function assertTemplateContract(template: RuntimeTemplate): string {
+  if (typeof template !== "object" || template === null) {
+    throw invalidTemplateContract("template must be an object");
+  }
+
+  const candidate = template as Record<string, unknown>;
+  const id = parseTemplateId(candidate.id);
+
+  for (const hook of REQUIRED_TEMPLATE_HOOKS) {
+    if (!(hook in candidate)) {
+      throw invalidTemplateContract(`missing required hook: ${hook} (templateId=${id})`);
+    }
+    if (typeof candidate[hook] !== "function") {
+      throw invalidTemplateContract(`hook must be a function: ${hook} (templateId=${id})`);
+    }
+  }
+
+  return id;
+}
+
+function toUnknownTemplateIssue(templateId: string): ValidationIssue {
+  return {
+    path: "/templateId",
+    message: `unknown template: ${templateId}`
+  };
+}
+
+registerTemplate(towerDefenseTemplate);
 
 export function registerTemplate(template: RuntimeTemplate): void {
-  templates.set(template.id, template);
+  const id = assertTemplateContract(template);
+  if (templates.has(id)) {
+    throw new Error(`template already registered: ${id}`);
+  }
+  templates.set(id, template);
 }
 
 function getTemplate(templateId: string): RuntimeTemplate {
@@ -16,6 +79,27 @@ function getTemplate(templateId: string): RuntimeTemplate {
     throw new Error(`unknown template: ${templateId}`);
   }
   return template;
+}
+
+export function validateRuntimePackage(pkg: GamePackage): ValidationReport {
+  const normalized = normalizeGamePackageSchemaVersion(pkg);
+  if (!normalized.ok) {
+    return {
+      valid: false,
+      issues: normalized.issues
+    };
+  }
+
+  const normalizedPackage = normalized.value;
+  const template = templates.get(normalizedPackage.templateId);
+  if (!template) {
+    return {
+      valid: false,
+      issues: [toUnknownTemplateIssue(normalizedPackage.templateId)]
+    };
+  }
+
+  return template.validate(normalizedPackage);
 }
 
 export function loadPackage(pkg: GamePackage, seed = 1): RuntimeWorld {

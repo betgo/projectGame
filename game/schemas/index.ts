@@ -3,11 +3,13 @@ import type { ErrorObject } from "ajv";
 
 import gamePackageSchema from "./game-package.schema.json";
 import gameProjectSchema from "./game-project.schema.json";
+import rpgTopdownSchema from "./rpg-topdown.schema.json";
 import towerDefenseSchema from "./tower-defense.schema.json";
 
 const ajv = new Ajv2020({ allErrors: true, strict: false });
 
 ajv.addSchema(towerDefenseSchema, "tower-defense.schema.json");
+ajv.addSchema(rpgTopdownSchema, "rpg-topdown.schema.json");
 ajv.addSchema(gameProjectSchema, "game-project.schema.json");
 ajv.addSchema(gamePackageSchema, "game-package.schema.json");
 
@@ -385,6 +387,18 @@ export function validateTowerDefensePayload(payload: unknown): ValidationReport 
     return {
       valid: false,
       issues: [{ path: "/", message: "missing tower-defense validator" }]
+    };
+  }
+  const valid = Boolean(validate(payload));
+  return toReport(valid, validate.errors);
+}
+
+export function validateRpgTopdownPayload(payload: unknown): ValidationReport {
+  const validate = ajv.getSchema("rpg-topdown.schema.json");
+  if (!validate) {
+    return {
+      valid: false,
+      issues: [{ path: "/", message: "missing rpg-topdown validator" }]
     };
   }
   const valid = Boolean(validate(payload));

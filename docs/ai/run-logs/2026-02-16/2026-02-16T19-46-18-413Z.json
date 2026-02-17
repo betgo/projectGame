@@ -1,0 +1,1440 @@
+{
+  "status": "timeout",
+  "startedAt": "2026-02-16T16:40:12.123Z",
+  "endedAt": "2026-02-16T19:46:18.412Z",
+  "issueId": "18",
+  "branch": "main",
+  "taskFile": "/Users/wxx/Desktop/code/projectA/docs/ai/tasks/T-018-inspector-form-ux-polish.md",
+  "gateSummary": {
+    "fast": [
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2371,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 9ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  00:50:10\n   Duration  318ms (transform 44ms, setup 0ms, collect 150ms, tests 19ms, environment 0ms, prepare 92ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 7ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  00:50:11\n   Duration  261ms (transform 45ms, setup 0ms, collect 110ms, tests 14ms, environment 0ms, prepare 79ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2332,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  00:57:24\n   Duration  324ms (transform 45ms, setup 0ms, collect 159ms, tests 18ms, environment 0ms, prepare 98ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 7ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  00:57:25\n   Duration  257ms (transform 35ms, setup 0ms, collect 105ms, tests 14ms, environment 0ms, prepare 82ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2665,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 9ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:04:21\n   Duration  300ms (transform 40ms, setup 0ms, collect 154ms, tests 18ms, environment 0ms, prepare 72ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:04:22\n   Duration  358ms (transform 38ms, setup 0ms, collect 107ms, tests 15ms, environment 1ms, prepare 108ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2618,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 10ms\n ✓ tests/determinism/batch.test.ts (5 tests) 13ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:09:21\n   Duration  576ms (transform 172ms, setup 0ms, collect 672ms, tests 23ms, environment 0ms, prepare 120ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 7ms\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:09:22\n   Duration  288ms (transform 27ms, setup 0ms, collect 99ms, tests 14ms, environment 0ms, prepare 81ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2251,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:24:34\n   Duration  286ms (transform 41ms, setup 0ms, collect 137ms, tests 17ms, environment 0ms, prepare 96ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 7ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:24:35\n   Duration  262ms (transform 31ms, setup 0ms, collect 105ms, tests 14ms, environment 0ms, prepare 81ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2429,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:28:53\n   Duration  353ms (transform 50ms, setup 0ms, collect 158ms, tests 19ms, environment 0ms, prepare 107ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:28:54\n   Duration  294ms (transform 27ms, setup 0ms, collect 107ms, tests 15ms, environment 0ms, prepare 97ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2280,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:37:16\n   Duration  318ms (transform 41ms, setup 0ms, collect 150ms, tests 18ms, environment 0ms, prepare 92ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 9ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:37:16\n   Duration  252ms (transform 34ms, setup 0ms, collect 102ms, tests 19ms, environment 0ms, prepare 78ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2272,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:43:00\n   Duration  314ms (transform 41ms, setup 0ms, collect 157ms, tests 18ms, environment 0ms, prepare 94ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 7ms\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:43:00\n   Duration  263ms (transform 32ms, setup 0ms, collect 107ms, tests 14ms, environment 0ms, prepare 84ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2326,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:57:57\n   Duration  311ms (transform 42ms, setup 0ms, collect 157ms, tests 18ms, environment 0ms, prepare 100ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 3ms\n ✓ tests/schema/schema.test.ts (2 tests) 10ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 11ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  01:57:57\n   Duration  300ms (transform 41ms, setup 0ms, collect 186ms, tests 24ms, environment 0ms, prepare 130ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2392,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:04:09\n   Duration  321ms (transform 42ms, setup 0ms, collect 161ms, tests 18ms, environment 0ms, prepare 76ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 3ms\n ✓ tests/schema/schema.test.ts (2 tests) 10ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 13ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:04:10\n   Duration  264ms (transform 42ms, setup 0ms, collect 193ms, tests 26ms, environment 0ms, prepare 119ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2236,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:11:31\n   Duration  286ms (transform 42ms, setup 0ms, collect 140ms, tests 18ms, environment 0ms, prepare 92ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:11:31\n   Duration  258ms (transform 43ms, setup 0ms, collect 177ms, tests 18ms, environment 0ms, prepare 136ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2309,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 9ms\n ✓ tests/determinism/batch.test.ts (5 tests) 11ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:17:14\n   Duration  319ms (transform 47ms, setup 0ms, collect 169ms, tests 20ms, environment 0ms, prepare 94ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:17:14\n   Duration  270ms (transform 47ms, setup 0ms, collect 174ms, tests 18ms, environment 0ms, prepare 134ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2490,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 11ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:29:44\n   Duration  340ms (transform 59ms, setup 0ms, collect 176ms, tests 19ms, environment 0ms, prepare 94ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:29:45\n   Duration  294ms (transform 55ms, setup 0ms, collect 183ms, tests 18ms, environment 0ms, prepare 151ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2273,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:36:46\n   Duration  303ms (transform 45ms, setup 0ms, collect 149ms, tests 18ms, environment 0ms, prepare 95ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 9ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:36:46\n   Duration  262ms (transform 44ms, setup 0ms, collect 171ms, tests 18ms, environment 0ms, prepare 129ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2449,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 9ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:44:01\n   Duration  310ms (transform 41ms, setup 0ms, collect 157ms, tests 19ms, environment 0ms, prepare 81ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 9ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:44:01\n   Duration  260ms (transform 45ms, setup 0ms, collect 189ms, tests 19ms, environment 0ms, prepare 106ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2293,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 9ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:48:36\n   Duration  300ms (transform 47ms, setup 0ms, collect 159ms, tests 19ms, environment 0ms, prepare 84ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 9ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 10ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:48:37\n   Duration  264ms (transform 46ms, setup 0ms, collect 166ms, tests 21ms, environment 0ms, prepare 143ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2652,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 10ms\n ✓ tests/determinism/batch.test.ts (5 tests) 14ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:59:24\n   Duration  435ms (transform 69ms, setup 0ms, collect 211ms, tests 24ms, environment 0ms, prepare 128ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 9ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:59:25\n   Duration  314ms (transform 49ms, setup 0ms, collect 183ms, tests 19ms, environment 0ms, prepare 128ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2492,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 11ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  03:04:20\n   Duration  306ms (transform 52ms, setup 0ms, collect 167ms, tests 21ms, environment 0ms, prepare 93ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  03:04:21\n   Duration  357ms (transform 48ms, setup 0ms, collect 165ms, tests 18ms, environment 0ms, prepare 115ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2523,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 12ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  03:13:40\n   Duration  369ms (transform 45ms, setup 0ms, collect 167ms, tests 21ms, environment 0ms, prepare 105ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 9ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  03:13:40\n   Duration  338ms (transform 82ms, setup 0ms, collect 229ms, tests 19ms, environment 0ms, prepare 258ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2305,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  03:18:26\n   Duration  308ms (transform 41ms, setup 0ms, collect 163ms, tests 18ms, environment 0ms, prepare 81ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  03:18:27\n   Duration  258ms (transform 57ms, setup 0ms, collect 181ms, tests 19ms, environment 0ms, prepare 131ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2740,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 9ms\n ✓ tests/determinism/batch.test.ts (5 tests) 11ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  03:32:27\n   Duration  331ms (transform 45ms, setup 0ms, collect 152ms, tests 19ms, environment 0ms, prepare 91ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 6ms\n ✓ tests/schema/schema.test.ts (2 tests) 35ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 36ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  03:32:27\n   Duration  400ms (transform 61ms, setup 0ms, collect 212ms, tests 77ms, environment 0ms, prepare 152ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FAST_GATE",
+        "command": "pnpm gate:fast",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 2293,
+        "stdout": "> projectgame@0.1.0 gate:fast /Users/wxx/Desktop/code/projectA\n> pnpm typecheck && pnpm test:determinism && pnpm test:schema\n\n\n> projectgame@0.1.0 typecheck /Users/wxx/Desktop/code/projectA\n> tsc -p tsconfig.json --noEmit\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  03:38:00\n   Duration  301ms (transform 44ms, setup 0ms, collect 157ms, tests 18ms, environment 0ms, prepare 88ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  03:38:01\n   Duration  256ms (transform 56ms, setup 0ms, collect 174ms, tests 18ms, environment 0ms, prepare 141ms)",
+        "stderr": ""
+      }
+    ],
+    "full": [
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7021,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 15ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 21ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 25ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 35ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 32ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 291ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 25ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 12ms\n ✓ tests/determinism/batch.test.ts (5 tests) 23ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 15ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 2ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 8ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 19ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 5ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 4ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1759ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  517ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  741ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  499ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2484ms\n   ✓ simulate:batch cli > fails when package argument is missing  472ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  465ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  310ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  348ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3416ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1500ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  792ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1123ms\n\n Test Files  20 passed (20)\n      Tests  64 passed (64)\n   Start at  00:50:13\n   Duration  3.67s (transform 268ms, setup 0ms, collect 1.43s, tests 8.21s, environment 6ms, prepare 1.33s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  00:50:17\n   Duration  258ms (transform 33ms, setup 0ms, collect 118ms, tests 18ms, environment 0ms, prepare 67ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 9ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  00:50:17\n   Duration  246ms (transform 31ms, setup 0ms, collect 107ms, tests 16ms, environment 0ms, prepare 77ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  00:50:18\n   Duration  379ms (transform 47ms, setup 0ms, collect 132ms, tests 16ms, environment 0ms, prepare 64ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 8116,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/preview-consistency.test.ts (1 test) 21ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 30ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 37ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 33ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 33ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 265ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 9ms\n ✓ tests/determinism/batch.test.ts (5 tests) 25ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 13ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 4ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 10ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 20ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 9ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 18ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 2ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 21ms\n ✓ tests/schema/schema.test.ts (2 tests) 16ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2508ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  678ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  1149ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  679ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 3527ms\n   ✓ simulate:batch cli > fails when package argument is missing  643ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  808ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  364ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  393ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  483ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 4299ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  2194ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  993ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1111ms\n\n Test Files  20 passed (20)\n      Tests  64 passed (64)\n   Start at  00:57:27\n   Duration  4.59s (transform 587ms, setup 0ms, collect 2.46s, tests 10.90s, environment 3ms, prepare 2.08s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  00:57:32\n   Duration  307ms (transform 42ms, setup 0ms, collect 133ms, tests 18ms, environment 0ms, prepare 71ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  00:57:32\n   Duration  307ms (transform 41ms, setup 0ms, collect 107ms, tests 15ms, environment 0ms, prepare 100ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 9ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 9ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  00:57:33\n   Duration  296ms (transform 43ms, setup 0ms, collect 142ms, tests 17ms, environment 0ms, prepare 131ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 6878,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/preview-consistency.test.ts (1 test) 22ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 20ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 42ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 46ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 37ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 293ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 10ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 22ms\n ✓ tests/determinism/batch.test.ts (5 tests) 25ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 10ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 10ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 9ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 3ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 7ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 5ms\n ✓ tests/schema/schema.test.ts (2 tests) 9ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1773ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  578ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  710ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  483ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2509ms\n   ✓ simulate:batch cli > fails when package argument is missing  539ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  399ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  317ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  367ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3379ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1510ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  783ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1085ms\n\n Test Files  20 passed (20)\n      Tests  64 passed (64)\n   Start at  01:04:24\n   Duration  3.64s (transform 347ms, setup 0ms, collect 1.77s, tests 8.23s, environment 2ms, prepare 1.32s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:04:28\n   Duration  259ms (transform 45ms, setup 0ms, collect 126ms, tests 18ms, environment 0ms, prepare 82ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 7ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:04:28\n   Duration  246ms (transform 34ms, setup 0ms, collect 105ms, tests 14ms, environment 0ms, prepare 72ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  01:04:29\n   Duration  262ms (transform 45ms, setup 0ms, collect 138ms, tests 16ms, environment 0ms, prepare 79ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 6961,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/preview-consistency.test.ts (1 test) 13ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 23ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 26ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 36ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 30ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 252ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 9ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 18ms\n ✓ tests/determinism/batch.test.ts (5 tests) 18ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 16ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 9ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 10ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 4ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 3ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 15ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 10ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 4ms\n ✓ tests/schema/schema.test.ts (2 tests) 11ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1767ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  517ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  746ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  503ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2596ms\n   ✓ simulate:batch cli > fails when package argument is missing  504ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  443ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  307ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  458ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3455ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1652ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  725ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1077ms\n\n Test Files  21 passed (21)\n      Tests  68 passed (68)\n   Start at  01:09:24\n   Duration  3.72s (transform 396ms, setup 0ms, collect 1.58s, tests 8.32s, environment 2ms, prepare 1.30s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:09:28\n   Duration  260ms (transform 35ms, setup 0ms, collect 123ms, tests 18ms, environment 0ms, prepare 93ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 7ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:09:29\n   Duration  268ms (transform 34ms, setup 0ms, collect 107ms, tests 14ms, environment 0ms, prepare 83ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  01:09:29\n   Duration  261ms (transform 39ms, setup 0ms, collect 128ms, tests 17ms, environment 0ms, prepare 66ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7365,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/preview-consistency.test.ts (1 test) 16ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 24ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 28ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 27ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 30ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 259ms\n ✓ tests/determinism/batch.test.ts (5 tests) 16ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 3ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 9ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 11ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 15ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 10ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 4ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 4ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 12ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 7ms\n ✓ tests/schema/schema.test.ts (2 tests) 10ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1944ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  547ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  845ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  551ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2688ms\n   ✓ simulate:batch cli > fails when package argument is missing  536ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  494ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  356ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  372ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3509ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1685ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  784ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1040ms\n\n Test Files  22 passed (22)\n      Tests  74 passed (74)\n   Start at  01:24:36\n   Duration  3.74s (transform 350ms, setup 0ms, collect 1.69s, tests 8.63s, environment 2ms, prepare 1.40s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 10ms\n ✓ tests/determinism/batch.test.ts (5 tests) 12ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:24:40\n   Duration  430ms (transform 73ms, setup 0ms, collect 254ms, tests 22ms, environment 0ms, prepare 140ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:24:41\n   Duration  323ms (transform 43ms, setup 0ms, collect 116ms, tests 15ms, environment 2ms, prepare 84ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 7ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  01:24:42\n   Duration  294ms (transform 48ms, setup 0ms, collect 148ms, tests 15ms, environment 0ms, prepare 69ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 8031,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 19ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 23ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 29ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 35ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 18ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 304ms\n   ✓ render-weekly-summary > normalizes risk bullet prefixes from commit logs  304ms\n ✓ tests/determinism/batch.test.ts (5 tests) 44ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 21ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 15ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 16ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 13ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 10ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 5ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 5ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 9ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 15ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 6ms\n ✓ tests/schema/schema.test.ts (2 tests) 28ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2417ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  683ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  1003ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  729ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 3404ms\n   ✓ simulate:batch cli > fails when package argument is missing  677ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  519ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  487ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  341ms\n   ✓ simulate:batch cli > fails when --max-imbalance option is invalid  406ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  510ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 4191ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1913ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  1052ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1226ms\n\n Test Files  22 passed (22)\n      Tests  74 passed (74)\n   Start at  01:28:56\n   Duration  4.47s (transform 547ms, setup 0ms, collect 2.57s, tests 10.63s, environment 3ms, prepare 1.66s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/batch.test.ts (5 tests) 11ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 11ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:29:01\n   Duration  323ms (transform 35ms, setup 0ms, collect 128ms, tests 22ms, environment 0ms, prepare 74ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 13ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:29:01\n   Duration  363ms (transform 52ms, setup 0ms, collect 123ms, tests 21ms, environment 0ms, prepare 204ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  01:29:02\n   Duration  307ms (transform 43ms, setup 0ms, collect 140ms, tests 16ms, environment 0ms, prepare 104ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7359,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/preview-consistency.test.ts (1 test) 9ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 18ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 16ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 13ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 20ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 258ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 5ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 6ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 20ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 21ms\n ✓ tests/determinism/batch.test.ts (5 tests) 18ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 9ms\n ✓ tests/schema/schema.test.ts (2 tests) 12ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 5ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 7ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 12ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1716ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  545ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  721ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  449ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2455ms\n   ✓ simulate:batch cli > fails when package argument is missing  510ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  383ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  314ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  369ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3637ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1621ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  752ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1263ms\n\n Test Files  22 passed (22)\n      Tests  74 passed (74)\n   Start at  01:37:18\n   Duration  3.89s (transform 430ms, setup 0ms, collect 1.80s, tests 8.27s, environment 4ms, prepare 1.26s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 9ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:37:22\n   Duration  310ms (transform 41ms, setup 0ms, collect 135ms, tests 19ms, environment 0ms, prepare 86ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:37:23\n   Duration  258ms (transform 26ms, setup 0ms, collect 118ms, tests 18ms, environment 0ms, prepare 54ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 7ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  01:37:24\n   Duration  275ms (transform 39ms, setup 0ms, collect 141ms, tests 15ms, environment 0ms, prepare 61ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7883,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 16ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 27ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 32ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 21ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 21ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 272ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 17ms\n ✓ tests/determinism/batch.test.ts (5 tests) 12ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 10ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 17ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 9ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 10ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 5ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 2ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 5ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 7ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 5ms\n ✓ tests/schema/schema.test.ts (2 tests) 24ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1878ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  519ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  875ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  484ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2838ms\n   ✓ simulate:batch cli > fails when package argument is missing  459ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  531ms\n   ✓ simulate:batch cli > prints standardized batch metrics on success  462ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  489ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3837ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1830ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  1035ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  971ms\n\n Test Files  23 passed (23)\n      Tests  78 passed (78)\n   Start at  01:43:02\n   Duration  4.17s (transform 693ms, setup 0ms, collect 2.05s, tests 9.07s, environment 3ms, prepare 1.51s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 10ms\n ✓ tests/determinism/batch.test.ts (5 tests) 11ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:43:06\n   Duration  408ms (transform 53ms, setup 0ms, collect 168ms, tests 21ms, environment 0ms, prepare 103ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  4 passed (4)\n   Start at  01:43:07\n   Duration  302ms (transform 31ms, setup 0ms, collect 104ms, tests 15ms, environment 0ms, prepare 100ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  01:43:08\n   Duration  443ms (transform 39ms, setup 0ms, collect 136ms, tests 17ms, environment 0ms, prepare 86ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7156,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/preview-consistency.test.ts (1 test) 14ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 27ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 27ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 19ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 19ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 264ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 16ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 26ms\n ✓ tests/determinism/batch.test.ts (5 tests) 13ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 17ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 35ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 3ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 11ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 6ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 34ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 12ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 5ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 9ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1946ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  576ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  844ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  526ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2652ms\n   ✓ simulate:batch cli > fails when package argument is missing  557ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  491ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  318ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  309ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  348ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3543ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1812ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  728ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1002ms\n\n Test Files  25 passed (25)\n      Tests  87 passed (87)\n   Start at  01:57:59\n   Duration  3.79s (transform 424ms, setup 0ms, collect 2.22s, tests 8.71s, environment 2ms, prepare 1.63s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  01:58:03\n   Duration  298ms (transform 38ms, setup 0ms, collect 126ms, tests 18ms, environment 0ms, prepare 86ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 7ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  01:58:04\n   Duration  272ms (transform 50ms, setup 0ms, collect 181ms, tests 17ms, environment 0ms, prepare 119ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 9ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  01:58:05\n   Duration  270ms (transform 49ms, setup 0ms, collect 156ms, tests 17ms, environment 0ms, prepare 59ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 6905,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 30ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 28ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 30ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 28ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 31ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 295ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 6ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 23ms\n ✓ tests/schema/schema.test.ts (2 tests) 11ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 11ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 23ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 5ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 11ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 19ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 6ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 5ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 25ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1897ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  550ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  810ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  536ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2614ms\n   ✓ simulate:batch cli > fails when package argument is missing  503ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  408ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  465ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  343ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3440ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1637ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  787ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1014ms\n\n Test Files  25 passed (25)\n      Tests  87 passed (87)\n   Start at  02:04:11\n   Duration  3.69s (transform 445ms, setup 0ms, collect 2.10s, tests 8.56s, environment 2ms, prepare 1.42s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:04:15\n   Duration  258ms (transform 40ms, setup 0ms, collect 130ms, tests 18ms, environment 0ms, prepare 59ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 7ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 7ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:04:16\n   Duration  257ms (transform 45ms, setup 0ms, collect 162ms, tests 17ms, environment 0ms, prepare 138ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  02:04:17\n   Duration  254ms (transform 43ms, setup 0ms, collect 135ms, tests 16ms, environment 0ms, prepare 66ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 6857,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 15ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 18ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 24ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 31ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 29ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 259ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 17ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 26ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 18ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 13ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 9ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 2ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 4ms\n ✓ tests/schema/schema.test.ts (2 tests) 10ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 13ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 10ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 7ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 7ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 3ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 4ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1776ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  481ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  763ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  531ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2496ms\n   ✓ simulate:batch cli > fails when package argument is missing  468ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  388ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  449ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  348ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3375ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1697ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  721ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  953ms\n\n Test Files  25 passed (25)\n      Tests  87 passed (87)\n   Start at  02:11:33\n   Duration  3.64s (transform 455ms, setup 0ms, collect 2.24s, tests 8.18s, environment 2ms, prepare 1.45s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:11:37\n   Duration  260ms (transform 39ms, setup 0ms, collect 126ms, tests 18ms, environment 0ms, prepare 69ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 4ms\n ✓ tests/schema/schema.test.ts (2 tests) 10ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:11:37\n   Duration  282ms (transform 55ms, setup 0ms, collect 225ms, tests 22ms, environment 0ms, prepare 136ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  02:11:38\n   Duration  270ms (transform 46ms, setup 0ms, collect 140ms, tests 16ms, environment 0ms, prepare 69ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 8625,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/preview-consistency.test.ts (1 test) 28ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 44ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 47ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 40ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 32ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 359ms\n   ✓ render-weekly-summary > normalizes risk bullet prefixes from commit logs  358ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 33ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 34ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 10ms\n ✓ tests/determinism/batch.test.ts (5 tests) 17ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 13ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 13ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 9ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 9ms\n ✓ tests/schema/schema.test.ts (2 tests) 10ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 11ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 5ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 7ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 2ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 13ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 5ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2547ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  652ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  1247ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  647ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 3480ms\n   ✓ simulate:batch cli > fails when package argument is missing  656ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  671ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  493ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  393ms\n   ✓ simulate:batch cli > fails when --max-imbalance option is invalid  331ms\n   ✓ simulate:batch cli > fails when imbalance threshold is exceeded  338ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  389ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 4223ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  2168ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  1007ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1047ms\n\n Test Files  26 passed (26)\n      Tests  91 passed (91)\n   Start at  02:17:16\n   Duration  4.53s (transform 584ms, setup 0ms, collect 3.03s, tests 11.00s, environment 3ms, prepare 2.45s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:17:21\n   Duration  306ms (transform 41ms, setup 0ms, collect 125ms, tests 18ms, environment 0ms, prepare 90ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 12ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:17:22\n   Duration  413ms (transform 51ms, setup 0ms, collect 187ms, tests 22ms, environment 0ms, prepare 152ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 9ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  02:17:23\n   Duration  322ms (transform 48ms, setup 0ms, collect 158ms, tests 17ms, environment 0ms, prepare 81ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 8322,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 7ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 24ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 35ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 27ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 38ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 251ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 5ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 17ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 25ms\n ✓ tests/determinism/batch.test.ts (5 tests) 16ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 23ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 22ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 10ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 7ms\n ✓ tests/schema/schema.test.ts (2 tests) 13ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 19ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 20ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 17ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 3ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 4ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 3ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2062ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  536ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  916ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  608ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 3020ms\n   ✓ simulate:batch cli > fails when package argument is missing  565ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  449ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  410ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  372ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  584ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3934ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1949ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  951ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1034ms\n\n Test Files  27 passed (27)\n      Tests  97 passed (97)\n   Start at  02:29:47\n   Duration  4.26s (transform 443ms, setup 0ms, collect 2.45s, tests 9.61s, environment 3ms, prepare 1.85s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 16ms\n ✓ tests/determinism/batch.test.ts (5 tests) 17ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:29:52\n   Duration  832ms (transform 149ms, setup 0ms, collect 292ms, tests 33ms, environment 0ms, prepare 488ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:29:53\n   Duration  306ms (transform 55ms, setup 0ms, collect 189ms, tests 18ms, environment 0ms, prepare 122ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  02:29:53\n   Duration  284ms (transform 47ms, setup 0ms, collect 166ms, tests 16ms, environment 0ms, prepare 69ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 8179,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 20ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 24ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 16ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 18ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 24ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 268ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 25ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 31ms\n ✓ tests/determinism/batch.test.ts (5 tests) 31ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 91ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 6ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 22ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 7ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 4ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 11ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 11ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 10ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 3ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 9ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 6ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2802ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  927ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  1185ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  690ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 3571ms\n   ✓ simulate:batch cli > fails when package argument is missing  753ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  646ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  669ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  448ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  377ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 4413ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  2651ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  773ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  987ms\n\n Test Files  27 passed (27)\n      Tests  97 passed (97)\n   Start at  02:36:48\n   Duration  4.69s (transform 736ms, setup 0ms, collect 4.19s, tests 11.44s, environment 4ms, prepare 2.63s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:36:53\n   Duration  312ms (transform 45ms, setup 0ms, collect 138ms, tests 19ms, environment 0ms, prepare 102ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:36:54\n   Duration  295ms (transform 51ms, setup 0ms, collect 180ms, tests 18ms, environment 0ms, prepare 144ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  02:36:54\n   Duration  321ms (transform 41ms, setup 0ms, collect 140ms, tests 16ms, environment 0ms, prepare 85ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7025,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 22ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 20ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 21ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 20ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 29ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 256ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 5ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 13ms\n ✓ tests/determinism/batch.test.ts (5 tests) 17ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 16ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 18ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 23ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 7ms\n ✓ tests/schema/schema.test.ts (2 tests) 23ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 33ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 22ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 12ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 59ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 7ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 2ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 2ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 3ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 3ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2032ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  567ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  913ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  550ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2565ms\n   ✓ simulate:batch cli > fails when package argument is missing  478ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  431ms\n   ✓ simulate:batch cli > fails when --max-imbalance option is invalid  304ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  349ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3508ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1887ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  674ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  947ms\n\n Test Files  27 passed (27)\n      Tests  97 passed (97)\n   Start at  02:44:03\n   Duration  3.77s (transform 417ms, setup 0ms, collect 2.06s, tests 8.74s, environment 3ms, prepare 1.51s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:44:07\n   Duration  254ms (transform 38ms, setup 0ms, collect 120ms, tests 18ms, environment 0ms, prepare 73ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 7ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:44:08\n   Duration  264ms (transform 53ms, setup 0ms, collect 179ms, tests 17ms, environment 0ms, prepare 124ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 7ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  02:44:08\n   Duration  254ms (transform 42ms, setup 0ms, collect 135ms, tests 16ms, environment 0ms, prepare 55ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7104,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 18ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 24ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 29ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 21ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 24ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 253ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 19ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 5ms\n ✓ tests/determinism/batch.test.ts (5 tests) 19ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 19ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 21ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 13ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 4ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 9ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 12ms\n ✓ tests/schema/schema.test.ts (2 tests) 10ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 9ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 6ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/golden-pack-regression-scope.test.ts (4 tests) 2ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2083ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  515ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  941ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  626ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2806ms\n   ✓ simulate:batch cli > fails when package argument is missing  495ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  463ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  493ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  358ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  344ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3672ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1992ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  722ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  958ms\n\n Test Files  28 passed (28)\n      Tests  101 passed (101)\n   Start at  02:48:39\n   Duration  3.93s (transform 924ms, setup 0ms, collect 2.76s, tests 9.10s, environment 3ms, prepare 1.74s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:48:43\n   Duration  256ms (transform 44ms, setup 0ms, collect 123ms, tests 18ms, environment 0ms, prepare 88ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:48:44\n   Duration  252ms (transform 42ms, setup 0ms, collect 177ms, tests 17ms, environment 0ms, prepare 101ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  02:48:44\n   Duration  251ms (transform 43ms, setup 0ms, collect 137ms, tests 16ms, environment 0ms, prepare 55ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7459,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 30ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 20ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 25ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 32ms\n ✓ tests/regression/golden-pack-regression.test.ts (6 tests) 20ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 271ms\n ✓ tests/determinism/batch.test.ts (5 tests) 26ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 18ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 26ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 18ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 14ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 10ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 7ms\n ✓ tests/schema/schema.test.ts (2 tests) 14ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 5ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 16ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 13ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n ✓ tests/integration/golden-pack-regression-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 8ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 2ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 4ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 3ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2018ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  547ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  835ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  635ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2761ms\n   ✓ simulate:batch cli > fails when package argument is missing  548ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  419ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  387ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  378ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  371ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3672ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1894ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  750ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1027ms\n\n Test Files  29 passed (29)\n      Tests  107 passed (107)\n   Start at  02:59:26\n   Duration  3.93s (transform 451ms, setup 0ms, collect 2.28s, tests 9.05s, environment 3ms, prepare 1.61s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 9ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  02:59:31\n   Duration  304ms (transform 52ms, setup 0ms, collect 139ms, tests 19ms, environment 0ms, prepare 82ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  02:59:31\n   Duration  272ms (transform 58ms, setup 0ms, collect 212ms, tests 18ms, environment 0ms, prepare 142ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  02:59:32\n   Duration  259ms (transform 46ms, setup 0ms, collect 139ms, tests 16ms, environment 0ms, prepare 76ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7472,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 31ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 24ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 24ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 31ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 22ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 284ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 19ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 33ms\n ✓ tests/regression/golden-pack-regression.test.ts (6 tests) 21ms\n ✓ tests/determinism/batch.test.ts (5 tests) 17ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 16ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 13ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 7ms\n ✓ tests/schema/schema.test.ts (2 tests) 18ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 15ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 19ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 24ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 6ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 13ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 10ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 6ms\n ✓ tests/integration/golden-pack-regression-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 3ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 2ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1874ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  575ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  859ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  439ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2660ms\n   ✓ simulate:batch cli > fails when package argument is missing  542ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  408ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  320ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  343ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  381ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3591ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1846ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  797ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  947ms\n\n Test Files  29 passed (29)\n      Tests  107 passed (107)\n   Start at  03:04:23\n   Duration  3.87s (transform 510ms, setup 0ms, collect 2.49s, tests 8.79s, environment 3ms, prepare 1.71s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 9ms\n ✓ tests/determinism/batch.test.ts (5 tests) 11ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  03:04:27\n   Duration  269ms (transform 40ms, setup 0ms, collect 145ms, tests 19ms, environment 0ms, prepare 63ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  03:04:28\n   Duration  253ms (transform 49ms, setup 0ms, collect 165ms, tests 18ms, environment 0ms, prepare 128ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 9ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  03:04:28\n   Duration  266ms (transform 42ms, setup 0ms, collect 132ms, tests 17ms, environment 0ms, prepare 66ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7186,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 23ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 31ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 35ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 16ms\n ✓ tests/regression/golden-pack-regression.test.ts (6 tests) 17ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 295ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 8ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 15ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 18ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 18ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 17ms\n ✓ tests/determinism/batch.test.ts (5 tests) 12ms\n ✓ tests/schema/schema.test.ts (2 tests) 15ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 13ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 6ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 14ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 10ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 7ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 22ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/golden-pack-regression-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 1ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 16ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2021ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  522ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  962ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  535ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2557ms\n   ✓ simulate:batch cli > fails when package argument is missing  485ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  402ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  336ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  359ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3478ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1716ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  781ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  980ms\n\n Test Files  29 passed (29)\n      Tests  107 passed (107)\n   Start at  03:13:42\n   Duration  3.76s (transform 484ms, setup 0ms, collect 2.44s, tests 8.69s, environment 6ms, prepare 1.75s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  03:13:46\n   Duration  276ms (transform 44ms, setup 0ms, collect 149ms, tests 19ms, environment 0ms, prepare 76ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 8ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  03:13:47\n   Duration  267ms (transform 42ms, setup 0ms, collect 169ms, tests 18ms, environment 0ms, prepare 138ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 7ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  03:13:48\n   Duration  257ms (transform 47ms, setup 0ms, collect 130ms, tests 15ms, environment 0ms, prepare 83ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7646,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 18ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 22ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 25ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 28ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 254ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 20ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 17ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 19ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 6ms\n ✓ tests/regression/golden-pack-regression.test.ts (6 tests) 25ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 11ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 5ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 11ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 15ms\n ✓ tests/schema/schema.test.ts (2 tests) 13ms\n ✓ tests/determinism/batch.test.ts (5 tests) 15ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/integration/golden-pack-regression-scope.test.ts (4 tests) 5ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 4ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 2ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 4ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 9ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n ✓ tests/integration/template-sdk-core-scope.test.ts (3 tests) 2ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 2ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 4ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1964ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  521ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  828ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  614ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2703ms\n   ✓ simulate:batch cli > fails when package argument is missing  542ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  409ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  378ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  346ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  371ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3591ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1821ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  689ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1080ms\n\n Test Files  30 passed (30)\n      Tests  110 passed (110)\n   Start at  03:18:28\n   Duration  3.85s (transform 494ms, setup 0ms, collect 2.35s, tests 8.81s, environment 3ms, prepare 1.81s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 9ms\n ✓ tests/determinism/batch.test.ts (5 tests) 11ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  03:18:32\n   Duration  304ms (transform 51ms, setup 0ms, collect 184ms, tests 20ms, environment 0ms, prepare 72ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 4ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 12ms\n ✓ tests/schema/schema.test.ts (2 tests) 12ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  03:18:33\n   Duration  591ms (transform 65ms, setup 0ms, collect 244ms, tests 28ms, environment 0ms, prepare 204ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  03:18:34\n   Duration  299ms (transform 42ms, setup 0ms, collect 144ms, tests 16ms, environment 0ms, prepare 69ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 8288,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema.test.ts (2 tests) 15ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 14ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 30ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 33ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 35ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 297ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 31ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 24ms\n ✓ tests/regression/golden-pack-regression.test.ts (6 tests) 30ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 29ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 32ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 14ms\n ✓ tests/integration/template-sdk-core-runtime.test.ts (4 tests) 26ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 21ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 12ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 32ms\n ✓ tests/determinism/batch.test.ts (5 tests) 19ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 39ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 8ms\n ✓ tests/integration/golden-pack-regression-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 52ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 4ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 3ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 11ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 3ms\n ✓ tests/integration/template-sdk-core-scope.test.ts (3 tests) 3ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 3ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 2475ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  647ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  944ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  884ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 3243ms\n   ✓ simulate:batch cli > fails when package argument is missing  619ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  394ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  560ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  549ms\n   ✓ simulate:batch cli > fails when --max-imbalance option is invalid  349ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  370ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3968ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1988ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  865ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  1114ms\n\n Test Files  31 passed (31)\n      Tests  114 passed (114)\n   Start at  03:32:30\n   Duration  4.32s (transform 508ms, setup 0ms, collect 3.16s, tests 10.51s, environment 4ms, prepare 2.21s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 10ms\n ✓ tests/determinism/batch.test.ts (5 tests) 14ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  03:32:34\n   Duration  316ms (transform 45ms, setup 0ms, collect 149ms, tests 24ms, environment 0ms, prepare 99ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 9ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  03:32:35\n   Duration  299ms (transform 47ms, setup 0ms, collect 178ms, tests 19ms, environment 0ms, prepare 141ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 9ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  03:32:36\n   Duration  301ms (transform 45ms, setup 0ms, collect 142ms, tests 17ms, environment 0ms, prepare 92ms)",
+        "stderr": ""
+      },
+      {
+        "name": "FULL_GATE",
+        "command": "pnpm gate:full",
+        "success": true,
+        "exitCode": 0,
+        "durationMs": 7220,
+        "stdout": "> projectgame@0.1.0 gate:full /Users/wxx/Desktop/code/projectA\n> pnpm lint && pnpm test && pnpm test:determinism && pnpm test:schema && pnpm test:smoke-ai-package\n\n\n> projectgame@0.1.0 lint /Users/wxx/Desktop/code/projectA\n> eslint . --ext .ts,.tsx\n\n\n> projectgame@0.1.0 test /Users/wxx/Desktop/code/projectA\n> vitest run --exclude \"tests/integration/*doc-contract*.test.ts\"\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/integration/three-render-adapter-interaction.test.ts (3 tests) 5ms\n ✓ tests/integration/import-export-diagnostics.test.ts (6 tests) 20ms\n ✓ tests/integration/preview-debug-overlay-session.test.ts (4 tests) 30ms\n ✓ tests/integration/map-editing-ergonomics.test.ts (6 tests) 24ms\n ✓ tests/integration/render-performance-baseline-metrics.test.ts (2 tests) 15ms\n ✓ tests/integration/git-memory-weekly-summary.test.ts (1 test) 257ms\n ✓ tests/integration/template-sdk-core-runtime.test.ts (4 tests) 14ms\n ✓ tests/regression/golden-pack-regression.test.ts (6 tests) 25ms\n ✓ tests/integration/preview-consistency.test.ts (1 test) 10ms\n ✓ tests/integration/schema-versioning-migration.test.ts (4 tests) 32ms\n ✓ tests/regression/core-v1-paths.test.ts (12 tests) 19ms\n ✓ tests/integration/three-render-snapshot-contract.test.ts (2 tests) 11ms\n ✓ tests/integration/import-export-diagnostics-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/dev-loop-task-parser.test.ts (5 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 21ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 18ms\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 27ms\n ✓ tests/integration/inspector-form-ux.test.ts (4 tests) 4ms\n ✓ tests/integration/schema-versioning-migration-scope.test.ts (4 tests) 3ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 13ms\n ✓ tests/determinism/determinism.test.ts (2 tests) 20ms\n ✓ tests/integration/golden-pack-regression-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/three-render-adapter-baseline.test.ts (1 test) 6ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/integration/map-editing-ergonomics-scope.test.ts (4 tests) 3ms\n ✓ tests/integration/batch-report-format.test.ts (1 test) 3ms\n ✓ tests/integration/template-sdk-core-scope.test.ts (4 tests) 5ms\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/integration/simulate-render-baseline-cli.test.ts (3 tests) 1960ms\n   ✓ simulate:render-baseline cli > prints parseable baseline report for representative packages  481ms\n   ✓ simulate:render-baseline cli > keeps baseline output reproducible with identical inputs  834ms\n   ✓ simulate:render-baseline cli > fails fast when options are invalid  644ms\n ✓ tests/integration/simulate-batch-cli.test.ts (8 tests) 2723ms\n   ✓ simulate:batch cli > fails when package argument is missing  480ms\n   ✓ simulate:batch cli > fails when rounds is not a positive integer  456ms\n   ✓ simulate:batch cli > fails fast for malformed json package content  376ms\n   ✓ simulate:batch cli > fails fast for invalid package contract  373ms\n   ✓ simulate:batch cli > keeps baseline command output reproducible when threshold is configured  370ms\n ✓ tests/integration/git-memory-append-commit-log.test.ts (3 tests) 3639ms\n   ✓ append-commit-log script > supports commit ranges and keeps entry order deterministic  1945ms\n   ✓ append-commit-log script > skips duplicated commits when re-appending same range  718ms\n   ✓ append-commit-log script > backfills missing commit summaries with --missing and keeps entries unique  975ms\n\n Test Files  31 passed (31)\n      Tests  115 passed (115)\n   Start at  03:38:03\n   Duration  3.91s (transform 497ms, setup 0ms, collect 2.43s, tests 8.93s, environment 3ms, prepare 1.68s)\n\n\n> projectgame@0.1.0 test:determinism /Users/wxx/Desktop/code/projectA\n> vitest run tests/determinism\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/determinism/determinism.test.ts (2 tests) 8ms\n ✓ tests/determinism/batch.test.ts (5 tests) 10ms\n\n Test Files  2 passed (2)\n      Tests  7 passed (7)\n   Start at  03:38:07\n   Duration  259ms (transform 40ms, setup 0ms, collect 127ms, tests 18ms, environment 0ms, prepare 99ms)\n\n\n> projectgame@0.1.0 test:schema /Users/wxx/Desktop/code/projectA\n> vitest run tests/schema\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/schema/schema-versioning.test.ts (5 tests) 2ms\n ✓ tests/schema/schema.test.ts (2 tests) 8ms\n ✓ tests/schema/tower-defense-semantic.test.ts (2 tests) 9ms\n\n Test Files  3 passed (3)\n      Tests  9 passed (9)\n   Start at  03:38:08\n   Duration  249ms (transform 37ms, setup 0ms, collect 169ms, tests 20ms, environment 0ms, prepare 97ms)\n\n\n> projectgame@0.1.0 test:smoke-ai-package /Users/wxx/Desktop/code/projectA\n> vitest run tests/smoke\n\n\n RUN  v3.2.4 /Users/wxx/Desktop/code/projectA\n\n ✓ tests/smoke/ai-pipeline.test.ts (1 test) 8ms\n ✓ tests/smoke/ai-pipeline-hardening.test.ts (2 tests) 8ms\n\n Test Files  2 passed (2)\n      Tests  3 passed (3)\n   Start at  03:38:08\n   Duration  257ms (transform 48ms, setup 0ms, collect 137ms, tests 16ms, environment 0ms, prepare 76ms)",
+        "stderr": ""
+      }
+    ],
+    "autofix": []
+  },
+  "docSyncSummary": [
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/README.md",
+        "docs/ai/tasks/T-018-inspector-form-ux-polish.md",
+        "docs/ai/workflows/continuous-loop.md",
+        "editor/src/editor/components/Inspector.tsx",
+        "editor/src/editor/operations.ts",
+        "editor/src/styles.css",
+        "tools/dev-loop/config.ts",
+        "tools/dev-loop/loop.ts",
+        "tools/dev-loop/types.ts",
+        "editor/src/editor/inspector-form.ts",
+        "tests/integration/inspector-form-ux.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [
+        "docs/ai/tasks/T-018-inspector-form-ux-polish.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/README.md",
+        "docs/ai/tasks/T-018-inspector-form-ux-polish.md",
+        "docs/ai/workflows/continuous-loop.md",
+        "editor/src/editor/components/Inspector.tsx",
+        "editor/src/editor/operations.ts",
+        "editor/src/styles.css",
+        "tools/dev-loop/config.ts",
+        "tools/dev-loop/loop.ts",
+        "tools/dev-loop/types.ts",
+        "editor/src/editor/inspector-form.ts",
+        "tests/integration/inspector-form-ux.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [
+        "docs/ai/tasks/T-018-inspector-form-ux-polish.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/README.md",
+        "docs/ai/ai-loop-status.md",
+        "docs/ai/commit-log/2026-02.md",
+        "docs/ai/tasks/T-018-inspector-form-ux-polish.md",
+        "docs/ai/weekly-summary.md",
+        "docs/ai/workflows/continuous-loop.md",
+        "editor/src/editor/components/Inspector.tsx",
+        "editor/src/editor/operations.ts",
+        "editor/src/styles.css",
+        "tools/dev-loop/config.ts",
+        "tools/dev-loop/loop.ts",
+        "tools/dev-loop/types.ts",
+        "editor/src/editor/inspector-form.ts",
+        "tests/integration/inspector-form-ux.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [
+        "docs/ai/tasks/T-018-inspector-form-ux-polish.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-019-map-editing-ergonomics.md",
+        "tests/integration/map-editing-ergonomics-scope.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-019-map-editing-ergonomics.md",
+        "editor/src/editor/components/MapCanvas.tsx",
+        "editor/src/editor/operations.ts",
+        "editor/src/styles.css",
+        "tests/integration/map-editing-ergonomics-scope.test.ts",
+        "tests/integration/map-editing-ergonomics.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-019-map-editing-ergonomics.md",
+        "editor/src/editor/components/MapCanvas.tsx",
+        "editor/src/editor/operations.ts",
+        "editor/src/styles.css",
+        "tests/integration/map-editing-ergonomics-scope.test.ts",
+        "tests/integration/map-editing-ergonomics.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/ai-loop-status.md",
+        "docs/ai/commit-log/2026-02.md",
+        "docs/ai/tasks/T-019-map-editing-ergonomics.md",
+        "docs/ai/weekly-summary.md",
+        "editor/src/editor/components/MapCanvas.tsx",
+        "editor/src/editor/operations.ts",
+        "editor/src/styles.css",
+        "tests/integration/map-editing-ergonomics-scope.test.ts",
+        "tests/integration/map-editing-ergonomics.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [
+        "docs/ai/tasks/T-019-map-editing-ergonomics.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-020-schema-versioning-and-migration-lite.md",
+        "tests/integration/schema-versioning-migration-scope.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": true,
+      "passed": true,
+      "changedFiles": [
+        "EADME.md",
+        "docs/ai/README.md",
+        "docs/ai/tasks/T-020-schema-versioning-and-migration-lite.md",
+        "docs/ai/workflows/continuous-loop.md",
+        "editor/src/editor/api.ts",
+        "editor/src/editor/store.ts",
+        "game/schemas/game-package.schema.json",
+        "game/schemas/game-project.schema.json",
+        "game/schemas/index.ts",
+        "runtime/core/engine.ts",
+        "tests/integration/schema-versioning-migration-scope.test.ts",
+        "tests/integration/schema-versioning-migration.test.ts",
+        "tests/schema/schema-versioning.test.ts"
+      ],
+      "contractFiles": [
+        "game/schemas/game-package.schema.json",
+        "game/schemas/game-project.schema.json",
+        "game/schemas/index.ts",
+        "runtime/core/engine.ts"
+      ],
+      "docFiles": [
+        "docs/ai/tasks/T-020-schema-versioning-and-migration-lite.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": true,
+      "passed": true,
+      "changedFiles": [
+        "EADME.md",
+        "docs/ai/README.md",
+        "docs/ai/tasks/T-020-schema-versioning-and-migration-lite.md",
+        "docs/ai/workflows/continuous-loop.md",
+        "editor/src/editor/api.ts",
+        "editor/src/editor/store.ts",
+        "game/schemas/game-package.schema.json",
+        "game/schemas/game-project.schema.json",
+        "game/schemas/index.ts",
+        "runtime/core/engine.ts",
+        "tests/integration/schema-versioning-migration-scope.test.ts",
+        "tests/integration/schema-versioning-migration.test.ts",
+        "tests/schema/schema-versioning.test.ts"
+      ],
+      "contractFiles": [
+        "game/schemas/game-package.schema.json",
+        "game/schemas/game-project.schema.json",
+        "game/schemas/index.ts",
+        "runtime/core/engine.ts"
+      ],
+      "docFiles": [
+        "docs/ai/tasks/T-020-schema-versioning-and-migration-lite.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": true,
+      "passed": true,
+      "changedFiles": [
+        "EADME.md",
+        "docs/ai/README.md",
+        "docs/ai/ai-loop-status.md",
+        "docs/ai/commit-log/2026-02.md",
+        "docs/ai/tasks/T-020-schema-versioning-and-migration-lite.md",
+        "docs/ai/weekly-summary.md",
+        "docs/ai/workflows/continuous-loop.md",
+        "editor/src/editor/api.ts",
+        "editor/src/editor/store.ts",
+        "game/schemas/game-package.schema.json",
+        "game/schemas/game-project.schema.json",
+        "game/schemas/index.ts",
+        "runtime/core/engine.ts",
+        "tests/integration/schema-versioning-migration-scope.test.ts",
+        "tests/integration/schema-versioning-migration.test.ts",
+        "tests/schema/schema-versioning.test.ts"
+      ],
+      "contractFiles": [
+        "game/schemas/game-package.schema.json",
+        "game/schemas/game-project.schema.json",
+        "game/schemas/index.ts",
+        "runtime/core/engine.ts"
+      ],
+      "docFiles": [
+        "docs/ai/tasks/T-020-schema-versioning-and-migration-lite.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-021-import-export-diagnostics.md",
+        "tests/integration/import-export-diagnostics-scope.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-021-import-export-diagnostics.md",
+        "editor/src/editor/api.ts",
+        "tests/integration/import-export-diagnostics-scope.test.ts",
+        "tests/integration/import-export-diagnostics.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-021-import-export-diagnostics.md",
+        "editor/src/editor/api.ts",
+        "tests/integration/import-export-diagnostics-scope.test.ts",
+        "tests/integration/import-export-diagnostics.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/ai-loop-status.md",
+        "docs/ai/commit-log/2026-02.md",
+        "docs/ai/tasks/T-021-import-export-diagnostics.md",
+        "docs/ai/weekly-summary.md",
+        "editor/src/editor/api.ts",
+        "tests/integration/import-export-diagnostics-scope.test.ts",
+        "tests/integration/import-export-diagnostics.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [
+        "docs/ai/tasks/T-021-import-export-diagnostics.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-022-golden-pack-regression-suite.md",
+        "tests/integration/golden-pack-regression-scope.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-022-golden-pack-regression-suite.md",
+        "tests/regression/core-v1-paths.test.ts",
+        "tests/integration/golden-pack-regression-scope.test.ts",
+        "tests/regression/golden-pack-fixtures.ts",
+        "tests/regression/golden-pack-harness.ts",
+        "tests/regression/golden-pack-regression.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-022-golden-pack-regression-suite.md",
+        "tests/regression/core-v1-paths.test.ts",
+        "tests/integration/golden-pack-regression-scope.test.ts",
+        "tests/regression/golden-pack-fixtures.ts",
+        "tests/regression/golden-pack-harness.ts",
+        "tests/regression/golden-pack-regression.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/ai-loop-status.md",
+        "docs/ai/commit-log/2026-02.md",
+        "docs/ai/tasks/T-022-golden-pack-regression-suite.md",
+        "docs/ai/weekly-summary.md",
+        "tests/regression/core-v1-paths.test.ts",
+        "tests/integration/golden-pack-regression-scope.test.ts",
+        "tests/regression/golden-pack-fixtures.ts",
+        "tests/regression/golden-pack-harness.ts",
+        "tests/regression/golden-pack-regression.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [
+        "docs/ai/tasks/T-022-golden-pack-regression-suite.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": false,
+      "passed": true,
+      "changedFiles": [
+        "ocs/ai/tasks/T-023-template-sdk-core.md",
+        "tests/integration/template-sdk-core-scope.test.ts"
+      ],
+      "contractFiles": [],
+      "docFiles": [],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": true,
+      "passed": true,
+      "changedFiles": [
+        "EADME.md",
+        "docs/ai/README.md",
+        "docs/ai/tasks/T-023-template-sdk-core.md",
+        "docs/ai/workflows/continuous-loop.md",
+        "editor/src/editor/api.ts",
+        "runtime/core/engine.ts",
+        "runtime/core/types.ts",
+        "tests/integration/template-sdk-core-runtime.test.ts",
+        "tests/integration/template-sdk-core-scope.test.ts"
+      ],
+      "contractFiles": [
+        "runtime/core/engine.ts",
+        "runtime/core/types.ts"
+      ],
+      "docFiles": [
+        "docs/ai/tasks/T-023-template-sdk-core.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    },
+    {
+      "required": true,
+      "passed": true,
+      "changedFiles": [
+        "EADME.md",
+        "docs/ai/README.md",
+        "docs/ai/tasks/T-023-template-sdk-core.md",
+        "docs/ai/workflows/continuous-loop.md",
+        "editor/src/editor/api.ts",
+        "runtime/core/engine.ts",
+        "runtime/core/types.ts",
+        "tests/integration/template-sdk-core-runtime.test.ts",
+        "tests/integration/template-sdk-core-scope.test.ts"
+      ],
+      "contractFiles": [
+        "runtime/core/engine.ts",
+        "runtime/core/types.ts"
+      ],
+      "docFiles": [
+        "docs/ai/tasks/T-023-template-sdk-core.md"
+      ],
+      "missingDocs": [],
+      "boundaryViolations": []
+    }
+  ],
+  "subtaskResults": [
+    {
+      "subtaskId": "T-018-inspector-form-ux-polish.md#S2",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/README.md",
+        "M docs/ai/tasks/T-018-inspector-form-ux-polish.md",
+        "M docs/ai/workflows/continuous-loop.md",
+        "M editor/src/editor/components/Inspector.tsx",
+        "M editor/src/editor/operations.ts",
+        "M editor/src/styles.css",
+        "M tools/dev-loop/config.ts",
+        "M tools/dev-loop/loop.ts",
+        "M tools/dev-loop/types.ts",
+        "?? editor/src/editor/inspector-form.ts",
+        "?? tests/integration/inspector-form-ux.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-018-inspector-form-ux-polish.md#S3",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/README.md",
+        "M docs/ai/tasks/T-018-inspector-form-ux-polish.md",
+        "M docs/ai/workflows/continuous-loop.md",
+        "M editor/src/editor/components/Inspector.tsx",
+        "M editor/src/editor/operations.ts",
+        "M editor/src/styles.css",
+        "M tools/dev-loop/config.ts",
+        "M tools/dev-loop/loop.ts",
+        "M tools/dev-loop/types.ts",
+        "?? editor/src/editor/inspector-form.ts",
+        "?? tests/integration/inspector-form-ux.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-018-inspector-form-ux-polish.md#S4",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/README.md",
+        "M docs/ai/ai-loop-status.md",
+        "M docs/ai/commit-log/2026-02.md",
+        "M docs/ai/tasks/T-018-inspector-form-ux-polish.md",
+        "M docs/ai/weekly-summary.md",
+        "M docs/ai/workflows/continuous-loop.md",
+        "M editor/src/editor/components/Inspector.tsx",
+        "M editor/src/editor/operations.ts",
+        "M editor/src/styles.css",
+        "M tools/dev-loop/config.ts",
+        "M tools/dev-loop/loop.ts",
+        "M tools/dev-loop/types.ts",
+        "?? editor/src/editor/inspector-form.ts",
+        "?? tests/integration/inspector-form-ux.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "commitSha": "4dd0b07",
+      "memoryCommitSha": "merged-in-task-commit",
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-019-map-editing-ergonomics.md#S1",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-019-map-editing-ergonomics.md",
+        "?? tests/integration/map-editing-ergonomics-scope.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-019-map-editing-ergonomics.md#S2",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-019-map-editing-ergonomics.md",
+        "M editor/src/editor/components/MapCanvas.tsx",
+        "M editor/src/editor/operations.ts",
+        "M editor/src/styles.css",
+        "?? tests/integration/map-editing-ergonomics-scope.test.ts",
+        "?? tests/integration/map-editing-ergonomics.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-019-map-editing-ergonomics.md#S3",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-019-map-editing-ergonomics.md",
+        "M editor/src/editor/components/MapCanvas.tsx",
+        "M editor/src/editor/operations.ts",
+        "M editor/src/styles.css",
+        "?? tests/integration/map-editing-ergonomics-scope.test.ts",
+        "?? tests/integration/map-editing-ergonomics.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-019-map-editing-ergonomics.md#S4",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/ai-loop-status.md",
+        "M docs/ai/commit-log/2026-02.md",
+        "M docs/ai/tasks/T-019-map-editing-ergonomics.md",
+        "M docs/ai/weekly-summary.md",
+        "M editor/src/editor/components/MapCanvas.tsx",
+        "M editor/src/editor/operations.ts",
+        "M editor/src/styles.css",
+        "?? tests/integration/map-editing-ergonomics-scope.test.ts",
+        "?? tests/integration/map-editing-ergonomics.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "commitSha": "4c86e79",
+      "memoryCommitSha": "merged-in-task-commit",
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-020-schema-versioning-and-migration-lite.md#S1",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-020-schema-versioning-and-migration-lite.md",
+        "?? tests/integration/schema-versioning-migration-scope.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-020-schema-versioning-and-migration-lite.md#S2",
+      "attempts": 1,
+      "changedFiles": [
+        "M README.md",
+        "M docs/ai/README.md",
+        "M docs/ai/tasks/T-020-schema-versioning-and-migration-lite.md",
+        "M docs/ai/workflows/continuous-loop.md",
+        "M editor/src/editor/api.ts",
+        "M editor/src/editor/store.ts",
+        "M game/schemas/game-package.schema.json",
+        "M game/schemas/game-project.schema.json",
+        "M game/schemas/index.ts",
+        "M runtime/core/engine.ts",
+        "?? tests/integration/schema-versioning-migration-scope.test.ts",
+        "?? tests/integration/schema-versioning-migration.test.ts",
+        "?? tests/schema/schema-versioning.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-020-schema-versioning-and-migration-lite.md#S3",
+      "attempts": 1,
+      "changedFiles": [
+        "M README.md",
+        "M docs/ai/README.md",
+        "M docs/ai/tasks/T-020-schema-versioning-and-migration-lite.md",
+        "M docs/ai/workflows/continuous-loop.md",
+        "M editor/src/editor/api.ts",
+        "M editor/src/editor/store.ts",
+        "M game/schemas/game-package.schema.json",
+        "M game/schemas/game-project.schema.json",
+        "M game/schemas/index.ts",
+        "M runtime/core/engine.ts",
+        "?? tests/integration/schema-versioning-migration-scope.test.ts",
+        "?? tests/integration/schema-versioning-migration.test.ts",
+        "?? tests/schema/schema-versioning.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-020-schema-versioning-and-migration-lite.md#S4",
+      "attempts": 1,
+      "changedFiles": [
+        "M README.md",
+        "M docs/ai/README.md",
+        "M docs/ai/ai-loop-status.md",
+        "M docs/ai/commit-log/2026-02.md",
+        "M docs/ai/tasks/T-020-schema-versioning-and-migration-lite.md",
+        "M docs/ai/weekly-summary.md",
+        "M docs/ai/workflows/continuous-loop.md",
+        "M editor/src/editor/api.ts",
+        "M editor/src/editor/store.ts",
+        "M game/schemas/game-package.schema.json",
+        "M game/schemas/game-project.schema.json",
+        "M game/schemas/index.ts",
+        "M runtime/core/engine.ts",
+        "?? tests/integration/schema-versioning-migration-scope.test.ts",
+        "?? tests/integration/schema-versioning-migration.test.ts",
+        "?? tests/schema/schema-versioning.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "commitSha": "c643763",
+      "memoryCommitSha": "merged-in-task-commit",
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-021-import-export-diagnostics.md#S1",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-021-import-export-diagnostics.md",
+        "?? tests/integration/import-export-diagnostics-scope.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-021-import-export-diagnostics.md#S2",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-021-import-export-diagnostics.md",
+        "M editor/src/editor/api.ts",
+        "?? tests/integration/import-export-diagnostics-scope.test.ts",
+        "?? tests/integration/import-export-diagnostics.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-021-import-export-diagnostics.md#S3",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-021-import-export-diagnostics.md",
+        "M editor/src/editor/api.ts",
+        "?? tests/integration/import-export-diagnostics-scope.test.ts",
+        "?? tests/integration/import-export-diagnostics.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-021-import-export-diagnostics.md#S4",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/ai-loop-status.md",
+        "M docs/ai/commit-log/2026-02.md",
+        "M docs/ai/tasks/T-021-import-export-diagnostics.md",
+        "M docs/ai/weekly-summary.md",
+        "M editor/src/editor/api.ts",
+        "?? tests/integration/import-export-diagnostics-scope.test.ts",
+        "?? tests/integration/import-export-diagnostics.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "commitSha": "f9cc712",
+      "memoryCommitSha": "merged-in-task-commit",
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-022-golden-pack-regression-suite.md#S1",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-022-golden-pack-regression-suite.md",
+        "?? tests/integration/golden-pack-regression-scope.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-022-golden-pack-regression-suite.md#S2",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-022-golden-pack-regression-suite.md",
+        "M tests/regression/core-v1-paths.test.ts",
+        "?? tests/integration/golden-pack-regression-scope.test.ts",
+        "?? tests/regression/golden-pack-fixtures.ts",
+        "?? tests/regression/golden-pack-harness.ts",
+        "?? tests/regression/golden-pack-regression.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-022-golden-pack-regression-suite.md#S3",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-022-golden-pack-regression-suite.md",
+        "M tests/regression/core-v1-paths.test.ts",
+        "?? tests/integration/golden-pack-regression-scope.test.ts",
+        "?? tests/regression/golden-pack-fixtures.ts",
+        "?? tests/regression/golden-pack-harness.ts",
+        "?? tests/regression/golden-pack-regression.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-022-golden-pack-regression-suite.md#S4",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/ai-loop-status.md",
+        "M docs/ai/commit-log/2026-02.md",
+        "M docs/ai/tasks/T-022-golden-pack-regression-suite.md",
+        "M docs/ai/weekly-summary.md",
+        "M tests/regression/core-v1-paths.test.ts",
+        "?? tests/integration/golden-pack-regression-scope.test.ts",
+        "?? tests/regression/golden-pack-fixtures.ts",
+        "?? tests/regression/golden-pack-harness.ts",
+        "?? tests/regression/golden-pack-regression.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "commitSha": "61b1510",
+      "memoryCommitSha": "merged-in-task-commit",
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-023-template-sdk-core.md#S1",
+      "attempts": 1,
+      "changedFiles": [
+        "M docs/ai/tasks/T-023-template-sdk-core.md",
+        "?? tests/integration/template-sdk-core-scope.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-023-template-sdk-core.md#S2",
+      "attempts": 1,
+      "changedFiles": [
+        "M README.md",
+        "M docs/ai/README.md",
+        "M docs/ai/tasks/T-023-template-sdk-core.md",
+        "M docs/ai/workflows/continuous-loop.md",
+        "M editor/src/editor/api.ts",
+        "M runtime/core/engine.ts",
+        "M runtime/core/types.ts",
+        "?? tests/integration/template-sdk-core-runtime.test.ts",
+        "?? tests/integration/template-sdk-core-scope.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    },
+    {
+      "subtaskId": "T-023-template-sdk-core.md#S3",
+      "attempts": 1,
+      "changedFiles": [
+        "M README.md",
+        "M docs/ai/README.md",
+        "M docs/ai/tasks/T-023-template-sdk-core.md",
+        "M docs/ai/workflows/continuous-loop.md",
+        "M editor/src/editor/api.ts",
+        "M runtime/core/engine.ts",
+        "M runtime/core/types.ts",
+        "?? tests/integration/template-sdk-core-runtime.test.ts",
+        "?? tests/integration/template-sdk-core-scope.test.ts"
+      ],
+      "testsRun": [
+        "pnpm gate:fast",
+        "pnpm gate:full",
+        "pnpm docs:sync-check"
+      ],
+      "promptRefs": [
+        "ARCHITECT_v1",
+        "PLANNER_v1",
+        "BUILDER_v2",
+        "GUARDIAN_v1",
+        "REVIEWER_v1"
+      ],
+      "status": "success"
+    }
+  ],
+  "promptRefs": [
+    "ARCHITECT_v1",
+    "PLANNER_v1",
+    "BUILDER_v2",
+    "GUARDIAN_v1",
+    "REVIEWER_v1"
+  ],
+  "message": "loop execution timeout"
+}

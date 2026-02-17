@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "rpg-topdown.schema.json",
+  "title": "RpgTopdownPayload",
+  "type": "object",
+  "required": ["map", "entities", "rules"],
+  "properties": {
+    "map": {
+      "type": "object",
+      "required": ["walkableTiles", "spawnZones", "exit"],
+      "properties": {
+        "walkableTiles": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "integer", "minimum": 0, "maximum": 9 }
+        },
+        "spawnZones": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "x", "y", "width", "height", "enemyTypeId"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "x": { "type": "integer", "minimum": 0 },
+              "y": { "type": "integer", "minimum": 0 },
+              "width": { "type": "integer", "minimum": 1 },
+              "height": { "type": "integer", "minimum": 1 },
+              "enemyTypeId": { "type": "string", "minLength": 1 }
+            },
+            "additionalProperties": false
+          }
+        },
+        "exit": { "$ref": "#/$defs/gridPoint" }
+      },
+      "additionalProperties": false
+    },
+    "entities": {
+      "type": "object",
+      "required": ["player", "enemies"],
+      "properties": {
+        "player": {
+          "type": "object",
+          "required": ["maxHp", "attack", "defense", "moveSpeed"],
+          "properties": {
+            "maxHp": { "type": "number", "exclusiveMinimum": 0 },
+            "attack": { "type": "number", "minimum": 0 },
+            "defense": { "type": "number", "minimum": 0 },
+            "moveSpeed": { "type": "number", "exclusiveMinimum": 0 }
+          },
+          "additionalProperties": false
+        },
+        "enemies": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "maxHp", "attack", "defense", "moveSpeed", "aggroRange", "xpReward"],
+            "properties": {
+              "id": { "type": "string", "minLength": 1 },
+              "maxHp": { "type": "number", "exclusiveMinimum": 0 },
+              "attack": { "type": "number", "minimum": 0 },
+              "defense": { "type": "number", "minimum": 0 },
+              "moveSpeed": { "type": "number", "exclusiveMinimum": 0 },
+              "aggroRange": { "type": "number", "minimum": 0 },
+              "xpReward": { "type": "integer", "minimum": 0 }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": false
+    },
+    "rules": {
+      "type": "object",
+      "required": ["tick", "combat", "spawn"],
+      "properties": {
+        "tick": {
+          "type": "object",
+          "required": ["tickMs", "aiStepMs"],
+          "properties": {
+            "tickMs": { "type": "integer", "minimum": 16, "maximum": 500 },
+            "aiStepMs": { "type": "integer", "minimum": 16, "maximum": 2000 }
+          },
+          "additionalProperties": false
+        },
+        "combat": {
+          "type": "object",
+          "required": ["baseContactDamage", "invulnerabilityMs", "critChance"],
+          "properties": {
+            "baseContactDamage": { "type": "number", "minimum": 0 },
+            "invulnerabilityMs": { "type": "integer", "minimum": 0, "maximum": 5000 },
+            "critChance": { "type": "number", "minimum": 0, "maximum": 1 }
+          },
+          "additionalProperties": false
+        },
+        "spawn": {
+          "type": "object",
+          "required": ["maxActiveEnemies", "respawnDelayMs"],
+          "properties": {
+            "maxActiveEnemies": { "type": "integer", "minimum": 1, "maximum": 64 },
+            "respawnDelayMs": { "type": "integer", "minimum": 0, "maximum": 60000 }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "gridPoint": {
+      "type": "object",
+      "required": ["x", "y"],
+      "properties": {
+        "x": { "type": "integer", "minimum": 0 },
+        "y": { "type": "integer", "minimum": 0 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

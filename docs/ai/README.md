@@ -74,6 +74,21 @@ This folder stores auditable AI memory and prompt governance artifacts.
 - Unsupported versions fail fast with version-path diagnostics (`/meta/version` or `/version`): major mismatch, future minor, or stale minor outside the one-step migration window.
 - Ownership boundaries: parsing/migration helpers stay in `game/schemas`; editor migration entrypoint is `editor/src/editor/api.ts`; runtime migration entrypoint is `runtime/core/engine.ts` before template semantic validation.
 
+## RPG topdown schema contract note
+
+- `game/schemas/rpg-topdown.schema.json` defines RPG MVP payload structure across `map`, `entities`, and `rules` sections with explicit bounds and required fields.
+- `game/schemas/game-project.schema.json` + `game/schemas/game-package.schema.json` use template-aware branches to keep both `tower-defense` and `rpg-topdown` contracts valid.
+- RPG fixture onboarding coverage uses `game/examples/rpg-topdown-mvp.project.json` and `game/examples/rpg-topdown-mvp.package.json` with deterministic schema regression tests.
+- Runtime/editor semantic behavior for RPG remains out of scope in this schema task and is deferred to follow-up template implementation tasks.
+
+## Template SDK core contract note
+
+- Template registry orchestration stays in `runtime/core/engine.ts`; avoid direct template-validator routing from editor or AI layers.
+- `registerTemplate()` fail-fast contract: reject invalid `templateId`, missing/invalid hooks (`validate`, `createWorld`, `step`), and duplicate `templateId`.
+- `validateRuntimePackage()` is the shared runtime validation entrypoint for template resolution + template-level semantic validation.
+- Unknown templates emit `/templateId` diagnostics (`unknown template: <templateId>`), and runtime entrypoints (`loadPackage`, `runScenario`, `runBatch`) fail fast on the same contract.
+- `editor/src/editor/api.ts` consumes runtime validation orchestration while template validators keep semantic ownership.
+
 ## Session Warm Start
 
 When opening a fresh AI session, read in this order:

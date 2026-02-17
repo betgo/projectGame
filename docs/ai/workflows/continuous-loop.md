@@ -100,6 +100,21 @@ When a task is completed, loop continues to the next pending task card by defaul
 - Unsupported versions fail fast with version-path diagnostics (`/meta/version` or `/version`): major mismatch, future minor, or stale minor outside the one-step migration window.
 - Ownership boundaries: parsing/migration helpers stay in `game/schemas`; editor migration entrypoint is `editor/src/editor/api.ts`; runtime migration entrypoint is `runtime/core/engine.ts` before template semantic validation.
 
+## RPG topdown schema contract note
+
+- `game/schemas/rpg-topdown.schema.json` defines RPG MVP payload contract sections for `map`, `entities`, and `rules`, including walkable metadata, stat blocks, spawn/layout, and tick/combat baseline constraints.
+- `game/schemas/game-project.schema.json` and `game/schemas/game-package.schema.json` must keep template-aware branches (`tower-defense`, `rpg-topdown`) aligned whenever either branch evolves.
+- RPG schema onboarding fixtures are `game/examples/rpg-topdown-mvp.project.json` and `game/examples/rpg-topdown-mvp.package.json`; regression tests must keep both valid fixture pass and invalid-state rejection deterministic.
+- Runtime/editor semantic ownership for RPG remains in follow-up template tasks (`T-025`, `T-026`); this contract loop must not move semantic logic out of template validators/runtime entrypoints.
+
+## Template SDK core contract note
+
+- Template registry orchestration stays in `runtime/core/engine.ts`; keep editor/import flows routed through runtime entrypoints.
+- `registerTemplate()` fail-fast contract rejects invalid `templateId`, missing/invalid hooks (`validate`, `createWorld`, `step`), and duplicate `templateId`.
+- `validateRuntimePackage()` is the shared runtime validation entrypoint for template resolution and template-level semantic checks.
+- Unknown-template diagnostics must use `/templateId` + `unknown template: <templateId>`; runtime entrypoints (`loadPackage`, `runScenario`, `runBatch`) fail fast with that contract.
+- `editor/src/editor/api.ts` consumes runtime validation orchestration while template validators retain semantic validation responsibility.
+
 ## Output Artifacts
 
 - Run reports: `docs/ai/run-logs/YYYY-MM-DD/<timestamp>.json`

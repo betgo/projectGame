@@ -5,7 +5,7 @@ import {
   type ValidationIssue,
   type ValidationReport
 } from "@game/schemas/index";
-import { loadPackage, runBatch, runScenario, step } from "@runtime/core/engine";
+import { loadPackage, runBatch, runScenario, step, validateRuntimePackage } from "@runtime/core/engine";
 import type {
   BatchResult,
   GamePackage,
@@ -16,13 +16,16 @@ import type {
   RuntimeWorld,
   TickResult
 } from "@runtime/core/types";
-import { validateTowerDefensePackage } from "@runtime/templates/tower-defense/validator";
 
 import { applyOperation as applyEditorOperationImpl, type EditorOperation, type OpResult } from "./operations";
 import { createDefaultProject } from "./store";
 
 export type DiagnosticsSeverity = "error" | "warning";
-export type DiagnosticsSource = "editor/api" | "game/schemas" | "runtime/templates/tower-defense";
+export type DiagnosticsSource =
+  | "editor/api"
+  | "game/schemas"
+  | "runtime/core"
+  | "runtime/templates/tower-defense";
 export type DiagnosticsOperation = "import" | "export";
 
 export type ImportExportDiagnostic = {
@@ -215,6 +218,12 @@ function classifySemanticIssue(issue: ValidationIssue): { detail: string; hint: 
   const path = issue.path.toLowerCase();
   const message = issue.message.toLowerCase();
 
+  if (message.includes("unknown template")) {
+    return {
+      detail: "unknown-template",
+      hint: "Use a registered templateId and retry."
+    };
+  }
   if (path.includes("/map/cells")) {
     return {
       detail: "map-shape",
@@ -251,6 +260,13 @@ function classifySemanticIssue(issue: ValidationIssue): { detail: string; hint: 
   };
 }
 
+function semanticDiagnosticsSource(templateId: string): DiagnosticsSource {
+  if (templateId === "tower-defense") {
+    return "runtime/templates/tower-defense";
+  }
+  return "runtime/core";
+}
+
 function toSchemaDiagnostics(
   operation: DiagnosticsOperation,
   report: ValidationReport
@@ -274,7 +290,8 @@ function toSchemaDiagnostics(
 
 function toSemanticDiagnostics(
   operation: DiagnosticsOperation,
-  report: ValidationReport
+  report: ValidationReport,
+  source: DiagnosticsSource
 ): ImportExportDiagnostic[] {
   return report.issues.slice(0, MAX_IMPORT_EXPORT_DIAGNOSTICS).map((issue) => {
     const semanticIssue: ValidationIssue = {
@@ -288,7 +305,7 @@ function toSemanticDiagnostics(
       message: semanticIssue.message,
       hint,
       severity: "error",
-      source: "runtime/templates/tower-defense"
+      source
     };
   });
 }
@@ -321,7 +338,7 @@ function toParseDiagnostics(error: unknown): ImportExportDiagnostic[] {
 }
 
 function semanticReportForProject(project: GameProject): ValidationReport {
-  const semanticReport = validateTowerDefensePackage(exportPackage(project));
+  const semanticReport = validateRuntimePackage(exportPackage(project));
   return cloneIssuesWithPath(semanticReport, (issue) => normalizeSemanticIssuePath(issue));
 }
 
@@ -367,7 +384,11 @@ function loadProjectInternal(payload: unknown): LoadResult {
       ok: false,
       project: normalized.value,
       report: semanticReport,
-      diagnostics: toSemanticDiagnostics("import", semanticReport)
+      diagnostics: toSemanticDiagnostics(
+        "import",
+        semanticReport,
+        semanticDiagnosticsSource(normalized.value.templateId)
+      )
     };
   }
 
@@ -592,7 +613,7 @@ export function exportPackageWithDiagnostics(project: GameProject): ExportDiagno
     };
   }
 
-  const semanticReport = cloneIssuesWithPath(validateTowerDefensePackage(pkg), (issue) =>
+  const semanticReport = cloneIssuesWithPath(validateRuntimePackage(pkg), (issue) =>
     normalizeSemanticIssuePath(issue)
   );
   if (!semanticReport.valid) {
@@ -600,7 +621,7 @@ export function exportPackageWithDiagnostics(project: GameProject): ExportDiagno
       ok: false,
       pkg,
       report: semanticReport,
-      diagnostics: toSemanticDiagnostics("export", semanticReport)
+      diagnostics: toSemanticDiagnostics("export", semanticReport, semanticDiagnosticsSource(pkg.templateId))
     };
   }
 

@@ -180,6 +180,8 @@ export type RuntimeTemplate = {
   validate: (pkg: GamePackage) => ValidationReport;
 };
 
+export type RuntimeTemplateHookName = "validate" | "createWorld" | "step";
+
 export type RenderEnemy = {
   id: string;
   x: number;
